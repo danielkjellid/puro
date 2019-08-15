@@ -1,0 +1,137 @@
+{% extends 'backend/backend_base.html' %}
+{% block head %}
+    <title>Users - Flis.no</title>
+{% endblock head %}
+{% block breadcrumb %}
+    <a href="#" class="text-indigo-500">Home</a>
+    <span class="text-gray-500">/</span>
+    <a href="#" class="text-gray-500">Users</a>
+{% endblock breadcrumb %}
+{% block content %}
+    <!--User requests-->
+    <div class="bg-white w-full rounded shadow">
+        <div class="flex justify-between items-center border-b border-solid border-gray-400 px-5 py-5">
+            <h2 class="text-base font-semibold text-gray-800">Users</h2>
+            <div class="flex">
+                <button href="#" class="text-indigo-500 font-semibold hover:text-indigo-700 mr-3">Export</button>
+                <button href="#" class="text-indigo-500 font-semibold hover:text-indigo-700">New user</button>
+            </div>
+        </div>
+        <div>
+            <div class="w-full">
+                <table class="w-full overflow:hidden">
+                    <tr class="bg-gray-200 border-b border-solid border-gray-400">
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left pl-5 py-3">Name</th>
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left py-3">Contact</th>
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left py-3">Registered</th>
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left py-3">Acquired</th>
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-center py-3">Requests</th>
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-center py-3">Active</th>
+                        <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left pr-5 py-3"></th>
+                    </tr>
+                    {% if user_list %}
+                        {% for user in user_list %}
+                        <tr class="border-b border-solid border-gray-400">
+                            <td class="pl-5 pr-5 py-4">
+                                <div class="inline-flex items-center">           
+                                    <svg class="w-10 h-10 mr-2" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="/backend" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g id="User-detail" transform="translate(-279.000000, -131.000000)">
+                                                <g id="overview" transform="translate(261.000000, 116.000000)">
+                                                    <g id="Main-data" transform="translate(0.000000, 15.000000)">
+                                                        <g id="user-icn" transform="translate(18.000000, 0.000000)">
+                                                            <path d="M36.6825523,31.0353877 C34.9585983,28.0268764 31.7160003,28 28,28 L12,28 C8.28399965,28 5.04140167,28.0268764 3.3174477,31.0353877 C1.22100633,27.8724873 0,24.0788343 0,20 C0,8.954305 8.954305,1.50990331e-14 20,1.50990331e-14 C31.045695,1.50990331e-14 40,8.954305 40,20 C40,24.0788343 38.7789937,27.8724873 36.6825523,31.0353877 C33.1017216,36.4377857 26.9668607,40 20,40 C13.0331393,40 6.89827835,36.4377857 3.3174477,31.0353877 Z" id="Combined-Shape" fill="#A5B3BB"></path>
+                                                            <path d="M3.3174477,31.0353877 C5.04140167,28.0268764 8.28399965,26 12,26 L28,26 C31.7160003,26 34.9585983,28.0268764 36.6825523,31.0353877 C33.1017216,36.4377857 26.9668607,40 20,40 C13.0331393,40 6.89827835,36.4377857 3.3174477,31.0353877 Z M20,22 C15.581722,22 12,18.418278 12,14 C12,9.581722 15.581722,6 20,6 C24.418278,6 28,9.581722 28,14 C28,18.418278 24.418278,22 20,22 Z" id="secondary" fill="#0D2B3E"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    <a href="{% url 'user-detail' user.id %}" class="flex-wrap">
+                                        <h1 class="block text-base font-semibold text-gray-800 -mb-1">{{ user.get_full_name }}</h1>
+                                        <span class="block text-sm text-gray-500">{{ user.roles.all.0 }}</span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="mailto:{{ user.email }}" class="block text-base text-indigo-500 hover:text-indigo-700 -mb-1">{{ user.email }}</a>
+                                <span class="block text-sm text-gray-500">{{ user.phone_number }}</span>
+                            </td>
+                            <td>
+                                <span class="text-base text-gray-800">{{ user.date_joined }}</span>
+                            </td>
+                            <td>
+                                {% if user.acquistion_source %}
+                                <a href="#" class="text-base text-indigo-500 hover:text-indigo-700">{{ user.acquisition_source }}</a>
+                                {% else %}
+                                <span class="text-base text-gray-800">None</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="flex justify-center">
+                                    <span>1</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="flex justify-center">
+                                    {% if user.is_active %}
+                                    <svg class="w-4 h-4" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="/backend" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g id="User-detail" transform="translate(-449.000000, -662.000000)">
+                                                <g id="details" transform="translate(261.000000, 421.000000)">
+                                                    <g id="body" transform="translate(18.000000, 77.000000)">
+                                                        <g id="Group-5" transform="translate(170.000000, 164.000000)">
+                                                            <circle id="primary" fill="#C6F6D5" cx="7" cy="7" r="7"></circle>
+                                                            <path d="M5.6,8.81005051 L10.0050253,4.40502525 C10.2783923,4.13165825 10.7216077,4.13165825 10.9949747,4.40502525 C11.2683418,4.67839226 11.2683418,5.12160774 10.9949747,5.39497475 L6.09497475,10.2949747 C5.82160774,10.5683418 5.37839226,10.5683418 5.10502525,10.2949747 L3.00502525,8.19497475 C2.73165825,7.92160774 2.73165825,7.47839226 3.00502525,7.20502525 C3.27839226,6.93165825 3.72160774,6.93165825 3.99497475,7.20502525 L5.6,8.81005051 Z" id="secondary" fill="#276749"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    {% else %}
+                                    <svg class="w-4 h-4" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="/backend" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g id="User-detail" transform="translate(-981.000000, -689.000000)">
+                                                <g id="details" transform="translate(261.000000, 421.000000)">
+                                                    <g id="body" transform="translate(18.000000, 77.000000)">
+                                                        <g id="Group-6" transform="translate(702.000000, 191.000000)">
+                                                            <circle id="primary" fill="#FED7D7" cx="7" cy="7" r="7"></circle>
+                                                            <path d="M7.98994949,7 L9.96984848,8.97989899 C10.2432155,9.25326599 10.2432155,9.69648148 9.96984848,9.96984848 C9.69648148,10.2432155 9.25326599,10.2432155 8.97989899,9.96984848 L7,7.98994949 L5.02010101,9.96984848 C4.74673401,10.2432155 4.30351852,10.2432155 4.03015152,9.96984848 C3.75678451,9.69648148 3.75678451,9.25326599 4.03015152,8.97989899 L6.01005051,7 L4.03015152,5.02010101 C3.75678451,4.74673401 3.75678451,4.30351852 4.03015152,4.03015152 C4.30351852,3.75678451 4.74673401,3.75678451 5.02010101,4.03015152 L7,6.01005051 L8.97989899,4.03015152 C9.25326599,3.75678451 9.69648148,3.75678451 9.96984848,4.03015152 C10.2432155,4.30351852 10.2432155,4.74673401 9.96984848,5.02010101 L7.98994949,7 Z" id="secondary" fill="#9B2C2C"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    {% endif%}
+                                </div>
+                            </td>
+                            <td class="pr-5 f">
+                                <button class="float-right">                          
+                                    <svg width="4px" height="18px" viewBox="0 0 4 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="/backend" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <g id="User-detail" transform="translate(-1231.000000, -207.000000)" fill="#0D2B3E">
+                                                <g id="overview" transform="translate(261.000000, 116.000000)">
+                                                    <g id="note1" transform="translate(0.000000, 73.000000)">
+                                                        <path d="M972,22 C970.895431,22 970,21.1045695 970,20 C970,18.8954305 970.895431,18 972,18 C973.104569,18 974,18.8954305 974,20 C974,21.1045695 973.104569,22 972,22 Z M972,29 C970.895431,29 970,28.1045695 970,27 C970,25.8954305 970.895431,25 972,25 C973.104569,25 974,25.8954305 974,27 C974,28.1045695 973.104569,29 972,29 Z M972,36 C970.895431,36 970,35.1045695 970,34 C970,32.8954305 970.895431,32 972,32 C973.104569,32 974,32.8954305 974,34 C974,35.1045695 973.104569,36 972,36 Z" id="secondary"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        <div class="flex justify-center items-center py-5 px-5">
+            <button class="text-indigo-500 font-semibold">Show more</button>
+        </div>
+    </div>
+    <!--User requests end-->
+{% endblock content %}
