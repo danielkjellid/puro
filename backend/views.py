@@ -4,7 +4,8 @@ from django.utils import timezone
 from django.views import generic
 from django.views.generic.detail import DetailView
 
-from .models import User, Notes
+from .models import Notes, Supplier
+from users.models import User
 from .forms import AddNoteForm, UserEditForm
 
 class users(generic.ListView):
@@ -34,6 +35,7 @@ def userDetail(request, pk):
     #conditional check for deleting notes.
     if request.GET.get('delete-note-btn'):
         note_delete.delete()
+        messages.success(request, 'Note was successfully deleted')
         return redirect ('user-detail', pk)
 
     #conditional check checking if the instance of note clicked is sticky or not
@@ -41,7 +43,6 @@ def userDetail(request, pk):
         if note_pin.filter(is_sticky = True):
             note_pin.update(is_sticky = False)
             messages.success(request, 'Note was successfully unpinned')
-            messages.error(request, 'There was an error unpinning note')
         else:
             note_pin.update(is_sticky = True)
             messages.success(request, 'Note was sucessfully pinned')
@@ -109,3 +110,7 @@ def userDetailEdit(request, pk):
     }
 
     return render (request, 'backend/users/users_user_edit.html', context)
+
+class suppliers(generic.ListView):
+    model = Supplier
+    template_name = 'backend/suppliers/suppliers.html'

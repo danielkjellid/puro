@@ -4,7 +4,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from backend.models import User, Notes
+from backend.models import Notes, Supplier
+from users.models import User
 
 class UserCreationForm(forms.ModelForm):
     """
@@ -168,3 +169,14 @@ class NoteAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(Notes, NoteAdmin)
+
+class SupplierAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
+        'contact',
+        'contact_email',
+        'contact_phone',
+        'is_active'
+    ]
+
+admin.site.register(Supplier, SupplierAdmin)
