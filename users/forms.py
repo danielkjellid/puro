@@ -1,10 +1,10 @@
 from django import forms
 
-from .models import Notes, User
+from users.models import User, Note
 
 class AddNoteForm(forms.ModelForm):
     class Meta:
-        model = Notes
+        model = Note
         fields = ('content', 'is_sticky')
 
 class UserEditForm(forms.ModelForm):

@@ -138,3 +138,14 @@ class User(AbstractBaseUser):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+class Note(models.Model):
+    is_sticky = models.BooleanField(default = False)
+    content = models.TextField()
+    date_edited = models.DateTimeField(default = timezone.now)
+    user = models.ForeignKey(User, related_name = 'User', on_delete = models.CASCADE)
+    author = models.ForeignKey(User, related_name = 'Author', on_delete = models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Note'
+        verbose_name_plural = 'Notes'
