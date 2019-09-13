@@ -125,6 +125,7 @@ class UserAdmin(BaseUserAdmin):
             'Markedsføring', 
             {
                 'fields': (
+                    'disabled_emails',
                     'subscribed_to_newsletter', 
                     'allow_personalization', 
                     'allow_third_party_personalization', 

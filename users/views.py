@@ -1,11 +1,12 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, UserEditForm
+from users.forms import AddNoteForm, UserEditForm, UserToggleForm
 
 class users(generic.ListView):
     model = User
@@ -25,7 +26,7 @@ def userDetail(request, pk):
             note_form.instance.user = user
             note_form.instance.author = request.user
             note_form.save()
-            messages.success(request, 'Note was successfully created')
+            messages.success(request, 'Note was successfully created!')
             return redirect ('user-detail', pk)
 
     else:
@@ -34,19 +35,19 @@ def userDetail(request, pk):
     #conditional check for deleting notes.
     if request.GET.get('delete-note-btn'):
         note_delete.delete()
-        messages.success(request, 'Note was successfully deleted')
+        messages.success(request, 'Note was successfully deleted!')
         return redirect ('user-detail', pk)
 
     #conditional check checking if the instance of note clicked is sticky or not
     if request.GET.get('pin-note-btn'):
         if note_pin.filter(is_sticky = True):
             note_pin.update(is_sticky = False)
-            messages.success(request, 'Note was successfully unpinned')
+            messages.success(request, 'Note was successfully unpinned!')
         else:
             note_pin.update(is_sticky = True)
-            messages.success(request, 'Note was sucessfully pinned')
+            messages.success(request, 'Note was sucessfully pinned!')
         return redirect ('user-detail', pk)
-
+    
     context = {
         'user': user,
         'notes': notes,
@@ -68,13 +69,26 @@ def userDetailEdit(request, pk):
 
         if edit_form.is_valid():
             edit_form.save()
-            messages.success(request, 'User was successfully updated')
+            messages.success(request, 'User was successfully updated!')
             return redirect ('user-detail', pk)
 
         else:
             edit_form = UserEditForm(instance=user)
 
-    if request.method == 'POST' and 'make-note-btn' in request.POST:
+    elif request.method == 'POST' and 'user-toggle-btn' in request.POST:
+        
+        if user.is_active == True:
+            user.is_active = False
+            user.save()
+            messages.success(request, 'User was successfully deactivated, and will no longer be able to log in.')
+            return redirect ('user-detail', pk)
+        else:
+            user.is_active = True
+            user.save()
+            messages.success(request, 'User was successfully reactivated, and will now be able to log in.')
+            return redirect ('user-detail', pk)
+
+    elif request.method == 'POST' and 'make-note-btn' in request.POST:
         note_form = AddNoteForm(request.POST)
 
         if note_form.is_valid():
@@ -82,7 +96,7 @@ def userDetailEdit(request, pk):
             note_form.instance.user = user
             note_form.instance.author = request.user
             note_form.save()
-            messages.success(request, 'Note was successfully created')
+            messages.success(request, 'Note was successfully created!')
             return redirect ('user-detail-edit', pk)
 
         else:

@@ -28,6 +28,26 @@
     </a>
 {% endblock nav_users %}
 {% block content %}
+    {% if not user.is_active %}
+    <div class="bg-white w-full rounded shadow mb-5">
+        <div class="py-5 px-5">
+            <div class="inline-flex items-center">   
+                <svg class="w-10 h-10 mr-2 xl:block lg:block md:hidden sm:hidden" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="icon-security-important" transform="translate(-4.000000, -2.000000)">
+                            <path d="M4,4 L12,2 L20,4 L20,13.0557281 C20,16.0859046 18.287981,18.8560095 15.5777088,20.2111456 L12,22 L8.42229124,20.2111456 C5.71201901,18.8560095 4,16.0859046 4,13.0557281 L4,4 Z" id="primary" fill="#FED7D7"></path>
+                            <path d="M12,18 C11.1715729,18 10.5,17.3284271 10.5,16.5 C10.5,15.6715729 11.1715729,15 12,15 C12.8284271,15 13.5,15.6715729 13.5,16.5 C13.5,17.3284271 12.8284271,18 12,18 Z M12.9948752,12.0995037 C12.8748168,13.3001654 11.1249884,13.3001654 11.00493,12.0995037 L10.5049625,7.09950372 C10.4460977,6.5108179 10.9083516,6 11.4999351,6 L12.4998701,6 C13.0914536,6 13.5537075,6.5108179 13.4948427,7.09950372 L12.9948752,12.0995037 Z" id="secondary" fill="#9B2C2C"></path>
+                        </g>
+                    </g>
+                </svg>
+                <div class="flex-wrap">
+                    <h1 class="block text-base font-semibold text-red-700 -mb-1">User has been deactivated!</h1>
+                    <span class="block text-sm text-gray-800">This user has been deactivated. Reason is normally stated in the notes. User can be reactivated with the appropriate permission.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <!--User overview-->
     <div class="bg-white w-full rounded shadow">
         <div class="flex justify-between items-center border-b border-solid border-gray-300 px-5 py-5">
@@ -189,7 +209,7 @@
         <div class="flex items-center border-b border-solid border-gray-300 py-5 px-5">
             <h2 class="text-base font-semibold text-gray-800">Edit "{{ user.get_full_name }}"</h2>
         </div>
-        <form method="POST">
+        <form method="POST" id="edit-details-form">
             {% csrf_token %}
             <div class="px-5">
                 <div class="flex py-5 border-b border-solid border-gray-300">
@@ -223,7 +243,7 @@
                 <div class="flex py-5 border-b border-solid border-gray-300">
                     <div class="w-1/3 pb-5">
                         <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Contact information</h3>
-                        <p class="text-sm text-gray-500">Personal information about the user</p>
+                        <p class="text-sm text-gray-500">Information used to contact user</p>
                     </div>
                     <div class="w-2/3 px-5 pb-5">
                         <div class="w-full flex">
@@ -260,7 +280,7 @@
                 <div class="flex py-5 border-b border-solid border-gray-300">
                     <div class="w-1/3 pb-5">
                         <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Marketing</h3>
-                        <p class="text-sm text-gray-500">Personal information about the user</p>
+                        <p class="text-sm text-gray-500">Marketing settings. Decides how the user will recieve nudges and e-mail</p>
                     </div>
                     <div class="w-2/3 px-5 pb-5">
                         <div class="w-full flex mt-3">
@@ -309,40 +329,43 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex py-5">
-                    <div class="w-1/3 pb-5">
-                        <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Account administration</h3>
-                        <p class="text-sm text-gray-500">Personal information about the user</p>
-                    </div>
-                    <div class="w-2/3 px-5 pb-5">
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Deactivate account</label>
-                                <div class="flex items-center">
-                                    <!--
-                                    <form method="GET">
-                                        <button name="user-toggle-active-btn" type="submit" class="border border-red-500 hover:border-red-700 rounded py-1 px-2 font-semibold text-red-500 hover:text-red-700">Deactive account</button>
-                                    </form>
-                                    -->
-                                </div>
+            </form>
+            <div class="flex py-5">
+                <div class="w-1/3 pb-5">
+                    <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Account administration</h3>
+                    <p class="text-sm text-gray-500">High level user audit. Use with caution.</p>
+                </div>
+                <div class="w-2/3 px-5 pb-5">
+                    <div class="w-full flex mt-3">
+                        <div class="w-full">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">Deactivate account</label>
+                            <div class="flex items-center">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    {% if user.is_active %}
+                                        <button class="bg-white hover:bg-red-500 border border-red-500 hover:border-red-500 rounded py-1 px-2 font-semibold text-red-500 hover:text-white" name="user-toggle-btn" type="submit">Deactivate account</button>
+                                    {% else %}
+                                        <button class="bg-white hover:bg-indigo-500 border border-indigo-500 hover:border-indigo-500 rounded py-1 px-2 font-semibold text-indigo-500 hover:text-white" name="user-toggle-btn" type="submit">Activate account</button>
+                                    {% endif %}
+                                </form>
                             </div>
                         </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Delete account</label>
-                                <div class="flex items-center">
-                                    <button class="bg-red-500 hover:bg-red-700 border border-red-500 hover:border-red-700 rounded py-1 px-2 font-semibold text-white">Delete account</button>
-                                </div>
+                    </div>
+                    <div class="w-full flex mt-3">
+                        <div class="w-full">
+                            <label class="block text-gray-700 text-sm font-bold mb-1">Delete account</label>
+                            <div class="flex items-center">
+                                <button class="bg-red-500 hover:bg-red-700 border border-red-500 hover:border-red-700 rounded py-1 px-2 font-semibold text-white">Delete account</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-end items-center border-t border-solid border-gray-300 py-5 px-5">
-                <a href="{% url 'user-detail' user.id %}" class="text-gray-500 font-semibold hover:text-gray-700 mr-3">Cancel</a>
-                <button name="edit-user-btn" type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white hover:text-white font-semibold py-1 px-3 border border-indigo-500 hover:border-transparent rounded">Save changes</button>
-            </div>  
-        </form>
+        </div>
+        <div class="flex justify-end items-center border-t border-solid border-gray-300 py-5 px-5">
+            <a href="{% url 'user-detail' user.id %}" class="text-gray-500 font-semibold hover:text-gray-700 mr-3">Cancel</a>
+            <button name="edit-user-btn" form="edit-details-form" type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white hover:text-white font-semibold py-1 px-3 border border-indigo-500 hover:border-transparent rounded">Save changes</button>
+        </div>  
     </div>
     <!--User information end-->
 {% endblock content %}

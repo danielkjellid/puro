@@ -12,7 +12,7 @@
 {% endblock breadcrumb %}
 {% block nav_users %}
     <a href="{% url 'users' %}" class="inline-flex items-center w-full px-5 py-2 pb-2 bg-gray-200">                   
-        <svg class="w-4 h-4 mr-2" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <svg class="w-4 h-4 mr-2 xl:block lg:block md:hidden sm:hidden" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g id="/backend" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g id="User-detail" transform="translate(-49.000000, -179.000000)">
                     <g id="nav" transform="translate(30.000000, 116.000000)">
@@ -28,12 +28,25 @@
     </a>
 {% endblock nav_users %}
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-        <div class="bg-green-200 w-full mb-5 py-3 px-5 rounded">
-            <p class="text-green-900 font-medium">{{ message }}</p>
+    {% if not user.is_active %}
+    <div class="bg-white w-full rounded shadow mb-5">
+        <div class="py-5 px-5">
+            <div class="inline-flex items-center">   
+                <svg class="w-10 h-10 mr-2" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="icon-security-important" transform="translate(-4.000000, -2.000000)">
+                            <path d="M4,4 L12,2 L20,4 L20,13.0557281 C20,16.0859046 18.287981,18.8560095 15.5777088,20.2111456 L12,22 L8.42229124,20.2111456 C5.71201901,18.8560095 4,16.0859046 4,13.0557281 L4,4 Z" id="primary" fill="#FED7D7"></path>
+                            <path d="M12,18 C11.1715729,18 10.5,17.3284271 10.5,16.5 C10.5,15.6715729 11.1715729,15 12,15 C12.8284271,15 13.5,15.6715729 13.5,16.5 C13.5,17.3284271 12.8284271,18 12,18 Z M12.9948752,12.0995037 C12.8748168,13.3001654 11.1249884,13.3001654 11.00493,12.0995037 L10.5049625,7.09950372 C10.4460977,6.5108179 10.9083516,6 11.4999351,6 L12.4998701,6 C13.0914536,6 13.5537075,6.5108179 13.4948427,7.09950372 L12.9948752,12.0995037 Z" id="secondary" fill="#9B2C2C"></path>
+                        </g>
+                    </g>
+                </svg>
+                <div class="flex-wrap">
+                    <h1 class="block text-base font-semibold text-red-700 -mb-1">User has been deactivated!</h1>
+                    <span class="block text-sm text-gray-800">This user has been deactivated. Reason is normally stated in the notes. User can be reactivated with the appropriate permission.</span>
+                </div>
+            </div>
         </div>
-        {% endfor %}
+    </div>
     {% endif %}
     <!--User overview-->
     <div class="bg-white w-full rounded shadow">
@@ -532,8 +545,8 @@
             <button href="#" class="text-indigo-500 font-semibold hover:text-indigo-700">Create request</button>
         </div>
         <div>
-            <div class="w-full">
-                <table class="w-full overflow:hidden">
+            <div class="w-full overflow-x-auto">
+                <table class="w-full">
                     <tr class="bg-gray-200 border-b border-solid border-gray-300">
                         <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left pl-5 py-3">id</th>
                         <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left py-3">Date</th>
@@ -688,7 +701,7 @@
             <button href="#" class="text-indigo-500 font-semibold hover:text-indigo-700">Delete all logins</button>
         </div>
         <div>
-            <div class="w-full">
+            <div class="w-full overflow-x-auto">
                 <table class="w-full overflow:hidden">
                     <tr class="bg-gray-200 border-b border-solid border-gray-300">
                         <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left pl-5 py-3">Platform</th>
@@ -815,7 +828,7 @@
             <h2 class="text-base font-semibold text-gray-800">Changelog</h2>
         </div>
         <div>
-            <div class="w-full">
+            <div class="w-full overflow-x-auto">
                 <table class="w-full overflow:hidden">
                     <tr class="bg-gray-200 border-b border-solid border-gray-300">
                         <th class="text-sm text-gray-600 font-semibold uppercase tracking-wider text-left pl-5 py-3">User</th>
@@ -931,4 +944,12 @@
         </div>
     </div>
     <!--User changelog end-->
+    <p>Test: {{ changelog }}</p>
+    <table>
+        <tr>
+            <th>Audit By</th>
+            <th>Change</th>
+            <th>Date</th>
+        </tr>
+    </table>
 {% endblock content %}

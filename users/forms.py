@@ -24,5 +24,11 @@ class UserEditForm(forms.ModelForm):
             'subscribed_to_newsletter', 
             'allow_personalization', 
             'allow_third_party_personalization', 
-            'acquisition_source'
+            'acquisition_source',
+            'is_active'
         )
+
+class UserToggleForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('is_active',)
