@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, UserEditForm, UserToggleForm
+from users.forms import AddNoteForm, UserEditForm
 
 class users(generic.ListView):
     model = User
@@ -73,20 +73,7 @@ def userDetailEdit(request, pk):
             return redirect ('user-detail', pk)
 
         else:
-            edit_form = UserEditForm(instance=user)
-
-    elif request.method == 'POST' and 'user-toggle-btn' in request.POST:
-        
-        if user.is_active == True:
-            user.is_active = False
-            user.save()
-            messages.success(request, 'User was successfully deactivated, and will no longer be able to log in.')
-            return redirect ('user-detail', pk)
-        else:
-            user.is_active = True
-            user.save()
-            messages.success(request, 'User was successfully reactivated, and will now be able to log in.')
-            return redirect ('user-detail', pk)
+            edit_form = UserEditForm(instance = user)
 
     elif request.method == 'POST' and 'make-note-btn' in request.POST:
         note_form = AddNoteForm(request.POST)
@@ -123,4 +110,33 @@ def userDetailEdit(request, pk):
     }
 
     return render (request, 'backend/users/users_user_edit.html', context)
+
+def userDetailEditToggleActive(request, pk):
+    user = User.objects.get(pk = pk)
+    notes = Note.objects.filter(user_id=pk).order_by('-is_sticky', '-date_edited')
+    note_pin = Note.objects.filter(id = request.GET.get('pin-note-btn'))
+    note_delete = Note.objects.filter(id = request.GET.get('delete-note-btn'))
+    note_form = AddNoteForm()
+
+    if request.method == 'POST' and 'user-toggle-btn' in request.POST:
+        
+        if user.is_active == True:
+            user.is_active = False
+            user.save()
+            messages.success(request, 'User was successfully deactivated, and will no longer be able to log in.')
+            return redirect ('user-detail', pk)
+        else:
+            user.is_active = True
+            user.save()
+            messages.success(request, 'User was successfully reactivated, and will now be able to log in.')
+            return redirect ('user-detail', pk)
+
+    context = {
+        'user': user,
+        'note_form': note_form,
+        'notes': notes,
+    }
+
+    return render(request, 'backend/users/users_user_edit_toggle.html', context)
+
 

@@ -1,12 +1,15 @@
+import phonenumbers
+
 from django.db import models
 from django.utils import timezone
+from django.utils.text import get_text_list
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import (
     BaseUserManager, 
     AbstractBaseUser,
     Group
 )
-from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 class UserManager(BaseUserManager):
     def create_user(self, email, birth_date, phone_number, password=None):
@@ -50,7 +53,9 @@ class User(AbstractBaseUser):
     birth_date = models.DateField(
         verbose_name = "fødselsdag",
     )
-    phone_number = PhoneField()
+    phone_number = models.CharField(
+        max_length = 255
+    )
     email = models.EmailField(
         verbose_name = 'e-post',
         max_length = 255,
@@ -139,13 +144,24 @@ class User(AbstractBaseUser):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def formatted_phone(self, country = None):
+        parsed = phonenumbers.parse(self.phone_number, country)
+        return phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+
 class Note(models.Model):
     is_sticky = models.BooleanField(default = False)
     content = models.TextField()
     date_edited = models.DateTimeField(default = timezone.now)
-    user = models.ForeignKey(User, related_name = 'User', on_delete = models.CASCADE)
-    author = models.ForeignKey(User, related_name = 'Author', on_delete = models.CASCADE)
+    user = models.ForeignKey(User, related_name = 'user_noted', on_delete = models.CASCADE)
+    author = models.ForeignKey(User, related_name = 'note_by', on_delete = models.CASCADE)
 
     class Meta:
         verbose_name = 'Note'
         verbose_name_plural = 'Notes'
+
+    def __str__(self):
+        return self.content
+
+
+
+

@@ -25,10 +25,4 @@ class UserEditForm(forms.ModelForm):
             'allow_personalization', 
             'allow_third_party_personalization', 
             'acquisition_source',
-            'is_active'
         )
-
-class UserToggleForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('is_active',)

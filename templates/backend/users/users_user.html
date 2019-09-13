@@ -230,11 +230,15 @@
                     </tr>
                     <tr>
                         <td class="text-base text-gray-600 py-1">Phone number</td>
-                        <td class="text-base text-gray-800 py-1">{{ user.phone_number }}</td>
+                        <td>
+                            <a href="tel:{{ user.phone_number }}" class="text-base text-indigo-500 hover:text-indigo-700">{{ user.formatted_phone }}</a>
+                        </td>
                     </tr>
                     <tr>
                         <td class="text-base text-gray-600 py-1">Email</td>
-                        <td class="text-base text-gray-800 py-1">{{ user.email }}</td>
+                        <td>
+                                <a href="mailto:{{ user.email }}" class="text-base text-indigo-500 hover:text-indigo-700">{{ user.email }}</a>
+                        </td>
                     </tr>
                     <tr>
                         <td class="text-base text-gray-600 py-1">Confirmed email</td>
@@ -943,13 +947,4 @@
             <button class="text-indigo-500 font-semibold">Show more</button>
         </div>
     </div>
-    <!--User changelog end-->
-    <p>Test: {{ changelog }}</p>
-    <table>
-        <tr>
-            <th>Audit By</th>
-            <th>Change</th>
-            <th>Date</th>
-        </tr>
-    </table>
 {% endblock content %}

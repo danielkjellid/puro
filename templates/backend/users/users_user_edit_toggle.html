@@ -10,7 +10,9 @@
     <span class="text-gray-500">/</span>
     <a href="{% url 'user-detail' user.id %}" class="text-indigo-500">{{ user.get_full_name }}</a>
     <span class="text-gray-500">/</span>
-    <a class="text-gray-500">Edit "{{ user.get_full_name }}"</a>
+    <a href="{% url 'user-detail-edit' user.id %}" class="text-indigo-500">Edit</a>
+    <span class="text-gray-500">/</span>
+    <a class="text-gray-500">Toggle {{ user.get_full_name }}</a>
 {% endblock breadcrumb %}
 {% block nav_users %}
     <a href="{% url 'users' %}" class="inline-flex items-center w-full px-5 py-2 pb-2 bg-gray-200">                   
@@ -209,174 +211,31 @@
     <!--User edit-->
     <div class="bg-white w-full rounded shadow mt-5">
         <div class="flex items-center border-b border-solid border-gray-300 py-5 px-5">
-            <h2 class="text-base font-semibold text-gray-800">Edit "{{ user.get_full_name }}"</h2>
+            {% if user.is_active %}
+            <h2 class="text-base font-semibold text-gray-800">Deactivate "{{ user.get_full_name }}"</h2>
+            {% else %}
+            <h2 class="text-base font-semibold text-gray-800">Reactivate "{{ user.get_full_name }}"</h2>
+            {% endif %}
         </div>
-        <form method="POST" id="edit-details-form">
-            {% csrf_token %}
-            <div class="px-5">
-                <div class="flex py-5 border-b border-solid border-gray-300">
-                    <div class="w-1/3 pb-5">
-                        <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Personal information</h3>
-                        <p class="text-sm text-gray-500">Personal information about the user</p>
-                    </div>
-                    <div class="w-2/3 px-5 pb-5">
-                        <div class="w-full flex">
-                            <div class="w-1/2 mr-2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">First name</label>
-                                {{ user_edit_form.first_name|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                            <div class="w-1/2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Last name</label>
-                                {{ user_edit_form.last_name|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-1/2 mr-2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Birth date</label>
-                                {{ user_edit_form.birth_date|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                            <div class="w-1/2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Phone number</label>
-                                {{ user_edit_form.phone_number|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex py-5 border-b border-solid border-gray-300">
-                    <div class="w-1/3 pb-5">
-                        <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Contact information</h3>
-                        <p class="text-sm text-gray-500">Information used to contact user</p>
-                    </div>
-                    <div class="w-2/3 px-5 pb-5">
-                        <div class="w-full flex">
-                            <div class="w-full mr-2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Email</label>
-                                {{ user_edit_form.email|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Confirmed</label>
-                                <div class="flex items-center">
-                                    {{ user_edit_form.has_confirmed_email|add_class:"mr-2 mt-1" }}
-                                    <span class="mt-2 text-base text-gray-600">User has confirmed email. Will be able to make requests.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-1/2 mr-2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Street address</label>
-                                {{ user_edit_form.address|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                            <div class="w-1/4 mr-2">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Zip code</label>
-                                {{ user_edit_form.zip_code|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                            <div class="w-1/4">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Multiplicity</label>
-                                {{ user_edit_form.zip_place|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex py-5 border-b border-solid border-gray-300">
-                    <div class="w-1/3 pb-5">
-                        <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Marketing</h3>
-                        <p class="text-sm text-gray-500">Marketing settings. Decides how the user will recieve nudges and e-mail</p>
-                    </div>
-                    <div class="w-2/3 px-5 pb-5">
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Disabled emails</label>
-                                <div class="flex items-center">
-                                    {{ user_edit_form.disabled_emails|add_class:"mr-2 mt-1" }}
-                                    <span class="mt-2 text-base text-gray-600">Disabled emails. Won't receive anything. Typical for competators.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Newsletters</label>
-                                <div class="flex items-center">
-                                    {{ user_edit_form.subscribed_to_newsletter|add_class:"mr-2 mt-1" }}
-                                    <span class="mt-2 text-base text-gray-600">Will recieve newsletters.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Personalization</label>
-                                <div class="flex items-center">
-                                    {{ user_edit_form.allow_personalization|add_class:"mr-2 mt-1" }}
-                                    <span class="mt-2 text-base text-gray-600">Users allow personalization and might see different sites then normal.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Third party personalization</label>
-                                <div class="flex items-center">
-                                    {{ user_edit_form.allow_third_party_personalization|add_class:"mr-2 mt-1" }}
-                                    <span class="mt-2 text-base text-gray-600">Allows thirdparty personalization. Might see relevant ads outside scope.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="w-full flex mt-3">
-                            <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-bold mb-1">Acquisition source</label>
-                                <div class="flex items-center">
-                                    {{ user_edit_form.acquisition_source|add_class:"w-full bg-gray-200 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:border-gray-300" }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="flex py-5">
-                <div class="w-1/3 pb-5">
-                    <h3 class="text-base tracking-wider text-gray-900 font-semibold mb-1">Account administration</h3>
-                    <p class="text-sm text-gray-500">High level user audit. Use with caution.</p>
-                </div>
-                <div class="w-2/3 px-5 pb-5">
-                    <div class="w-full flex mt-3">
-                        <div class="w-full">
-                            <label class="block text-gray-700 text-sm font-bold mb-1">Deactivate account</label>
-                            {% if not user.is_active %}
-                            
-                            <div class="inline-flex items-center">   
-                                <svg class="w-10 h-10 mr-2 xl:block lg:block md:hidden sm:hidden" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g id="icon-security-important" transform="translate(-4.000000, -2.000000)">
-                                            <path d="M4,4 L12,2 L20,4 L20,13.0557281 C20,16.0859046 18.287981,18.8560095 15.5777088,20.2111456 L12,22 L8.42229124,20.2111456 C5.71201901,18.8560095 4,16.0859046 4,13.0557281 L4,4 Z" id="primary" fill="#FED7D7"></path>
-                                            <path d="M12,18 C11.1715729,18 10.5,17.3284271 10.5,16.5 C10.5,15.6715729 11.1715729,15 12,15 C12.8284271,15 13.5,15.6715729 13.5,16.5 C13.5,17.3284271 12.8284271,18 12,18 Z M12.9948752,12.0995037 C12.8748168,13.3001654 11.1249884,13.3001654 11.00493,12.0995037 L10.5049625,7.09950372 C10.4460977,6.5108179 10.9083516,6 11.4999351,6 L12.4998701,6 C13.0914536,6 13.5537075,6.5108179 13.4948427,7.09950372 L12.9948752,12.0995037 Z" id="secondary" fill="#9B2C2C"></path>
-                                        </g>
-                                    </g>
-                                </svg>
-                                <div class="flex-wrap">
-                                    <h1 class="block text-base font-semibold text-red-700 -mb-1">User has been deactivated!</h1>
-                                    <span class="block text-sm text-gray-800">This user has been deactivated. There is a reason for this, so be careful reactivating!</span>
-                                </div>
-                            </div>
-          
-                            {% else %}
-                            <span class="mt-2 text-base text-gray-600">Deactinvating the account will prevent the user from using the service further, but all information about the user will be stored, and is retrievable.</span>
-                            {% endif %}
-                            <div class="flex items-center">
-                                {% if user.is_active %}
-                                    <a href="{% url 'user-detail-edit-toggle' user.id %}" class="mt-2 bg-white hover:bg-red-500 border border-red-500 hover:border-red-500 rounded py-1 px-2 font-semibold text-red-500 hover:text-white" name="user-toggle-btn">Deactivate account</a>
-                                {% else %}
-                                    <a href="{% url 'user-detail-edit-toggle' user.id %}" class="mt-2 bg-white hover:bg-indigo-500 border border-indigo-500 hover:border-indigo-500 rounded py-1 px-2 font-semibold text-indigo-500 hover:text-white" name="user-toggle-btn">Reactivate account</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
+        <div class="py-5 px-5">
+            <div class="w-full">
+                {% if not user.is_active %}
+                <span class="mt-2 text-base text-gray-600">Are you sure that you want to reactivate the user?</span>
+                {% else %}
+                <span class="mt-2 text-base text-gray-600">Are you sure that you want to deacticate the user?</span>
+                {% endif %}
+                <div class="flex items-center">
+                    <form method="POST" id="user-toggle-form">
+                        {% csrf_token %}
+                        {% if user.is_active %}
+                            <button form="user-toggle-form" class="mt-2 bg-white hover:bg-red-500 border border-red-500 hover:border-red-500 rounded py-1 px-2 font-semibold text-red-500 hover:text-white" name="user-toggle-btn" type="submit">Deactivate account</button>
+                        {% else %}
+                            <button form="user-toggle-form" class="mt-2 bg-white hover:bg-indigo-500 border border-indigo-500 hover:border-indigo-500 rounded py-1 px-2 font-semibold text-indigo-500 hover:text-white" name="user-toggle-btn" type="submit">Reactivate account</button>
+                        {% endif %}
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="flex justify-end items-center border-t border-solid border-gray-300 py-5 px-5">
-            <a href="{% url 'user-detail' user.id %}" class="text-gray-500 font-semibold hover:text-gray-700 mr-3">Cancel</a>
-            <button name="edit-user-btn" form="edit-details-form" type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white hover:text-white font-semibold py-1 px-3 border border-indigo-500 hover:border-transparent rounded">Save changes</button>
-        </div>  
     </div>
     <!--User information end-->
 {% endblock content %}
