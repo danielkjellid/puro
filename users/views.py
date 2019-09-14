@@ -1,6 +1,11 @@
+import pdfkit
+
 from django.contrib import messages
+from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import get_template
 from django.utils import timezone
 from django.views import generic
 from django.views.generic.detail import DetailView
@@ -138,5 +143,37 @@ def userDetailEditToggleActive(request, pk):
     }
 
     return render(request, 'backend/users/users_user_edit_toggle.html', context)
+
+def userDetailExport(request, pk):
+    user = User.objects.get(pk = pk)
+    user_group = Group.objects.get(user = pk)
+    data = dict()
+    data['full_name'] = user.get_full_name
+    data['first_name'] = user.first_name
+    data['last_name'] = user.last_name
+    data['group'] = user_group
+    data['birth_date'] = user.birth_date
+    data['date_joined'] = user.date_joined
+    data['phonenumber'] = user.formatted_phone
+    data['email'] = user.email
+    data['address'] = user.get_full_address
+    data['subscribed_to_newsletter'] = user.subscribed_to_newsletter
+    data['allow_personalization'] = user.allow_personalization
+    data['allow_third_party_personalization'] = user.allow_third_party_personalization
+
+    template = get_template('backend/users/user_detail_export.html')
+    html = template.render(data)
+    pdf = pdfkit.from_string(html, False)
+
+    def create_file_name(self):
+        file_name = '%s-%s-%s.pdf' % (self.first_name, self.last_name, timezone.now())
+        return file_name.strip()
+
+    filename = create_file_name(user)
+
+    response = HttpResponse(pdf, content_type = 'application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+
+    return response
 
 

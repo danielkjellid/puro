@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body {
+                color: #2D3748;
+                font-family: sans-serif;
+            }
+            .container {
+                width: 100%;
+            }
+
+            .content-wrapper {
+                background-color: #FFFFFF;
+                border-radius: 4px;
+                border: 1px solid #718096;
+                float: right;
+                width: 100%;
+            }
+
+            .content-wrapper .header {
+                border-bottom: 1px solid #E2E8F0;
+                padding: 1.5rem;
+            }
+
+            .content-wrapper .header h1 {
+                display: inline-block;
+                font-size: 1.5rem;
+                margin: 0;
+            }
+
+            .content-wrapper .customer-info {
+                border-bottom: 1px solid #E2E8F0;
+                padding: 1.5rem;
+            }
+
+            .content-wrapper .panel-heading h2 {
+                font-size: 1.25rem;
+                margin: 0 0 1rem 0;
+            }
+
+            .content-wrapper .panel-block {
+                border-bottom: 1px solid #E2E8F0;
+                height: auto;
+                overflow: auto;
+                margin-bottom: 1.5rem;
+                width: 100%;
+            }
+
+            .content-wrapper .panel-block:last-child {
+                margin: 0;
+                border: none;
+            }
+
+            .content-wrapper .panel-block .title-wrapper {
+                float: left;
+                width: 30%;
+            }
+
+            .content-wrapper .panel-block .title-wrapper h3 {
+                font-size: 1rem;
+                font-weight: normal;
+                margin: 0;
+            }
+
+            .content-wrapper .panel-block .panel-content-wrapper {
+                float: right;
+                width: 70%;
+            }
+
+            .content-wrapper .panel-block table {
+                margin-bottom: 1.5rem;
+            }
+
+            .content-wrapper .panel-block table tr td.title {
+                color: #718096;
+                font-size: 1rem;
+                padding-top: 0.25rem;
+                padding-bottom: 0.25rem;
+            }
+
+            .content-wrapper .panel-block table tr td.value {
+                color: #2D3748;
+                font-size: 1rem;
+                padding-top: 0.25rem;
+                padding-bottom: 0.25rem;
+            }
+
+            .content-wrapper .communication {
+                border-bottom: 1px solid #E2E8F0;
+                padding: 1.5rem;
+            }
+
+            .email-wrapper {
+                border-left: 2px solid #A3BFFA;
+                padding-left: 0.5rem;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+
+        </header>
+        <div class="container">
+            <div class="content-wrapper">
+                <section class="header">
+                    <h1>{{ full_name }}</h1>
+                </section>
+                <section id="kundeinformasjon" class="customer-info">
+                    <div class="panel-heading">
+                        <h2>Kundeinformasjon</h2>
+                    </div>
+                    <div class="panel-block">
+                        <div class="title-wrapper">
+                            <h3>Personlig informasjon</h3>
+                        </div>
+                        <div class="panel-content-wrapper">
+                            <table>
+                                <col width="190px">
+                                <tr>
+                                    <td valign="top"  class="title">Fornavn</td>
+                                    <td valign="top"  class="value">{{ first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Etternavn</td>
+                                    <td valign="top"  class="value">{{ last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Brukergruppe</td>
+                                    <td valign="top"  class="value">{{ group }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Fødselsdag</td>
+                                    <td valign="top"  class="value">{{ birth_date }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Konto opprettet</td>
+                                    <td valign="top"  class="value">{{ date_joined }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-block">
+                        <div class="title-wrapper">
+                            <h3>Kontaktinformasjon</h3>
+                        </div>
+                        <div class="panel-content-wrapper">
+                            <table>
+                                <col width="190px">
+                                <tr>
+                                    <td valign="top"  class="title">Telefonnummer</td>
+                                    <td valign="top"  class="value">{{ phonenumber }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">E-post</td>
+                                    <td valign="top"  class="value">{{ email }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Adresse</td>
+                                    <td valign="top"  class="value">{{ address }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-block">
+                        <div class="title-wrapper">
+                            <h3>Markedsføring</h3>
+                        </div>
+                        <div class="panel-content-wrapper">
+                            <table>
+                                <col width="190px">
+                                <tr>
+                                    <td valign="top"  class="title">Ønsker nyhetsbrev</td>
+                                    <td valign="top"  class="value">{{ subscribed_to_newsletter }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Personalisering</td>
+                                    <td valign="top"  class="value">{{ allow_personalization }}</td>
+                                </tr>
+                                <tr>
+                                    <td valign="top"  class="title">Tredjepartspersonalisering</td>
+                                    <td valign="top"  class="value">{{ allow_third_party_personalization }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section id="kommunikasjon" class="communication">
+                    <div class="panel-heading">
+                        <h2>Kommunikasjon</h2>
+                    </div>
+                    <div class="panel-block">
+                        <div class="title-wrapper">
+                            <h3>E-post</h3>
+                        </div>
+                        <div class="panel-content-wrapper">
+                            <div class="email-wrapper">
+                                <table>
+                                    <col width="100px">
+                                    <tr>
+                                        <td valign="top" class="title">Fra</td>
+                                        <td valign="top" class="value">hei@flis.no</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Sendt</td>
+                                        <td valign="top" class="value">8. juli 2019 22:36</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Til</td>
+                                        <td valign="top" class="value">daniel@kjellid.no</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Emne</td>
+                                        <td valign="top" class="value">Bekreftelse på mottatt forspørsel</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Innhold</td>
+                                        <td valign="top" class="value">Lorem ipsum dolor amet shaman kickstarter polaroid scenester tofu pop-up jianbing enamel pin. Direct trade wolf portland VHS meh, polaroid letterpress crucifix XOXO helvetica af 90's copper mug. 90's raw denim subway tile, fanny pack you probably haven't heard of them readymade synth next level hashtag echo park dreamcatcher. Polaroid semiotics ugh copper mug heirloom, retro edison bulb hell of banjo sustainable trust fund farm-to-table skateboard brunch. Asymmetrical cloud bread taxidermy gluten-free. Artisan offal vice literally vegan, bushwick migas activated charcoal kitsch hoodie knausgaard. Ethical flexitarian health goth fanny pack.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="email-wrapper">
+                                <table>
+                                    <col width="100px">
+                                    <tr>
+                                        <td valign="top" class="title">Fra</td>
+                                        <td valign="top" class="value">hei@flis.no</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Sendt</td>
+                                        <td valign="top" class="value">8. juli 2019 22:36</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Til</td>
+                                        <td valign="top" class="value">daniel@kjellid.no</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Emne</td>
+                                        <td valign="top" class="value">Bekreftelse på mottatt forspørsel</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="title">Innhold</td>
+                                        <td valign="top" class="value">Lorem ipsum dolor amet shaman kickstarter polaroid scenester tofu pop-up jianbing enamel pin. Direct trade wolf portland VHS meh, polaroid letterpress crucifix XOXO helvetica af 90's copper mug. 90's raw denim subway tile, fanny pack you probably haven't heard of them readymade synth next level hashtag echo park dreamcatcher. Polaroid semiotics ugh copper mug heirloom, retro edison bulb hell of banjo sustainable trust fund farm-to-table skateboard brunch. Asymmetrical cloud bread taxidermy gluten-free. Artisan offal vice literally vegan, bushwick migas activated charcoal kitsch hoodie knausgaard. Ethical flexitarian health goth fanny pack.</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="kommunikasjon" class="communication">
+                    <div class="panel-heading">
+                        <h2>Forespørsler</h2>
+                    </div>
+                    <div class="panel-block">
+                        <div class="title-wrapper">
+                            <h3>Forespørsler</h3>
+                        </div>
+                        <div class="panel-content-wrapper">
+                            <span>TBA</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

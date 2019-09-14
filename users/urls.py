@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/', users_views.userDetail, name="user-detail"),
     path('<int:pk>/edit/', users_views.userDetailEdit, name="user-detail-edit"),
     path('<int:pk>/edit/toggle-active', users_views.userDetailEditToggleActive, name="user-detail-edit-toggle"),
+    path('<int:pk>/export/', users_views.userDetailExport, name = "user-detail-export"),
 ]

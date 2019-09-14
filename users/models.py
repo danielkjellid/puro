@@ -140,6 +140,10 @@ class User(AbstractBaseUser):
         """Return the short name for the user."""
         return self.first_name
 
+    def get_full_address(self):
+        full_address = '%s, %s %s' % (self.address, self.zip_code, self.zip_place)
+        return full_address.strip()
+
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)

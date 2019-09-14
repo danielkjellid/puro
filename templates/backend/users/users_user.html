@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div>
-                <button href="#" class="text-indigo-500 font-semibold hover:text-indigo-700">Export</button>
+                <a href="{% url 'user-detail-export' user.id %}" class="text-indigo-500 font-semibold hover:text-indigo-700">Export</a>
                 <button href="#" class="add-note-btn text-indigo-500 font-semibold hover:text-indigo-700 ml-3">Add note</button>
                 <form class="inline-flex" action="/hijack/{{ user.id }}/" method="POST">
                     {% csrf_token %}
@@ -215,7 +215,7 @@
                 <h3 class="text-sm uppercase tracking-wider text-gray-600 font-semibold pb-2">Account information</h3>
                 <table class="overflow:hidden">
                     <col width="160px">
-                    <col widht="50%">
+                    <col width="50%">
                     <tr>
                         <td class="text-base text-gray-600 py-1">First name</td>
                         <td class="text-base text-gray-800 py-1">{{ user.first_name }}</td>
