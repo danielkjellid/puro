@@ -8,7 +8,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('backend/users/', include('users.urls')),
+    path('konto/', include('users.frontend_urls')),
+    path('backend/users/', include('users.backend_urls')),
 ]
 
 urlpatterns += [

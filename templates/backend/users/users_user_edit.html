@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div>
-                <button href="#" class="text-indigo-500 font-semibold hover:text-indigo-700">Export</button>
+                <a href="{% url 'user-detail-export' user.id %}" class="text-indigo-500 font-semibold hover:text-indigo-700">Export</a>
                 <button href="#" class="add-note-btn text-indigo-500 font-semibold hover:text-indigo-700 ml-3">Add note</button>
                 <form class="inline-flex" action="/hijack/{{ user.id }}/" method="POST">
                     {% csrf_token %}
@@ -359,7 +359,7 @@
                             </div>
           
                             {% else %}
-                            <span class="mt-2 text-base text-gray-600">Deactinvating the account will prevent the user from using the service further, but all information about the user will be stored, and is retrievable.</span>
+                            <span class="mt-2 text-base text-gray-600">Deactivating the account will prevent the user from using the service further, but all information about the user will be stored, and is retrievable.</span>
                             {% endif %}
                             <div class="flex items-center">
                                 {% if user.is_active %}

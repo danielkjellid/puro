@@ -1,5 +1,5 @@
 /* Notes */ 
-const showMoreNotesBtn = $('button.show-more-notes ');
+const showMoreNotesBtn = $('button.show-more-notes');
 const notesContainer = $('div.notes-container');
 const normalNotes = $('div.normal-note');
 const notesContainerNormalNote = $('div.notes-container').find('div.normal-note');

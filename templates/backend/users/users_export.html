@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            color: #2D3748;
+            font-family: sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        
+        tr.thead {
+            background-color: #EDF2F7;
+            display: table-row;
+        }
+
+        th {
+            border-bottom: 1px solid #E2E8F0;
+            color: #718096;
+            font-size: 0.875rem;
+            padding-bottom: 0.75rem;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+            padding-top: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 1rem;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+            padding-top: 1rem;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .panel {
+            background-color: #FFFFFF;
+            border: 1px solid #CBD5E0;
+            border-radius: 4px;
+            height: auto;
+            overflow: auto;
+            width: 100%;
+        }
+
+        .panel-head {
+            border-bottom: 1px solid #E2E8F0;
+            padding: 1.25rem;
+        }
+
+        .panel-head h1 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .sub-text {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel">
+            <div class="panel-head">
+                <h1>Users</h1>
+            </div>
+            <div class="panel-body">
+                <table>
+                    <col width="240px">
+                    <tbody>
+                        <tr class="thead">
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Contact</th>
+                            <th class="text-left">Adresse</th>
+                            <th class="text-left">Registered</th>
+                            <th class="text-center">Requests</th>
+                            <th class="text-center">Active</th>
+                            <th class="text-center">Staff</th>
+                        </tr>
+                        {% for user in users %}
+                        <tr>
+                            <td class="text-left" width="15%">
+                                <span class="block">{{ user.get_full_name }}</span>
+                                <span class="block sub-text">{{ user.roles.all.0 }}</span>
+                            </td>
+                            <td class="text-left">
+                                <span class="block">{{ user.email }}</span>
+                                <span class="block sub-text">{{ user.formatted_phone }}</span>
+                            </td class="text-left">
+                            <td width="40%">
+                                <span class="block">{{ user.address }},</span>
+                                <span class="block">{{ user.zip_code }} {{ user.zip_place }}</span>
+                            </td>
+                            <td class="text-left">
+                                <span>{{ user.date_joined }}</span>
+                            </td>
+                            <td class="text-center">
+                                <span>1</span>
+                            </td>
+                            <td class="text-center">
+                                <span>{{ user.is_active }}</span>
+                            </td>
+                            <td class="text-center">
+                                <span>{{ user.is_staff }}</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

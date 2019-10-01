@@ -14,7 +14,7 @@
             .content-wrapper {
                 background-color: #FFFFFF;
                 border-radius: 4px;
-                border: 1px solid #718096;
+                border: 1px solid #CBD5E0;
                 float: right;
                 width: 100%;
             }
@@ -100,13 +100,10 @@
         </style>
     </head>
     <body>
-        <header>
-
-        </header>
         <div class="container">
             <div class="content-wrapper">
                 <section class="header">
-                    <h1>{{ full_name }}</h1>
+                    <h1>{{ user.get_full_name }}</h1>
                 </section>
                 <section id="kundeinformasjon" class="customer-info">
                     <div class="panel-heading">
@@ -118,26 +115,26 @@
                         </div>
                         <div class="panel-content-wrapper">
                             <table>
-                                <col width="190px">
+                                <col width="220px">
                                 <tr>
                                     <td valign="top"  class="title">Fornavn</td>
-                                    <td valign="top"  class="value">{{ first_name }}</td>
+                                    <td valign="top"  class="value">{{ user.first_name }}</td>
                                 </tr>
                                 <tr>
                                     <td valign="top"  class="title">Etternavn</td>
-                                    <td valign="top"  class="value">{{ last_name }}</td>
+                                    <td valign="top"  class="value">{{ user.last_name }}</td>
                                 </tr>
                                 <tr>
                                     <td valign="top"  class="title">Brukergruppe</td>
-                                    <td valign="top"  class="value">{{ group }}</td>
+                                    <td valign="top"  class="value">{{ user_group }}</td>
                                 </tr>
                                 <tr>
                                     <td valign="top"  class="title">Fødselsdag</td>
-                                    <td valign="top"  class="value">{{ birth_date }}</td>
+                                    <td valign="top"  class="value">{{ user.birth_date }}</td>
                                 </tr>
                                 <tr>
                                     <td valign="top"  class="title">Konto opprettet</td>
-                                    <td valign="top"  class="value">{{ date_joined }}</td>
+                                    <td valign="top"  class="value">{{ user.date_joined }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -148,18 +145,18 @@
                         </div>
                         <div class="panel-content-wrapper">
                             <table>
-                                <col width="190px">
+                                <col width="220px">
                                 <tr>
-                                    <td valign="top"  class="title">Telefonnummer</td>
-                                    <td valign="top"  class="value">{{ phonenumber }}</td>
+                                    <td valign="top" class="title">Telefonnummer</td>
+                                    <td valign="top" class="value">{{ user.formatted_phone }}</td>
                                 </tr>
                                 <tr>
-                                    <td valign="top"  class="title">E-post</td>
-                                    <td valign="top"  class="value">{{ email }}</td>
+                                    <td valign="top" class="title">E-post</td>
+                                    <td valign="top" class="value">{{ user.email }}</td>
                                 </tr>
                                 <tr>
-                                    <td valign="top"  class="title">Adresse</td>
-                                    <td valign="top"  class="value">{{ address }}</td>
+                                    <td valign="top" class="title">Adresse</td>
+                                    <td valign="top" class="value">{{ user.get_full_address }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -170,18 +167,18 @@
                         </div>
                         <div class="panel-content-wrapper">
                             <table>
-                                <col width="190px">
+                                <col width="220px">
                                 <tr>
-                                    <td valign="top"  class="title">Ønsker nyhetsbrev</td>
-                                    <td valign="top"  class="value">{{ subscribed_to_newsletter }}</td>
+                                    <td valign="top" class="title">Ønsker nyhetsbrev</td>
+                                    <td valign="top" class="value">{{ user.subscribed_to_newsletter }}</td>
                                 </tr>
                                 <tr>
-                                    <td valign="top"  class="title">Personalisering</td>
-                                    <td valign="top"  class="value">{{ allow_personalization }}</td>
+                                    <td valign="top" class="title">Personalisering</td>
+                                    <td valign="top" class="value">{{ user.allow_personalization }}</td>
                                 </tr>
                                 <tr>
-                                    <td valign="top"  class="title">Tredjepartspersonalisering</td>
-                                    <td valign="top"  class="value">{{ allow_third_party_personalization }}</td>
+                                    <td valign="top" class="title">Tredjepartspersonalisering</td>
+                                    <td valign="top" class="value">{{ user.allow_third_party_personalization }}</td>
                                 </tr>
                             </table>
                         </div>

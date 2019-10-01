@@ -13,9 +13,36 @@ from django.views.generic.detail import DetailView
 from users.models import User, Note
 from users.forms import AddNoteForm, UserEditForm
 
+
+# Frontend
+class account(generic.ListView):
+    model = User
+    template_name = 'base.html'
+
+# Backend
 class users(generic.ListView):
     model = User
     template_name = 'backend/users/users.html'
+
+def usersExport(request):
+    users = User.objects.all()
+
+    # getting template, and rendering data
+    template = get_template('backend/users/users_export.html')
+    html = template.render({'users': users})
+    pdf = pdfkit.from_string(html, False)
+
+    #function for creating file name
+    def create_file_name():
+        file_name = 'users %s.pdf' % (timezone.now())
+        return file_name.strip()
+
+    filename = create_file_name()
+
+    response = HttpResponse(pdf, content_type = 'application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+    
+    return response
 
 def userDetail(request, pk):
     user = User.objects.get(pk=pk)
@@ -23,6 +50,7 @@ def userDetail(request, pk):
     note_pin = Note.objects.filter(id = request.GET.get('pin-note-btn'))
     note_delete = Note.objects.filter(id = request.GET.get('delete-note-btn'))
     
+    # form validation upon creating new note
     if request.method == 'POST':
         note_form = AddNoteForm(request.POST)
 
@@ -37,13 +65,13 @@ def userDetail(request, pk):
     else:
         note_form = AddNoteForm(request.POST)
     
-    #conditional check for deleting notes.
+    # conditional check for deleting notes.
     if request.GET.get('delete-note-btn'):
         note_delete.delete()
         messages.success(request, 'Note was successfully deleted!')
         return redirect ('user-detail', pk)
 
-    #conditional check checking if the instance of note clicked is sticky or not
+    # conditional check checking if the instance of note clicked is sticky or not
     if request.GET.get('pin-note-btn'):
         if note_pin.filter(is_sticky = True):
             note_pin.update(is_sticky = False)
@@ -69,6 +97,7 @@ def userDetailEdit(request, pk):
     edit_form = UserEditForm(instance=user)
     note_form = AddNoteForm()
     
+    # form validation upon updating user details
     if request.method == 'POST' and 'edit-user-btn' in request.POST:
         edit_form = UserEditForm(request.POST, instance=user)
 
@@ -80,6 +109,7 @@ def userDetailEdit(request, pk):
         else:
             edit_form = UserEditForm(instance = user)
 
+    # form validation upon creating new note
     elif request.method == 'POST' and 'make-note-btn' in request.POST:
         note_form = AddNoteForm(request.POST)
 
@@ -123,6 +153,7 @@ def userDetailEditToggleActive(request, pk):
     note_delete = Note.objects.filter(id = request.GET.get('delete-note-btn'))
     note_form = AddNoteForm()
 
+    # conditional check for deactivating/reactivating users
     if request.method == 'POST' and 'user-toggle-btn' in request.POST:
         
         if user.is_active == True:
@@ -147,24 +178,13 @@ def userDetailEditToggleActive(request, pk):
 def userDetailExport(request, pk):
     user = User.objects.get(pk = pk)
     user_group = Group.objects.get(user = pk)
-    data = dict()
-    data['full_name'] = user.get_full_name
-    data['first_name'] = user.first_name
-    data['last_name'] = user.last_name
-    data['group'] = user_group
-    data['birth_date'] = user.birth_date
-    data['date_joined'] = user.date_joined
-    data['phonenumber'] = user.formatted_phone
-    data['email'] = user.email
-    data['address'] = user.get_full_address
-    data['subscribed_to_newsletter'] = user.subscribed_to_newsletter
-    data['allow_personalization'] = user.allow_personalization
-    data['allow_third_party_personalization'] = user.allow_third_party_personalization
 
-    template = get_template('backend/users/user_detail_export.html')
-    html = template.render(data)
+    # getting template, and rendering data
+    template = get_template('backend/users/users_user_detail_export.html')
+    html = template.render({'user':user, 'user_group': user_group})
     pdf = pdfkit.from_string(html, False)
 
+    #function for creating file name
     def create_file_name(self):
         file_name = '%s-%s-%s.pdf' % (self.first_name, self.last_name, timezone.now())
         return file_name.strip()
