@@ -8,10 +8,10 @@
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
 </head>
-<body>
+<body class="min-h-screen lg:h-screen antialiased lg:flex lg:flex-col">
     <header>
         <!-- top header -->
-        <div class="bg-white sm:flex sm:justify-between sm:border-b sm:border-gray-300">
+        <div class="bg-white sm:flex sm:justify-between sm:border-b sm:border-gray-300 sm:items-center">
             <div class="px-5 py-4 border-b border-gray-300 items-center justify-between bg-white sm:border-none flex">
                 <div>
                     <svg class="h-8" viewBox="0 0 169 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -41,29 +41,29 @@
                 </div>
             </div>
             <!-- navigation -->
-            <nav class="collapsed-main-menu hidden bg-white -mt-12 m-5 absolute z-10 shadow rounded right-0 left-0 sm:bg-transparent sm:m-0 sm:shadow-none sm:rounded-none sm:mt-0 sm:block sm:px-5 sm:py-4 sm:flex sm:z-0 sm:justify-end">
+            <nav class="collapsed-main-menu hidden bg-white -mt-12 m-5 absolute z-10 shadow rounded-lg right-0 left-0 sm:bg-transparent sm:m-0 sm:shadow-none sm:rounded-none sm:mt-0 sm:px-5 sm:py-4 sm:flex sm:z-0 sm:justify-end">
                 <div class="flex justify-between items-start sm:justify-center sm:items-center">
-                    <div class="px-5 py-5 sm:flex sm:items-center sm:px-0 sm:py-0">
-                        <a href="#" class="flex items-center font-medium text-base text-gray-900 sm:text-xs sm:block sm:mr-6">
-                            <svg class="h-5 mr-2 fill-current text-gray-700 sm:block sm:m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <div class="px-5 pt-5 sm:flex sm:items-center sm:px-0 sm:py-0">
+                        <a href="#" class="flex items-center font-medium text-base text-gray-900 sm:text-xs sm:block sm:mr-6 lg:flex lg:text-base">
+                            <svg class="h-5 mr-2 fill-current text-gray-700 sm:block sm:m-auto lg:mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path class="heroicon-ui" d="M13 20v-5h-2v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7.59l-.3.3a1 1 0 1 1-1.4-1.42l9-9a1 1 0 0 1 1.4 0l9 9a1 1 0 0 1-1.4 1.42l-.3-.3V20a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2zm5 0v-9.59l-6-6-6 6V20h3v-5c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v5h3z"/>
                             </svg>
                             Hjem
                         </a>
-                        <a href="#" class="flex items-center font-medium text-base text-gray-500 hover:text-gray-900 mt-3 sm:mt-0 sm:text-xs sm:block sm:mr-6">
-                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <a href="#" class="flex items-center font-medium text-base text-gray-500 hover:text-gray-900 mt-3 sm:mt-0 sm:text-xs sm:block sm:mr-6 lg:flex lg:text-base">
+                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto lg:mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path class="heroicon-ui" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                             </svg>
                             Produkter
                         </a>
-                        <a href="#" class="flex items-center font-medium text-base text-gray-500 hover:text-gray-900 mt-3 sm:mt-0 sm:text-xs sm:block sm:mr-6">
-                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <a href="#" class="flex items-center font-medium text-base text-gray-500 hover:text-gray-900 mt-3 sm:mt-0 sm:text-xs sm:block sm:mr-6 lg:flex lg:text-base">
+                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto lg:mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0v-4a1 1 0 0 1 1-1zm0-4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                             </svg>
                             Om oss
                         </a>
-                        <a href="#" class="flex items-center font-medium text-base text-gray-500 hover:text-gray-900 mt-3 sm:mt-0 sm:text-xs sm:block sm:mr-6">
-                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <a href="#" class="flex items-center font-medium text-base text-gray-500 hover:text-gray-900 mt-3 sm:mt-0 sm:text-xs sm:block sm:mr-6 lg:flex lg:text-base">
+                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto lg:mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path class="heroicon-ui" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm16 3.38V6H4v1.38l8 4 8-4zm0 2.24l-7.55 3.77a1 1 0 0 1-.9 0L4 9.62V18h16V9.62z"/>
                             </svg>
                             Kontakt oss
@@ -110,10 +110,10 @@
                 -->
                 <!-- logged in view end -->
                 <!-- logged in view tablet -->
-                <div class="block">
+                <div class="block lg:flex lg:items-center">
                     <div class="hidden sm:block">
-                        <a href="#" class="open-sub-menu-btn flex items-center font-medium text-base text-gray-500 hover:text-gray-900 sm:mt-0 sm:text-xs sm:block">
-                            <svg class="h-5 mr-2 fill-current h-5 mr-2 fill-current sm:block sm:m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <a href="#" class="open-sub-menu-btn flex items-center font-medium text-base text-gray-500 hover:text-gray-900 sm:mt-0 sm:text-xs sm:block lg:flex lg:text-base lg:mr-6">
+                            <svg class="h-5 mr-2 fill-current sm:block sm:m-auto lg:mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path class="heroicon-ui" d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm9 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v2z"/>
                             </svg>
                             Daniel
@@ -121,7 +121,7 @@
                     </div>
                     <!-- admin logged in view -->
                     <div class="collapsed-sub-menu sm:relative sm:hidden">
-                    <button type="button" class="close-sub-menu-btn sm:z-10 sm:block sm:fixed sm:inset-0 sm:w-full sm:h-full sm:cursor-default"></button>
+                        <button type="button" class="close-sub-menu-btn sm:z-10 sm:block sm:fixed sm:inset-0 sm:w-full sm:h-full sm:cursor-default"></button>
                         <div class="sm:z-20 sm:absolute sm:right-0 sm:bg-white sm:shadow sm:rounded-lg">
                             <div class="border-t border-gray-300 sm:border-none">
                                 <div class="py-4">
@@ -134,7 +134,7 @@
                             </div>
                             
                             <div class="border-t border-gray-300">
-                                <div class="py-5">
+                                <div class="py-4">
                                     <span class="px-5 text-xs uppercase tracking-wider text-gray-500 font-semibold sm:hidden">Administrator</span>
                                     <a href="#" class="px-5 block py-1 text-gray-600 hover:text-gray-900 sm:mt-0">Gå til backend</a>
                                     <a href="#" class="px-5 block py-1 text-gray-600 hover:text-gray-900">Vis i backend</a>
@@ -142,14 +142,18 @@
                                 </div>
                             </div>
                             
-                            <button class="w-full text-center py-4 text-gray-900 font-medium bg-gray-100 hover:bg-gray-200 sm:hidden">
+                            <button class="w-full text-center py-4 text-gray-900 font-medium bg-gray-100 hover:bg-gray-200 sm:hidden rounded-b-lg">
                                 Logg ut
                             </button>
                         </div>
                     </div>
                     <!-- admin logged in view end-->
+                    <button class="hidden bg-indigo-500 hover:bg-indigo-700 py-2 px-4 rounded-lg text-white font-medium lg:block" type="button"> 
+                        Lag konto
+                    </button>
                 </div>
                 <!-- logged in view tablet end-->
+                <!-- signup btn -->
             </nav>
             <!-- navigation end -->
         </div>
@@ -177,194 +181,152 @@
             </button>
         </div>
         <!-- header serach and filter end -->
-        <!-- filter form -->
-        <form class="collapsed-filter bg-white hidden shadow">
-            <div>
-                <div>
-                    <section class="border-b border-gray-300">
-                        <div class="px-5 py-5">
-                            <fieldset>
-                                <legend class="text-xs text-gray-500 font-medium mb-1">Prisklasse</legend>
-                                <label class="block">
-                                <select class="form-select block w-full bg-gray-300 border border-gray-100 rounded-lg appearance-none leading-normal text-gray-600">
-                                    <option>Option 1</option>
-                                    <option>Option 2</option>
-                                </select>
-                                </label>
-                            </fieldset>
-                        </div>
-                    </section>
-                    <section class="border-b border-gray-300">
-                        <div class="px-5 py-5">
-                            <fieldset>
-                                <legend class="text-xs text-gray-500 font-medium mb-3">Kvalitet</legend>
-                                <div class="sm:flex sm:items-center sm:flex-wrap">
-                                    <div class="sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio text-indigo-500" name="quality-type" value="alle" checked="1">
-                                            <span class="ml-3 text-gray-700">Alle</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio text-indigo-500" name="quality-type" value="premium">
-                                            <span class="ml-3 text-gray-700">Premium</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio text-indigo-500" name="quality-type" value="premium">
-                                            <span class="ml-3 text-gray-700">Ikke premium</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </section>
-                </div>
-                <div>
-                    <section class="border-b border-gray-300">
-                        <div class="px-5 py-5">
-                            <fieldset>
-                                <legend class="text-xs text-gray-500 font-medium mb-3">Romtype</legend>
-                                <div class="sm:flex sm:items-center sm:flex-wrap">
-                                    <div class="sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="badrom">
-                                            <span class="ml-3 text-gray-700">Badrom</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="kjokken">
-                                            <span class="ml-3 text-gray-700">Kjøkken</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="uterom">
-                                            <span class="ml-3 text-gray-700">Uterom</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="gang">
-                                            <span class="ml-3 text-gray-700">Gang</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="stue">
-                                            <span class="ml-3 text-gray-700">Stue</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </section>
-                    <section class="border-b border-gray-300">
-                        <div class="px-5 py-5">
-                            <fieldset>
-                                <legend class="text-xs text-gray-500 font-medium mb-3">Stil</legend>
-                                <div class="sm:flex sm:items-center sm:flex-wrap">
-                                    <div class="sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="mosaikk">
-                                            <span class="ml-3 text-gray-700">Mosaikk</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="stein">
-                                            <span class="ml-3 text-gray-700">Stein</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="marmor'">
-                                            <span class="ml-3 text-gray-700">Marmor</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="farger">
-                                            <span class="ml-3 text-gray-700">Farger</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="betong">
-                                            <span class="ml-3 text-gray-700">Betong</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </section>
-                    <section class="border-b border-gray-300">
-                        <div class="px-5 py-5">
-                            <fieldset>
-                                <legend class="text-xs text-gray-500 font-medium mb-3">Farger</legend>
-                                <div class="sm:flex sm:items-center sm:flex-wrap">
-                                    <div class="sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="sort">
-                                            <span class="ml-3 text-gray-700">Sort</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="gra">
-                                            <span class="ml-3 text-gray-700">Grå</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="hvit'">
-                                            <span class="ml-3 text-gray-700">Hvit</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="beige">
-                                            <span class="ml-3 text-gray-700">Beige</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="gul">
-                                            <span class="ml-3 text-gray-700">Gul</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="grønn">
-                                            <span class="ml-3 text-gray-700">Grønn</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="bla">
-                                            <span class="ml-3 text-gray-700">Blå</span>
-                                        </label>
-                                    </div>
-                                    <div class="mt-1 sm:mt-0 sm:mr-5">
-                                        <label class="inline-flex items-center">
-                                            <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="rod">
-                                            <span class="ml-3 text-gray-700">Rød</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                    </section>
-                </div>
-            </div>
-            <div class="bg-gray-200 py-5 px-5 flex justify-center w-full">
-                <button class="bg-indigo-500 py-3 px-5 rounded w-full font-medium text-white">Oppdater resultater</button>
-            </div>
-        </form>
-        <!-- filter form end -->
     </header>
+    <div class="lg:flex lg:overflow-y-hidden">
+        <section class="collapsed-filter bg-white lg:w-72 shadow hidden">
+            <form class="lg:block lg:h-full lg:flex lg:flex-col lg:justify-between block">
+                <div class="lg:block lg:overflow-y-auto">
+                    <div class="px-5 py-5 border-b border-gray-300 w-full">
+                        <fieldset>
+                            <legend class="text-xs text-gray-500 font-medium mb-1">Prisklasse</legend>
+                            <label class="block">
+                            <select class="form-select block w-full bg-gray-300 border border-gray-100 rounded-lg appearance-none leading-normal text-gray-600">
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                            </select>
+                            </label>
+                        </fieldset>
+                    </div>
+                    <div class="px-5 py-5 border-b border-gray-300 w-full">
+                        <fieldset>
+                            <legend class="text-xs text-gray-500 font-medium mb-3">Kvalitet</legend>
+                            <div class="sm:flex sm:items-center sm:flex-wrap lg:block">
+                                <div class="sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-indigo-500" name="quality-type" value="alle" checked="1">
+                                        <span class="ml-3 text-gray-700">Alle</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-indigo-500" name="quality-type" value="premium">
+                                        <span class="ml-3 text-gray-700">Premium</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio text-indigo-500" name="quality-type" value="premium">
+                                        <span class="ml-3 text-gray-700">Ikke premium</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="px-5 py-5 border-b border-gray-300 w-full">
+                        <fieldset>
+                            <legend class="text-xs text-gray-500 font-medium mb-3">Romtype</legend>
+                            <div class="sm:flex sm:items-center sm:flex-wrap lg:block">
+                                <div class="sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="badrom">
+                                        <span class="ml-3 text-gray-700">Badrom</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="kjokken">
+                                        <span class="ml-3 text-gray-700">Kjøkken</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="uterom">
+                                        <span class="ml-3 text-gray-700">Uterom</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="gang">
+                                        <span class="ml-3 text-gray-700">Gang</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="stue">
+                                        <span class="ml-3 text-gray-700">Stue</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="px-5 py-5 border-b border-gray-300 w-full">
+                        <fieldset>
+                            <legend class="text-xs text-gray-500 font-medium mb-3">Farger</legend>
+                            <div class="sm:flex sm:items-center sm:flex-wrap lg:block">
+                                <div class="sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="sort">
+                                        <span class="ml-3 text-gray-700">Sort</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="gra">
+                                        <span class="ml-3 text-gray-700">Grå</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="hvit'">
+                                        <span class="ml-3 text-gray-700">Hvit</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="beige">
+                                        <span class="ml-3 text-gray-700">Beige</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="gul">
+                                        <span class="ml-3 text-gray-700">Gul</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="grønn">
+                                        <span class="ml-3 text-gray-700">Grønn</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="bla">
+                                        <span class="ml-3 text-gray-700">Blå</span>
+                                    </label>
+                                </div>
+                                <div class="mt-1 sm:mt-0 sm:mr-5">
+                                    <label class="inline-flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-indigo-500" name="room-type" value="rod">
+                                        <span class="ml-3 text-gray-700">Rød</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="block bg-gray-200 py-5 px-5 flex justify-center w-full">
+                    <button class="bg-indigo-500 py-3 px-5 rounded w-full font-medium text-white">Oppdater resultater</button>
+                </div>
+            </form>
+        </section>
+        <main>
+            <h1>Main content</h1>
+        </main>
+    </div>
+    <footer>
+        
+    </footer>
 </body>
 <script>
 
@@ -377,7 +339,7 @@
         const subMenuOpenBtn = $('a.open-sub-menu-btn');
         const subMenuCloseBtn = $('button.close-sub-menu-btn');
 
-        const filter = $('form.collapsed-filter');
+        const filter = $('section.collapsed-filter');
         const filterOpenBtn = $('button.open-filter-btn');
         const filterClosedIcn = $('svg.filter-closed-icn');
         const filterOpenIcn = $('svg.filter-open-icn');
@@ -410,7 +372,7 @@
 
         menuOpenBtn.on('click', function() { toggle(menu, 'hidden', 'block') });
         menuCloseBtn.on('click', function() { toggle(menu, 'hidden', 'block') });
-        subMenuOpenBtn.on( 'click', function() { toggle(subMenu, 'sm:hidden', 'sm:block') });
+        subMenuOpenBtn.on('click', function() { toggle(subMenu, 'sm:hidden', 'sm:block') });
         subMenuCloseBtn.on('click', function() { toggle(subMenu, 'sm:hidden', 'sm:block') });
         filterOpenBtn.on('click', function() { toggle(filter, 'hidden', 'block'), replaceSvg(filterClosedIcn, filterOpenIcn)});
     });
