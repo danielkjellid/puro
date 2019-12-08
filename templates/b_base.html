@@ -14,9 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
     <script src="{% static 'js/commons.js' %}" type="text/javascript"></script>
 </head>
-<body>
+<body class="min-h-screen">
     <main class="flex">
-        <div class="w-64 h-screen bg-gray-700">
+        <div class="w-64 min-h-screen bg-gray-700">
             <div class="flex items-center h-16 px-5 bg-gray-900">
                 <img src="{% static 'img/flis-header-negativ.png' %}" alt="Flishuset logo">
             </div>
@@ -55,6 +55,7 @@
             </nav>
         </div>
         <div class="w-screen">
+            {% hijack_notification %}
             <div class="flex items-center justify-between h-16 px-5 bg-white shadow">
                 {% block breadcrumb %}
                 
@@ -63,7 +64,7 @@
                     <button class="flex items-center justify-between h-16 pl-5 text-left border-l border-gray-200">
                         <div class="flex items-center">
                             <div class="flex items-center justify-center w-10 h-10 m-auto mr-2 bg-gray-300 rounded-full">
-                                <span class="font-semibold text-gray-700 texy-sm">{{ request.user.get_initials }}</span>
+                                <span class="text-sm font-semibold text-gray-700">{{ request.user.get_initials }}</span>
                             </div>
                             <div class="flex-wrap items-center justify-start">
                                 <span class="block -mb-1 text-sm font-medium text-gray-900">{{ request.user.get_full_name }}</span>
@@ -79,6 +80,9 @@
                 </div>
             </div>
             <!--Content-->
+            {% block header %}
+            
+            {% endblock header %}
             <div class="px-16 py-8">
                 {% block content %}
         

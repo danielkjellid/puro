@@ -45,48 +45,12 @@ def usersExport(request):
 
 def userDetail(request, pk):
     user = User.objects.get(pk=pk)
-    notes = Note.objects.filter(user_id=pk).order_by('-is_sticky', '-date_edited')
-    note_pin = Note.objects.filter(id = request.GET.get('pin-note-btn'))
-    note_delete = Note.objects.filter(id = request.GET.get('delete-note-btn'))
-    
-    # form validation upon creating new note
-    if request.method == 'POST':
-        note_form = AddNoteForm(request.POST)
-
-        if note_form.is_valid():
-            note_form.instance.date_edited = timezone.now()
-            note_form.instance.user = user
-            note_form.instance.author = request.user
-            note_form.save()
-            messages.success(request, 'Note was successfully created!')
-            return redirect ('user-detail', pk)
-
-    else:
-        note_form = AddNoteForm(request.POST)
-    
-    # conditional check for deleting notes.
-    if request.GET.get('delete-note-btn'):
-        note_delete.delete()
-        messages.success(request, 'Note was successfully deleted!')
-        return redirect ('user-detail', pk)
-
-    # conditional check checking if the instance of note clicked is sticky or not
-    if request.GET.get('pin-note-btn'):
-        if note_pin.filter(is_sticky = True):
-            note_pin.update(is_sticky = False)
-            messages.success(request, 'Note was successfully unpinned!')
-        else:
-            note_pin.update(is_sticky = True)
-            messages.success(request, 'Note was sucessfully pinned!')
-        return redirect ('user-detail', pk)
     
     context = {
         'user': user,
-        'notes': notes,
-        'note_form': note_form,
     }
 
-    return render (request, 'old/backend/users/users_user.html', context)
+    return render (request, 'users/b_users_user.html', context)
 
 def userDetailEdit(request, pk):
     user = User.objects.get(pk=pk)
