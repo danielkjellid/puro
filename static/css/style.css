@@ -8,42 +8,6 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
- @font-face {
-  font-family: 'Walsheim';
-  font-style: normal;
-  font-weight: 400;
-  src: url("../fonts/gt-walsheim/gt-walsheim-web.ttf");
-}
-@font-face {
-  font-family: 'Walsheim';
-  font-style: italic;
-  font-weight: 400;
-  src: url("../fonts/gt-walsheim/gt-walsheim-regular-oblique-web.ttf");
-}
-@font-face {
-  font-family: 'Walsheim';
-  font-style: normal;
-  font-weight: 500;
-  src: url("../fonts/gt-walsheim/gt-walsheim-medium-web.ttf");
-}
-@font-face {
-  font-family: 'Walsheim';
-  font-style: italic;
-  font-weight: 500;
-  src: url("../fonts/gt-walsheim/gt-walsheim-medium-oblique-web.ttf");
-}
-@font-face {
-  font-family: 'Walsheim';
-  font-style: normal;
-  font-weight: 700;
-  src: url("../fonts/gt-walsheim/gt-walsheim-bold-web.ttf");
-}
-@font-face {
-  font-family: 'Walsheim';
-  font-style: italic;
-  font-weight: 700;
-  src: url("../fonts/gt-walsheim/gt-walsheim-bold-oblique-web.ttf")
-}
 @font-face {
   font-family: 'Graphik';
   font-style: normal;

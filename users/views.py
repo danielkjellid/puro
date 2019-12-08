@@ -7,28 +7,27 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import get_template
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
 from users.forms import AddNoteForm, UserEditForm
 
-
-# Frontend
-class account(generic.ListView):
-    model = User
-    template_name = 'base.html'
-
-# Backend
+# Updated to fit new style
 class users(generic.ListView):
     model = User
-    template_name = 'backend/users/users.html'
+    template_name = 'users/b_users.html'
+    paginate_by = 10
+    queryset = User.objects.all()
 
+
+# Not updated
 def usersExport(request):
     users = User.objects.all()
 
     # getting template, and rendering data
-    template = get_template('backend/users/users_export.html')
+    template = get_template('old/backend/users/users_export.html')
     html = template.render({'users': users})
     pdf = pdfkit.from_string(html, False)
 
@@ -87,7 +86,7 @@ def userDetail(request, pk):
         'note_form': note_form,
     }
 
-    return render (request, 'backend/users/users_user.html', context)
+    return render (request, 'old/backend/users/users_user.html', context)
 
 def userDetailEdit(request, pk):
     user = User.objects.get(pk=pk)
@@ -144,7 +143,7 @@ def userDetailEdit(request, pk):
         'notes': notes,
     }
 
-    return render (request, 'backend/users/users_user_edit.html', context)
+    return render (request, 'old/backend/users/users_user_edit.html', context)
 
 def userDetailEditToggleActive(request, pk):
     user = User.objects.get(pk = pk)
@@ -173,14 +172,14 @@ def userDetailEditToggleActive(request, pk):
         'notes': notes,
     }
 
-    return render(request, 'backend/users/users_user_edit_toggle.html', context)
+    return render(request, 'old/backend/users/users_user_edit_toggle.html', context)
 
 def userDetailExport(request, pk):
     user = User.objects.get(pk = pk)
     user_group = Group.objects.get(user = pk)
 
     # getting template, and rendering data
-    template = get_template('backend/users/users_user_detail_export.html')
+    template = get_template('old/backend/users/users_user_detail_export.html')
     html = template.render({'user':user, 'user_group': user_group})
     pdf = pdfkit.from_string(html, False)
 

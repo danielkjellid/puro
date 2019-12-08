@@ -1,0 +1,108 @@
+{# extend the backend overview template #}
+{% extends 'b_overview.html' %}
+
+{# set appropriate title #}
+{% block title %}
+<title>Backend: Brukere</title>
+{% endblock title %}
+
+{# set appropriate breadcrumb using the breadcrumb component #}
+{% block breadcrumb %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link='#' previous='Hjem' current='Brukere' %}
+{% endblock breadcrumb %}
+
+{# change active nav state using the actice_nav_item component #}
+{% block nav_users %}
+    {% include 'components/nav/active_nav_item.html' with link='#' icon_path='M14.3333 9.77778C14.3333 11.0664 13.2887 12.1111 12 12.1111V14.1111C14.3932 14.1111 16.3333 12.171 16.3333 9.77778H14.3333ZM12 12.1111C10.7113 12.1111 9.66667 11.0664 9.66667 9.77778H7.66667C7.66667 12.171 9.60677 14.1111 12 14.1111V12.1111ZM9.66667 9.77778C9.66667 8.48911 10.7113 7.44444 12 7.44444V5.44444C9.60677 5.44444 7.66667 7.38454 7.66667 9.77778H9.66667ZM12 7.44444C13.2887 7.44444 14.3333 8.48911 14.3333 9.77778H16.3333C16.3333 7.38454 14.3932 5.44444 12 5.44444V7.44444ZM12 15.4444C9.0451 15.4444 6.2682 16.2195 3.86464 17.578L4.84878 19.3192C6.95995 18.1258 9.39889 17.4444 12 17.4444V15.4444ZM20.1354 17.578C17.7318 16.2195 14.9549 15.4444 12 15.4444V17.4444C14.6011 17.4444 17.0401 18.1258 19.1512 19.3192L20.1354 17.578ZM21 12C21 16.9706 16.9706 21 12 21V23C18.0751 23 23 18.0751 23 12H21ZM12 21C7.02944 21 3 16.9706 3 12H1C1 18.0751 5.92487 23 12 23V21ZM3 12C3 7.02944 7.02944 3 12 3V1C5.92487 1 1 5.92487 1 12H3ZM12 3C16.9706 3 21 7.02944 21 12H23C23 5.92487 18.0751 1 12 1V3Z' item='Brukere' %}
+{% endblock nav_users %}
+
+{# set main content heading using the main_heading component #}
+{% block content_heading %}
+    {% include 'components/typography/main_heading.html' with name='Brukere' %}
+{% endblock %}
+
+{# set the main action using the primary_button component #}
+{% block content_primary-action %}
+    {% include 'components/buttons/primary_button.html' with icon_path='M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z' action='Ny bruker'%}
+{% endblock content_primary-action %}
+
+{# add page filter #}
+{% block content_filter %}
+    {% include 'components/nav/active_tab.html' with link='#' name='Alle brukere' %}
+    {% include 'components/nav/inactive_tab.html' with link='#' name='Privat' %}
+    {% include 'components/nav/inactive_tab.html' with link='#' name='Bedrift' %}
+    {% include 'components/nav/inactive_tab.html' with link='#' name='Ansatte' %}
+{% endblock content_filter %}
+
+{# set the table title using the table_title component #}
+{% block content_table-title %}
+{% include 'components/typography/table_title.html' with title='Brukere' %}
+{% endblock content_table-title %}
+
+{% block content_table-action %}
+    {% include 'components/buttons/secondary_button.html' with icon_path='M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z' action='Eksporter'%}
+{% endblock content_table-action %}
+
+{# set table heading #}
+{% block content_table-heading %}
+    <th class="py-3 pl-5 text-xs text-left text-gray-700 uppercase leading-widest">Navn</th>
+    <th class="py-3 text-xs text-left text-gray-700 uppercase leading-widest">Kontakt</th>
+    <th class="py-3 text-xs text-left text-gray-700 uppercase leading-widest">Registrert</th>
+    <th class="py-3 text-xs text-center text-gray-700 uppercase leading-widest">Forespørsler</th>
+    <th class="py-3 text-xs text-center text-gray-700 uppercase leading-widest">Aktiv</th>
+    <th class="py-3 text-xs text-center text-gray-700 uppercase leading-widest">Notat</th>
+    <th class="pr-5"></th>
+{% endblock content_table-heading %}
+
+{# set table content #}
+{% block content_table-content %}
+    {% if user_list %}
+        {% for user in user_list %}
+        <tr class="border-b border-gray-300">
+            <td class="py-3 pl-5 text-sm text-gray-900">
+                {{ user.get_full_name }}
+                <span class="block -mt-1 text-xs text-gray-600">{{ user.roles.all.0 }}</span>
+            </td>
+            <td class="py-3 text-sm text-gray-900">
+                {{ user.email }}
+                <span class="block -mt-1 text-xs text-gray-600">{{ user.formatted_phone }}</span>
+            </td>
+            <td class="py-3 text-sm text-gray-900">
+                {{ user.date_joined }}
+            </td>
+            <td class="py-3 text-sm text-center text-gray-900">
+                1
+            </td>
+            <td class="py-3 text-sm text-gray-900">
+                {% if user.is_active %}
+                    <svg class="w-5 h-5 m-auto" viewBox="0 0 24 24">
+                        <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                        <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
+                    </svg>
+                {% else %}
+                    <svg class="w-5 h-5 m-auto" viewBox="0 0 24 24">
+                        <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
+                        <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
+                    </svg>  
+                {% endif %}
+            </td>
+            <td class="py-3 text-sm text-center text-gray-900">
+                <svg class="w-5 h-5 m-auto text-gray-700 fill-current" viewBox="0 0 24 24">
+                    <path d="M2 15V5c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v15a1 1 0 0 1-1.7.7L16.58 17H4a2 2 0 0 1-2-2zM20 5H4v10h13a1 1 0 0 1 .7.3l2.3 2.29V5z"/>
+                </svg>
+            </td>
+            <td>
+                <a href="{% url 'user-detail' user.id %}">
+                    <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+{% endblock content_table-content %}
+
+    
+    
+    

@@ -152,6 +152,9 @@ class User(AbstractBaseUser):
         parsed = phonenumbers.parse(self.phone_number, country)
         return phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
 
+    def get_initials(self):
+        return self.first_name[0] + self.last_name[0]
+
 class Note(models.Model):
     is_sticky = models.BooleanField(default = False)
     content = models.TextField()

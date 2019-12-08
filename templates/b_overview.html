@@ -1,0 +1,119 @@
+{% extends 'b_base.html' %}
+{% comment %}
+    b_overview.html is a file that is used, and provides the sceleton for all the backend overview pages.
+    It consists of an heading, action, filter, table and pageination.
+{% endcomment %}
+
+{% block title %}
+<title>Backend overview template</title>
+{% endblock title %}
+
+{% block breadcrumb %}
+    Breadcrumbs
+{% endblock breadcrumb %}
+
+{% block nav_home %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M13 20v-5h-2v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7.59l-.3.3a1 1 0 1 1-1.4-1.42l9-9a1 1 0 0 1 1.4 0l9 9a1 1 0 0 1-1.4 1.42l-.3-.3V20a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2zm5 0v-9.59l-6-6-6 6V20h3v-5c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v5h3z' item='Hjem' %}
+{% endblock nav_home %}
+{% block nav_users %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M14.3333 9.77778C14.3333 11.0664 13.2887 12.1111 12 12.1111V14.1111C14.3932 14.1111 16.3333 12.171 16.3333 9.77778H14.3333ZM12 12.1111C10.7113 12.1111 9.66667 11.0664 9.66667 9.77778H7.66667C7.66667 12.171 9.60677 14.1111 12 14.1111V12.1111ZM9.66667 9.77778C9.66667 8.48911 10.7113 7.44444 12 7.44444V5.44444C9.60677 5.44444 7.66667 7.38454 7.66667 9.77778H9.66667ZM12 7.44444C13.2887 7.44444 14.3333 8.48911 14.3333 9.77778H16.3333C16.3333 7.38454 14.3932 5.44444 12 5.44444V7.44444ZM12 15.4444C9.0451 15.4444 6.2682 16.2195 3.86464 17.578L4.84878 19.3192C6.95995 18.1258 9.39889 17.4444 12 17.4444V15.4444ZM20.1354 17.578C17.7318 16.2195 14.9549 15.4444 12 15.4444V17.4444C14.6011 17.4444 17.0401 18.1258 19.1512 19.3192L20.1354 17.578ZM21 12C21 16.9706 16.9706 21 12 21V23C18.0751 23 23 18.0751 23 12H21ZM12 21C7.02944 21 3 16.9706 3 12H1C1 18.0751 5.92487 23 12 23V21ZM3 12C3 7.02944 7.02944 3 12 3V1C5.92487 1 1 5.92487 1 12H3ZM12 3C16.9706 3 21 7.02944 21 12H23C23 5.92487 18.0751 1 12 1V3Z' item='Brukere' %}
+{% endblock nav_users %}
+{% block nav_requests %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z' item='Forespørsler' %}
+{% endblock nav_requests %}
+{% block nav_inventory %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M20 11.46V20a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-4h-2v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8.54A4 4 0 0 1 2 8V7a1 1 0 0 1 .1-.45l2-4A1 1 0 0 1 5 2h14a1 1 0 0 1 .9.55l2 4c.06.14.1.3.1.45v1a4 4 0 0 1-2 3.46zM18 12c-1.2 0-2.27-.52-3-1.35a3.99 3.99 0 0 1-6 0A3.99 3.99 0 0 1 6 12v8h3v-4c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v4h3v-8zm2-4h-4a2 2 0 1 0 4 0zm-6 0h-4a2 2 0 1 0 4 0zM8 8H4a2 2 0 1 0 4 0zm11.38-2l-1-2H5.62l-1 2h14.76z' item='Inventar' %}
+{% endblock nav_inventory %}
+{% block nav_suppliers %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M4.06 13a8 8 0 0 0 5.18 6.51A18.5 18.5 0 0 1 8.02 13H4.06zm0-2h3.96a18.5 18.5 0 0 1 1.22-6.51A8 8 0 0 0 4.06 11zm15.88 0a8 8 0 0 0-5.18-6.51A18.5 18.5 0 0 1 15.98 11h3.96zm0 2h-3.96a18.5 18.5 0 0 1-1.22 6.51A8 8 0 0 0 19.94 13zm-9.92 0c.16 3.95 1.23 7 1.98 7s1.82-3.05 1.98-7h-3.96zm0-2h3.96c-.16-3.95-1.23-7-1.98-7s-1.82 3.05-1.98 7zM12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z' item='Leverandører' %}
+{% endblock nav_suppliers %}
+{% block nav_marketing %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M13 16v5a1 1 0 0 1-1 1H9l-3-6a2 2 0 0 1-2-2 2 2 0 0 1-2-2v-2c0-1.1.9-2 2-2 0-1.1.9-2 2-2h7.59l4-4H20a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2.41l-4-4H13zm0-2h1.41l4 4H20V4h-1.59l-4 4H13v6zm-2 0V8H6v2H4v2h2v2h5zm0 2H8.24l2 4H11v-4z' item='Markedsføring' %}
+{% endblock nav_marketing %}
+{% block nav_reports %}
+    {% include 'components/nav/inactive_nav_item.html' with link='#' icon_path='M13.2143 2.32544L12.5072 3.03254L12.5072 3.03254L13.2143 2.32544ZM19.2301 8.34123L19.9372 7.63412L19.9372 7.63412L19.2301 8.34123ZM7.44444 17.5556C7.44444 18.1078 7.89216 18.5556 8.44444 18.5556C8.99673 18.5556 9.44444 18.1078 9.44444 17.5556H7.44444ZM9.44444 15.3333C9.44444 14.781 8.99673 14.3333 8.44444 14.3333C7.89216 14.3333 7.44444 14.781 7.44444 15.3333H9.44444ZM10.7778 17.5556C10.7778 18.1078 11.2255 18.5556 11.7778 18.5556C12.3301 18.5556 12.7778 18.1078 12.7778 17.5556H10.7778ZM12.7778 13.1111C12.7778 12.5588 12.3301 12.1111 11.7778 12.1111C11.2255 12.1111 10.7778 12.5588 10.7778 13.1111H12.7778ZM14.1111 17.5556C14.1111 18.1078 14.5588 18.5556 15.1111 18.5556C15.6634 18.5556 16.1111 18.1078 16.1111 17.5556H14.1111ZM16.1111 10.8889C16.1111 10.3366 15.6634 9.88889 15.1111 9.88889C14.5588 9.88889 14.1111 10.3366 14.1111 10.8889H16.1111ZM17.3333 21H6.22222V23H17.3333V21ZM5 19.7778V4.22222H3V19.7778H5ZM6.22222 3H12.4287V1H6.22222V3ZM18.5556 9.1269V19.7778H20.5556V9.1269H18.5556ZM12.5072 3.03254L18.523 9.04834L19.9372 7.63412L13.9214 1.61833L12.5072 3.03254ZM20.5556 9.1269C20.5556 8.567 20.3331 8.03003 19.9372 7.63412L18.523 9.04834C18.5438 9.06917 18.5556 9.09743 18.5556 9.1269H20.5556ZM12.4287 3C12.4581 3 12.4864 3.01171 12.5072 3.03254L13.9214 1.61833C13.5255 1.22242 12.9886 1 12.4287 1V3ZM6.22222 21C5.54721 21 5 20.4528 5 19.7778H3C3 21.5574 4.44264 23 6.22222 23V21ZM17.3333 23C19.1129 23 20.5556 21.5574 20.5556 19.7778H18.5556C18.5556 20.4528 18.0083 21 17.3333 21V23ZM5 4.22222C5 3.54721 5.54721 3 6.22222 3V1C4.44264 1 3 2.44264 3 4.22222H5ZM9.44444 17.5556V15.3333H7.44444V17.5556H9.44444ZM12.7778 17.5556V13.1111H10.7778V17.5556H12.7778ZM16.1111 17.5556V10.8889H14.1111V17.5556H16.1111Z' item='Rapporter' %}
+{% endblock nav_reports %}
+
+
+{% block content %}
+    <!-- heading with primary action -->
+    <div class="flex items-center justify-between">
+        {% block content_heading %}
+            Heading
+        {% endblock content_heading %}
+
+        {% block content_primary-action %}
+            Action
+        {% endblock content_primary-action %}
+    </div>
+    <!-- filter -->
+    <div class="mb-8 border-b-2 border-gray-300">
+        <div class="flex -mb-px">
+            {% block content_filter %}
+                Content filter
+            {% endblock content_filter %}
+        </div>
+    </div>
+    <!-- filter end -->
+    <!-- full width table w/ search -->
+    <div class="bg-white rounded-lg shadow">
+        <div class="flex items-center justify-between px-5 py-3 border-b border-gray-300">
+            {% block content_table-title %}
+                Table title
+            {% endblock content_table-title %}
+            {% block content_table-action %}
+                Table action
+            {% endblock content_table-action %}
+        </div>
+        <div class="flex items-center px-5 py-3 border-b border-gray-300">
+            <div class="w-full">
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 left-0 flex items-center pt-5 pl-3">
+                        <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                            <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
+                        </svg>
+                    </div>
+                </div>
+                <input id="search-input" type="text" class="block w-full py-2 pl-10 text-gray-600 bg-white border border-gray-300 rounded-lg form-input" placeholder="Søk etter brukere">
+            </div>
+        </div>
+        <table class="w-full border-b border-gray-300">
+            <thead>
+                <tr class="bg-gray-100 border-b border-gray-300">
+                    {% block content_table-heading %}
+                        Table heading
+                    {% endblock content_table-heading %}
+                </tr>
+            </thead>
+            <tbody id="overview-table">
+                {% block content_table-content %}
+                    Table content
+                {% endblock content_table-content %}
+            </tbody>
+        </table>
+        <div class="flex items-center justify-between px-5 py-2">
+            <span class="text-sm text-gray-600">Viser {{ page_obj.end_index }} av {{ page_obj.paginator.count }}</span>
+                <ul class="flex pl-0 my-2 list-none rounded">
+                {% if page_obj.has_previous %}
+                    {% include 'components/pageination/previous_page.html' with href=page_obj.previous_page_number %}
+                {% else %}
+                    {% include 'components/pageination/previous_page_disabled.html' %}
+                {% endif %}
+                {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        {% include 'components/pageination/current_page.html' with page_number=i %}
+                    {% else %}
+                        {% include 'components/pageination/inactive_page.html' with page_number=i %}
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    {% include 'components/pageination/next_page.html' with href=page_obj.next_page_number %}
+                {% else %}
+                    {% include 'components/pageination/next_page_disabled.html' %}
+                {% endif %}
+              </ul>
+        </div>
+    </div>
+    <!-- full width table w/ search end -->
+{% endblock content %}
+    
