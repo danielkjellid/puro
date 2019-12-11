@@ -21,6 +21,27 @@ class users(generic.ListView):
     paginate_by = 10
     queryset = User.objects.all()
 
+def user(request, pk):
+    user = User.objects.get(pk=pk)
+
+    context = {
+        'user': user,
+    }
+
+    return render (request, 'users/b_users_user.html', context)
+
+def userNotes(request, pk):
+    user = User.objects.get(pk=pk)
+    notes = Note.objects.filter(user_id=pk, is_sticky=False).order_by('date_edited')
+    sticky_notes = Note.objects.filter(user_id=pk, is_sticky=True).order_by('date_edited')
+
+    context = {
+        'user': user,
+        'notes': notes,
+        'sticky_notes': sticky_notes
+    }
+
+    return render (request, 'users/b_users_user_notes.html', context)
 
 # Not updated
 def usersExport(request):
@@ -42,15 +63,6 @@ def usersExport(request):
     response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
     
     return response
-
-def userDetail(request, pk):
-    user = User.objects.get(pk=pk)
-    
-    context = {
-        'user': user,
-    }
-
-    return render (request, 'users/b_users_user.html', context)
 
 def userDetailEdit(request, pk):
     user = User.objects.get(pk=pk)

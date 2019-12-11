@@ -156,6 +156,7 @@ class User(AbstractBaseUser):
         return self.first_name[0] + self.last_name[0]
 
 class Note(models.Model):
+    title = models.CharField(verbose_name='Tittel', max_length = 255, unique = False)
     is_sticky = models.BooleanField(default = False)
     content = models.TextField()
     date_edited = models.DateTimeField(default = timezone.now)
