@@ -23,9 +23,11 @@ class users(generic.ListView):
 
 def user(request, pk):
     user = User.objects.get(pk=pk)
+    sticky_notes = Note.objects.filter(user_id=pk, is_sticky=True).order_by('date_edited')
 
     context = {
         'user': user,
+        'sticky_notes': sticky_notes
     }
 
     return render (request, 'users/b_users_user.html', context)
