@@ -3,11 +3,11 @@
 
 {# meta data #}
 {% block title %}
-<title>Backend: Daniel Kjellid</title>
+<title>Backend: {{ user.get_full_name }}</title>
 {% endblock title %}
 
 {% block breadcrumb %}
-    {% include 'components/breadcrumbs/breadcrumb.html' with link='#' previous='Brukere' current='Daniel Kjellid' %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link='#' previous='Brukere' current=user.get_full_name %}
 {% endblock breadcrumb %}
 
 {% block nav_users %}

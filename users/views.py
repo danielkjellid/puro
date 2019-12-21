@@ -1,6 +1,7 @@
 import pdfkit
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
 from django.http import HttpResponse
@@ -12,15 +13,21 @@ from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, UserEditForm
+from users.forms import AddNoteForm, EditNoteForm, UserEditForm
 
 # Updated to fit new style
+def is_staff(user):
+    return user.is_staff
+
+
 class users(generic.ListView):
     model = User
     template_name = 'users/b_users.html'
     paginate_by = 10
     queryset = User.objects.all()
 
+#@login_required
+#@user_passes_test(is_staff, login_url='/login')
 def user(request, pk):
     user = User.objects.get(pk=pk)
     sticky_notes = Note.objects.filter(user_id=pk, is_sticky=True).order_by('date_edited')
@@ -30,8 +37,9 @@ def user(request, pk):
         'sticky_notes': sticky_notes
     }
 
-    return render (request, 'users/b_users_user.html', context)
+    return render(request, 'users/b_users_user.html', context)
 
+#@login_required
 def userNotes(request, pk):
     user = User.objects.get(pk=pk)
     notes = Note.objects.filter(user_id=pk, is_sticky=False).order_by('date_edited')
@@ -43,7 +51,31 @@ def userNotes(request, pk):
         'sticky_notes': sticky_notes
     }
 
-    return render (request, 'users/b_users_user_notes.html', context)
+    return render(request, 'users/b_users_user_notes.html', context)
+
+
+def changeNote(request, pk):
+    note = Note.objects.get(pk = pk)
+    note_form = EditNoteForm(instance = note)
+
+    if request.method == 'POST':
+        note_form = EditNoteForm(request.POST, instance = note)
+
+        if note_form.is_valid():
+            note_form.instance.date_edited = timezone.now()
+            note_form.author = request.user
+            note_form.save()
+            return redirect ('user', note.user_id)
+
+        else:
+            note_form = EditNoteForm(instance = note)
+
+    context = {
+        'note': note,
+        'note_form': note_form,
+    }
+
+    return render(request, 'users/b_users_user_note_edit.html', context)
 
 # Not updated
 def usersExport(request):

@@ -32,13 +32,13 @@
                                     <span class="flex text-sm font-medium text-gray-600">{{ sticky_note.date_edited }}</span>
                                     <span class="text-sm text-gray-600">Av {{ sticky_note.author }}</span> 
                                 </div>
-                                <div class="relative inline-block">
-                                    <button class="ml-5">
+                                <div class="note-menu relative inline-block">
+                                    <button class="note-menu-btn ml-5">
                                         <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
                                             <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
                                         </svg>
                                     </button>
-                                    <div class="absolute right-0 hidden text-left origin-top-right">
+                                    <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right">
                                         <div class="w-32 bg-white rounded shadow">
                                             {% include 'components/buttons/dropdown_anchor.html' with link='#' action='Rediger' %}
                                             {% include 'components/buttons/dropdown_button.html' with id=note.id action='Slett' %}
@@ -51,210 +51,225 @@
             {% endfor %}
         </div>
     {% endif %}
+    <!-- main panel body -->
+    <div class="flex">
+        <!-- panel 1/3 -->
+        <div class="w-1/3 mr-5 bg-white rounded-lg shadow">
+            <!-- panel 1/3 title and main action -->
+            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-300">
+                {% include 'components/typography/table_title.html' with title='Informasjon' %}
+                {% include 'components/buttons/secondary_button.html' with type="button" icon_path='M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z' action='Rediger'%}
+            </div>
+            <!-- panel 1/3 title and main action end -->
+            <div class="px-5 py-5">
+                <table>
+                    <!-- panel 1/3 table content -->
+                    <tbody>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top" width="48%">
+                                Fornavn
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.first_name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                Etternavn
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.last_name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                Fødselsdag
+                            </td>
+                            <td class="text-sm text-gray-900">
+                                {{ user.birth_date }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                Mobil
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.formatted_phone }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                E-post
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.email }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600">
+                                Verifisert
+                            </td>
+                            <td class="text-sm text-gray-900">
+                                {% if user.has_confirmed_email %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                        <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
+                                        <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
+                                    </svg>  
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                Adresse
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.get_full_address}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600">
+                                Kilde
+                            </td>
+                            <td class="text-sm text-gray-900">
+                                {% if user.acquisition_source %}
+                                    {{ user.acquisition_source }}
+                                {% else %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
+                                        <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
+                                    </svg> 
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                Registrert
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.date_joined }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600 align-text-top">
+                                Sist login
+                            </td>
+                            <td class="text-sm text-gray-900 align-text-top">
+                                {{ user.last_login }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600">
+                                Aktiv
+                            </td>
+                            <td class="text-sm text-gray-900">
+                                {% if user.is_active %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                        <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
+                                        <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
+                                    </svg>  
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600">
+                                Personalisering
+                            </td>
+                            <td class="text-sm text-gray-900">
+                                {% if user.allow_personalization %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                        <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
+                                        <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
+                                    </svg>  
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 text-sm text-gray-600">
+                                Tredjeparts pers.
+                            </td>
+                            <td class="text-sm text-gray-900">
+                                {% if user.allow_third_party_personalization %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+                                        <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                                        <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
+                                        <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
+                                    </svg>  
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- panel 1/3 table content end -->
+                </table>
+            </div>
+        </div>
+        <!-- panel 1/3 end -->
+        <!-- panel 2/3 -->
+        <div class="w-2/3 bg-white rounded-lg shadow">
+            <!-- panel 2/3 title and main action -->
+            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-300">
+                {% include 'components/typography/table_title.html' with title='Forespørsler' %}
+                {% include 'components/buttons/secondary_button.html' with type="button" icon_path='M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z' action='Ny forespørsel'%}
+            </div>
+            <!-- panel 2/3 title and main action end -->
+            <table class="w-full border-b border-gray-300">
+                <thead>
+                    <!-- panel 2/3 table headings -->
+                    <tr class="bg-gray-100 border-b border-gray-300">
+                        {% include 'components/table/table_heading.html' with title='ID' padding='pl-5' alignment='text-left' only %}
+                        {% include 'components/table/table_heading.html' with title='Kolleksjon' alignment='text-left' only %}
+                        {% include 'components/table/table_heading.html' with title='Sum' alignment='text-left' only %}
+                        {% include 'components/table/table_heading.html' with title='Oppdatert' alignment='text-left' only %}
+                        {% include 'components/table/table_heading.html' with title='Status' alignment='text-center' only %}
+                        {% include 'components/table/table_heading.html' with padding='pr-5' only %}
+                    </tr>
+                    <!-- panel 2/3 table headings end -->
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-300">
+                        <td class="py-3 pl-5 text-sm text-gray-900">
+                            dycv3z
+                        </td>
+                        <td class="py-3 text-sm text-gray-900">
+                            Ikon
+                        </td>
+                        <td class="py-3 text-sm text-gray-900">
+                            9980,00kr
+                        </td>
+                        <td class="py-3 text-sm text-gray-600">
+                            14. August 2019 15:40
+                        </td>
+                        <td class="py-3 text-center">
+                            <span class="block w-2 h-2 m-auto bg-orange-400 rounded-full"></span>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
+                                    <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock detail_content%}
-
-{% block content_panel-1/3-title %}
-    {% include 'components/typography/table_title.html' with title='Informasjon' %}
-{% endblock content_panel-1/3-title %}
-
-{% block content_panel-1/3-action %}
-    {% include 'components/buttons/secondary_button.html' with icon_path='M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z' action='Rediger'%}
-{% endblock content_panel-1/3-action %}
-
-{% block content_panel-1/3-table-content %}
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top" width="48%">
-            Fornavn
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.first_name }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            Etternavn
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.last_name }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            Fødselsdag
-        </td>
-        <td class="text-sm text-gray-900">
-            {{ user.birth_date }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            Mobil
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.formatted_phone }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            E-post
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.email }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600">
-            Verifisert
-        </td>
-        <td class="text-sm text-gray-900">
-            {% if user.has_confirmed_email %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
-                    <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
-                </svg>
-            {% else %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
-                    <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
-                </svg>  
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            Adresse
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.get_full_address}}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600">
-            Kilde
-        </td>
-        <td class="text-sm text-gray-900">
-            {% if user.acquisition_source %}
-                {{ user.acquisition_source }}
-            {% else %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
-                    <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
-                </svg> 
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            Registrert
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.date_joined }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600 align-text-top">
-            Sist login
-        </td>
-        <td class="text-sm text-gray-900 align-text-top">
-            {{ user.last_login }}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600">
-            Aktiv
-        </td>
-        <td class="text-sm text-gray-900">
-            {% if user.is_active %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
-                    <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
-                </svg>
-            {% else %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
-                    <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
-                </svg>  
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600">
-            Personalisering
-        </td>
-        <td class="text-sm text-gray-900">
-            {% if user.allow_personalization %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
-                    <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
-                </svg>
-            {% else %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
-                    <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
-                </svg>  
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td class="py-2 text-sm text-gray-600">
-            Tredjeparts pers.
-        </td>
-        <td class="text-sm text-gray-900">
-            {% if user.allow_third_party_personalization %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-green-200 fill-current" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
-                    <path class="text-green-700 fill-current" d="M10 14.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858Z"/>
-                </svg>
-            {% else %}
-                <svg class="w-4 h-4" viewBox="0 0 24 24">
-                    <path class="text-red-200 fill-current" d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z"/>
-                    <path class="text-red-700 fill-current" d="M13.4143 12L16.2427 14.8284C16.6332 15.219 16.6332 15.8521 16.2427 16.2427C15.8522 16.6332 15.219 16.6332 14.8285 16.2427L12 13.4142L9.17162 16.2427C8.78109 16.6332 8.14793 16.6332 7.7574 16.2427C7.36688 15.8521 7.36688 15.219 7.7574 14.8284L10.5858 12L7.7574 9.17158C7.36688 8.78106 7.36688 8.14789 7.7574 7.75737C8.14793 7.36685 8.78109 7.36685 9.17162 7.75737L12 10.5858L14.8285 7.75737C15.219 7.36685 15.8522 7.36685 16.2427 7.75737C16.6332 8.14789 16.6332 8.78106 16.2427 9.17158L13.4143 12Z"/>
-                </svg>  
-            {% endif %}
-        </td>
-    </tr>
-{% endblock content_panel-1/3-table-content %}
-
-{% block content_panel-2/3-title %}
-    {% include 'components/typography/table_title.html' with title='Forespørsler' %}
-{% endblock content_panel-2/3-title %}
-
-{% block content_panel-2/3-action %}
-    {% include 'components/buttons/secondary_button.html' with icon_path='M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z' action='Ny forespørsel'%}
-{% endblock content_panel-2/3-action %}
-
-{% block content_panel-2/3-table-heading %}
-    {% include 'components/table/table_heading.html' with title='ID' padding='pl-5' alignment='text-left' only %}
-    {% include 'components/table/table_heading.html' with title='Kolleksjon' alignment='text-left' only %}
-    {% include 'components/table/table_heading.html' with title='Sum' alignment='text-left' only %}
-    {% include 'components/table/table_heading.html' with title='Oppdatert' alignment='text-left' only %}
-    {% include 'components/table/table_heading.html' with title='Status' alignment='text-center' only %}
-    {% include 'components/table/table_heading.html' with padding='pr-5' only %}
-{% endblock content_panel-2/3-table-heading %}
-
-{% block content_panel-2/3-table-content %}
-    <tr class="border-b border-gray-300">
-        <td class="py-3 pl-5 text-sm text-gray-900">
-            dycv3z
-        </td>
-        <td class="py-3 text-sm text-gray-900">
-            Ikon
-        </td>
-        <td class="py-3 text-sm text-gray-900">
-            9980,00kr
-        </td>
-        <td class="py-3 text-sm text-gray-600">
-            14. August 2019 15:40
-        </td>
-        <td class="py-3 text-center">
-            <span class="block w-2 h-2 m-auto bg-orange-400 rounded-full"></span>
-        </td>
-        <td>
-            <a href="#">
-                <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
-                </svg>
-            </a>
-        </td>
-    </tr>
-{% endblock content_panel-2/3-table-content %}

@@ -33,15 +33,16 @@
                                 <span class="flex text-sm font-medium text-gray-600">{{ sticky_note.date_edited }}</span>
                                 <span class="text-sm text-gray-600">Av {{ sticky_note.author }}</span> 
                             </div>
-                            <div class="relative inline-block">
-                                <button class="ml-5">
+                            <div class="note-menu relative inline-block">
+                                <button class="note-menu-btn ml-5">
                                     <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
                                         <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
                                     </svg>
                                 </button>
-                                <div class="absolute right-0 hidden text-left origin-top-right">
+                                <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right z-10">
                                     <div class="w-32 bg-white rounded shadow">
-                                        {% include 'components/buttons/dropdown_anchor.html' with link='#' action='Rediger' %}
+                                        {% url 'change-note' sticky_note.id as sticky_note_url %}
+                                        {% include 'components/buttons/dropdown_anchor.html' with link=sticky_note_url action='Rediger' %}
                                         {% include 'components/buttons/dropdown_button.html' with id=note.id action='Slett' %}
                                     </div>
                                 </div>
@@ -74,18 +75,19 @@
                                 <span class="flex text-sm font-medium text-gray-600">{{ note.date_edited }}</span>
                                 <span class="text-sm text-gray-600">Av {{ note.author }}</span> 
                             </div>
-                            <div class="relative inline-block">
-                                <button class="ml-5">
+                            <div class="note-menu relative inline-block">
+                                <button class="note-menu-btn ml-5">
                                     <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
                                         <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
                                     </svg>
                                 </button>
-                                <div class="absolute right-0 hidden text-left origin-top-right">
+                                <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right z-10">
                                     <div class="w-32 bg-white rounded shadow">
                                         <div class="py-1">
-                                            {% include 'components/buttons/dropdown_anchor.html' with link='#' action='Rediger' %}
+                                            {% url 'change-note' note.id as note_url %}
+                                            {% include 'components/buttons/dropdown_anchor.html' with link=note_url action='Rediger' %}
                                         </div>
-                                        <div class="py-1 border-t border-gray-300">
+                                        <div class="py-1">
                                             {% include 'components/buttons/dropdown_button.html' with id=note.id action='Slett' %}
                                         </div>
                                     </div>
