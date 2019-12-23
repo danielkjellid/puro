@@ -6,6 +6,11 @@
 <title>Backend: Notes - {{ user.get_full_name }}</title>
 {% endblock title %}
 
+{% block breadcrumb %}
+    {% url 'user' user.id as user_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Notater' %}
+{% endblock breadcrumb %}
+
 {# content data #}
 {% block filter_notes %}
     {% include 'components/nav/active_tab.html' with link=user_notes_url name='Notater' %}

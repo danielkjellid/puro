@@ -7,6 +7,11 @@
 <title>Backend: Endre Notat - {{ note.title }}</title>
 {% endblock title %}
 
+{% block breadcrumb %}
+    {% url 'user' user.id as user_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Nytt notat' %}
+{% endblock breadcrumb %}
+
 {# content data #}
 {% block content_main-title %}
     <div class="pb-4 flex">
@@ -23,7 +28,7 @@
 
 {% block detail_content %}
     <div class="bg-white rounded-lg shadow max-w-6xl">
-        <form method="POST">
+        <form method="POST" id="add-note-form">
             {% csrf_token %}
             <div class="py-5 px-5">
                 <div>
@@ -42,14 +47,18 @@
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-300 py-5 px-5 flex items-center justify-end">
-                <div class="mr-2">
-                    {% include 'components/buttons/tertiary_button_no-icon.html' with type="button" action="Avbryt" %}
-                </div>
-                <div>
-                    {% include 'components/buttons/primary_button_no-icon.html' with type="submit" action="Lagre" %}
-                </div>    
-            </div>
         </form>
     </div>
 {% endblock detail_content %}
+{% block footer %}
+<div class="bg-white sticky bottom-0 border-t border-gray-300 shadow">
+    <div class="py-5 px-5 flex items-center justify-end">
+        <div class="mr-2">
+            {% include 'components/buttons/tertiary_button_no-icon.html' with type="button" action="Avbryt" %}
+        </div>
+        <div>
+            {% include 'components/buttons/primary_button_no-icon.html' with type="submit" form='add-note-form' action="Lagre" %}
+        </div>    
+    </div>
+</div>
+{% endblock footer %}

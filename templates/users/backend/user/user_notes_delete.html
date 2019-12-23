@@ -7,6 +7,11 @@
 <title>Backend: Endre Notat - {{ note.title }}</title>
 {% endblock title %}
 
+{% block breadcrumb %}
+    {% url 'user' user.id as user_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Slett notat' %}
+{% endblock breadcrumb %}
+
 {# content data #}
 {% block content_main-title %}
     <div class="pb-4 flex">
@@ -22,33 +27,27 @@
 {% endblock content_filter %}
 
 {% block detail_content %}
-    <div class="bg-yellow-100 rounded py-5 px-5 mb-4 max-w-6xl">
-        <div class="flex">
-            <svg class="w-6 h-6 text-yellow-800 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-            </svg>
-            <div class="ml-2">
-                <p class="text-base text-yellow-900 font-semibold">Slettede notater kan ikke gjenopprettes!</p>
-                <p class="text-sm text-yellow-800">All data vil bli slettet, og kan ikke gjenopprettes ved en senere anledning.</p>
-            </div>
-        </div>
-    </div>
-    <div class="bg-white rounded-lg shadow max-w-6xl">
-        <form method="POST">
+    <div class="bg-white shadow rounded-lg px-5 py-5 w-1/2">
+        <form method="POST" id="delete-note-form">
             {% csrf_token %}
-            <div class="py-5 px-5">
+            <div class="flex">
+                <div>
+                    <svg class="h-12 w-12 -mt-1 mr-2" viewBox="0 0 24 24">
+                        <path class="text-gray-400 fill-current" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </svg>  
+                </div>                   
                 <div>
                     <p class="block text-gray-900 text-sm font-semibold">Slette notat "{{ note.title }}"</p>
                     <p class="text-sm text-gray-700">Er du sikker på at du ønsker å slette notatet? All data vil bli slettet, og kan ikke gjenopprettes.</p>
                 </div>
             </div>
-            <div class="border-t border-gray-300 py-5 px-5 flex items-center justify-end">
+            <div class="flex justify-end mt-4">
                 <div class="mr-2">
                     {% include 'components/buttons/tertiary_button_no-icon.html' with type="button" action="Avbryt" %}
                 </div>
                 <div>
-                    {% include 'components/buttons/primary_button_no-icon.html' with type="submit" action="Slett notat" %}
-                </div>    
+                    {% include 'components/buttons/danger_button.html' with type='submit' form='delete-note-form' action='Slett notat' %}
+                </div>  
             </div>
         </form>
     </div>

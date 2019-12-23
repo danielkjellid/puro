@@ -40,10 +40,10 @@
                                     </button>
                                     <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right">
                                         <div class="w-32 bg-white rounded shadow">
-                                            {% url 'edit-note' sticky_note.id as sticky_note_url %}
-                                            {% include 'components/buttons/dropdown_anchor.html' with link=sticky_note_url action='Rediger' %}
-                                            {% url 'delete-note' note.id as delete_note_url %}
-                                            {% include 'components/buttons/dropdown_anchor.html' with link=delete_note_url action='Slett' %}
+                                            {% url 'edit-note' sticky_note.id as edit_sticky_note_url %}
+                                            {% include 'components/buttons/dropdown_anchor.html' with link=edit_sticky_note_url action='Rediger' %}
+                                            {% url 'delete-note' sticky_note.id as delete_sticky_note_url %}
+                                            {% include 'components/buttons/dropdown_anchor.html' with link=delete_sticky_note_url action='Slett' %}
                                         </div>
                                     </div>
                                 </div>           

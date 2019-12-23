@@ -1,0 +1,72 @@
+{# extend the backend detail template #}
+{% extends 'users/backend/user/user_base.html' %}
+{% load i18n %}
+
+{# meta data #}
+{% block title %}
+<title>Backend: Endre Notat - {{ note.title }}</title>
+{% endblock title %}
+
+{% block breadcrumb %}
+    {% url 'user' user.id as user_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Slett notat' %}
+{% endblock breadcrumb %}
+
+{# content data #}
+{% block content_main-title %}
+    <div class="pb-4 flex">
+        {% blocktrans with user=user.get_full_name asvar deactivate_title %}
+            Deaktiver "{{ user }}"
+        {% endblocktrans %}
+        {% blocktrans with user=user.get_full_name asvar activate_title %}
+            Aktiver "{{ user }}"
+        {% endblocktrans%}
+
+        {% if user.is_active %}
+            {% include 'components/typography/main_heading.html' with name=deactivate_title %}
+        {% else %}
+            {% include 'components/typography/main_heading.html' with name=activate_title %}
+        {% endif %}
+
+    </div>
+{% endblock content_main-title %}
+
+{% block content_filter %}
+    {# none #}
+{% endblock content_filter %}
+
+{% block detail_content %}
+    <div class="bg-white shadow rounded-lg px-5 py-5 w-1/2">
+        <form method="POST" id="toggle-user-form">
+            {% csrf_token %}
+            <div class="flex">
+                <div>
+                    <svg class="h-12 w-12 -mt-1 mr-2" viewBox="0 0 24 24">
+                        <path class="text-gray-400 fill-current" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </svg>  
+                </div>               
+                <div>
+                    {% if user.is_active %}
+                        <p class="block text-gray-900 text-sm font-semibold">Deaktiver bruker "{{ user.get_full_name }}"</p>
+                        <p class="text-sm text-gray-700">Er du sikker på at du ønsker å deaktivere brukeren? Å deaktivere kontoen forhindrer brukeren fra å kunne logge inn på tjenesten, men all informasjon om brukeren lagres, og kan gjenopprettes.</p>
+                    {% else %}
+                        <p class="block text-gray-900 text-sm font-semibold">Aktiver bruker "{{ user.get_full_name }}"</p>
+                        <p class="text-sm text-gray-700">Er du sikker på at du ønsker å aktivere brukeren? Å aktivere kontoen tillater brukeren fra å kunne logge inn på tjenesten. Kontoen er mest sannsynelig deaktivert for en grunn, sjekk notater.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <div class="mr-2">
+                    {% include 'components/buttons/tertiary_button_no-icon.html' with type="button" action="Avbryt" %}
+                </div>
+                <div>
+                    {% if user.is_active %}
+                        {% include 'components/buttons/danger_button.html' with type='submit' form='toggle-user-form' action='Deaktiver bruker' %}
+                    {% else %}
+                        {% include 'components/buttons/success_button.html' with type='submit' form='toggle-user-form' action='Aktiver bruker' %}
+                    {% endif %}
+                </div>  
+            </div>
+        </form>
+    </div>
+{% endblock detail_content %}

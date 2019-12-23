@@ -74,5 +74,9 @@ class EditUserForm(forms.ModelForm):
             'acquisition_source',
         )
 
+class ToggleUserForm(forms.ModelForm):
 
+    class Meta:
+        model = User
+        fields = []
 

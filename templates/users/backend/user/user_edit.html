@@ -7,6 +7,11 @@
 <title>Backend: Endre {{ user.get_full_name }}</title>
 {% endblock title %}
 
+{% block breadcrumb %}
+    {% url 'user' user.id as user_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Rediger bruker' %}
+{% endblock breadcrumb %}
+
 {# content data #}
 {% block content_main-title %}
     <div class="pb-4 flex">
