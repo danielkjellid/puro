@@ -18,7 +18,7 @@
 {% endblock content_filter %}
 
 {% block detail_content %}
-    <div class="bg-yellow-100 rounded py-5 px-5 mb-4">
+    <div class="bg-yellow-100 rounded py-5 px-5 mb-4 max-w-6xl">
         <div class="flex">
             <svg class="w-6 h-6 text-yellow-800 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
@@ -29,20 +29,20 @@
             </div>
         </div>
     </div>
-    <div class="bg-white rounded-lg shadow">
+    <div class="bg-white rounded-lg shadow max-w-6xl">
         <form method="POST">
             {% csrf_token %}
             <div class="py-5 px-5">
                 <div>
                     <label class="block text-gray-900 text-sm font-semibold mb-2">Tittel</label>
-                    {{ note_form.title }}
+                    {{ edit_note_form.title }}
                 </div>
                 <div class="mt-6">
                     <label class="block text-gray-900 text-sm font-semibold mb-2">Notat</label>
-                    {{ note_form.content }}
+                    {{ edit_note_form.content }}
                 </div>
                 <div class="mt-6 flex items center">
-                    {{ note_form.is_sticky }}
+                    {{ edit_note_form.is_sticky }}
                     <div class="ml-2">
                         <p class="block text-gray-900 text-sm font-semibold">Viktig notat</p>
                         <p class="text-sm text-gray-700">Viktig notat vil feste notatet øverst, og brukes dersom notatet er viktig. Det burde maksimalt være to viktige notater per bruker.</p>

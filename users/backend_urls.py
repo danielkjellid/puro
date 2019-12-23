@@ -9,8 +9,9 @@ urlpatterns = [
     path('', users_views.users.as_view(), name="users"),
     path('<int:pk>/notes/', users_views.userNotes, name="user-notes" ),
     path('<int:pk>/', users_views.user, name="user"),
-    
-    path('crm/notes/edit/<int:pk>', users_views.changeNote, name="change-note"),
+    path('<int:pk>/notes/add/', users_views.addNote, name="add-note"),
+
+    path('crm/notes/edit/<int:pk>', users_views.editNote, name="edit-note"),
     #not updated
     path('export/', users_views.usersExport, name="users-export"),
     path('<int:pk>/', users_views.user, name="user"),

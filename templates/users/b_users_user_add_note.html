@@ -1,0 +1,51 @@
+{# extend the backend detail template #}
+{% extends 'users/b_user_base.html' %}
+
+{# meta data #}
+{% block title %}
+<title>Backend: Endre Notat - {{ note.title }}</title>
+{% endblock title %}
+
+{# content data #}
+{% block content_main-title %}
+    <div class="pb-4 flex">
+        {% include 'components/typography/main_heading.html' with name='Opprett notat' %}
+    </div>
+{% endblock content_main-title %}
+
+{% block content_filter %}
+    {# none #}
+{% endblock content_filter %}
+
+{% block detail_content %}
+    <div class="bg-white rounded-lg shadow max-w-6xl">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="py-5 px-5">
+                <div>
+                    <label class="block text-gray-900 text-sm font-semibold mb-2">Tittel</label>
+                    {{ add_note_form.title }}
+                </div>
+                <div class="mt-6">
+                    <label class="block text-gray-900 text-sm font-semibold mb-2">Notat</label>
+                    {{ add_note_form.content }}
+                </div>
+                <div class="mt-6 flex items center">
+                    {{ add_note_form.is_sticky }}
+                    <div class="ml-2">
+                        <p class="block text-gray-900 text-sm font-semibold">Viktig notat</p>
+                        <p class="text-sm text-gray-700">Viktig notat vil feste notatet øverst, og brukes dersom notatet er viktig. Det burde maksimalt være to viktige notater per bruker.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-300 py-5 px-5 flex items-center justify-end">
+                <div class="mr-2">
+                    {% include 'components/buttons/tertiary_button_no-icon.html' with type="button" action="Avbryt" %}
+                </div>
+                <div>
+                    {% include 'components/buttons/primary_button_no-icon.html' with type="submit" action="Lagre" %}
+                </div>    
+            </div>
+        </form>
+    </div>
+{% endblock detail_content %}

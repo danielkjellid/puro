@@ -54,28 +54,54 @@ def userNotes(request, pk):
     return render(request, 'users/b_users_user_notes.html', context)
 
 
-def changeNote(request, pk):
+def editNote(request, pk):
     note = Note.objects.get(pk = pk)
-    note_form = EditNoteForm(instance = note)
+    edit_note_form = EditNoteForm(instance = note)
 
     if request.method == 'POST':
-        note_form = EditNoteForm(request.POST, instance = note)
+        edit_note_form = EditNoteForm(request.POST, instance = note)
 
-        if note_form.is_valid():
-            note_form.instance.date_edited = timezone.now()
-            note_form.author = request.user
-            note_form.save()
+        if edit_note_form.is_valid():
+            edit_note_form.instance.date_edited = timezone.now()
+            edit_note_form.instance.author = request.user
+            edit_note_form.save()
             return redirect ('user', note.user_id)
 
         else:
-            note_form = EditNoteForm(instance = note)
+            edit_note_form = EditNoteForm(instance = note)
 
     context = {
         'note': note,
-        'note_form': note_form,
+        'edit_note_form': edit_note_form,
     }
 
-    return render(request, 'users/b_users_user_note_edit.html', context)
+    return render(request, 'users/b_users_user_edit_note.html', context)
+
+def addNote(request, pk):
+    user = User.objects.get(pk = pk)
+    add_note_form = AddNoteForm()
+
+    if request.method == 'POST':
+        add_note_form = AddNoteForm(request.POST)
+
+        if add_note_form.is_valid():
+            add_note_form.instance.date_edited = timezone.now()
+            add_note_form.instance.user = user
+            add_note_form.instance.author = request.user
+            add_note_form.save()
+            return redirect ('user', pk)
+
+        else:
+            add_note_form = AddNoteForm()
+
+    context = {
+        'user': user,
+        'add_note_form': add_note_form,
+    }
+
+    return render(request, 'users/b_users_user_add_note.html', context)
+
+
 
 # Not updated
 def usersExport(request):
