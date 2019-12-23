@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import get_template
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -13,7 +13,7 @@ from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, EditNoteForm, UserEditForm
+from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, UserEditForm
 
 # Updated to fit new style
 def is_staff(user):
@@ -100,6 +100,29 @@ def addNote(request, pk):
     }
 
     return render(request, 'users/b_users_user_add_note.html', context)
+
+def deleteNote(request, pk):
+    note = Note.objects.get(pk = pk)
+    user = User.objects.get(id = note.user_id)
+
+    new_to_delete = get_object_or_404(Note, pk = pk)
+
+    if request.method == 'POST':
+        delete_form = DeleteNoteForm(request.POST, instance = new_to_delete)
+        
+        if delete_form.is_valid():
+            new_to_delete.delete()
+            return redirect ('user', user.id)
+
+        else:
+            delete_form = DeleteNoteForm(instance = new_to_delete)
+    
+    context = {
+        'note': note,
+        'user': user, 
+    }
+
+    return render(request, 'users/b_users_user_delete_note.html', context)
 
 
 

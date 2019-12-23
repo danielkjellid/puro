@@ -10,6 +10,7 @@ urlpatterns = [
     path('<int:pk>/notes/', users_views.userNotes, name="user-notes" ),
     path('<int:pk>/', users_views.user, name="user"),
     path('<int:pk>/notes/add/', users_views.addNote, name="add-note"),
+    path('crm/notes/delete/<int:pk>', users_views.deleteNote, name="delete-note"),
 
     path('crm/notes/edit/<int:pk>', users_views.editNote, name="edit-note"),
     #not updated

@@ -1,5 +1,6 @@
 {# extend the backend detail template #}
 {% extends 'users/b_user_base.html' %}
+{% load i18n %}
 
 {# meta data #}
 {% block title %}
@@ -9,7 +10,10 @@
 {# content data #}
 {% block content_main-title %}
     <div class="pb-4 flex">
-        {% include 'components/typography/main_heading.html' with name='Endre notat' %}
+        {% blocktrans with user=user.get_full_name asvar the_title %}
+            Endre notat på "{{ user }}"
+        {% endblocktrans %}
+        {% include 'components/typography/main_heading.html' with name=the_title %}
     </div>
 {% endblock content_main-title %}
 

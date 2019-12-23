@@ -30,6 +30,12 @@ class EditNoteForm(forms.ModelForm):
         model = Note
         fields = ('title', 'content', 'is_sticky')
 
+class DeleteNoteForm(forms.ModelForm):
+
+    class Meta:
+        model = Note
+        fields = []
+
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = User

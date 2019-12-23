@@ -41,9 +41,10 @@
                                 </button>
                                 <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right z-10">
                                     <div class="w-32 bg-white rounded shadow">
-                                        {% url 'edit-note' sticky_note.id as sticky_note_url %}
-                                        {% include 'components/buttons/dropdown_anchor.html' with link=sticky_note_url action='Rediger' %}
-                                        {% include 'components/buttons/dropdown_button.html' with id=note.id action='Slett' %}
+                                        {% url 'edit-note' sticky_note.id as edit_sticky_note_url %}
+                                        {% include 'components/buttons/dropdown_anchor.html' with link=edit_sticky_note_url action='Rediger' %}
+                                        {% url 'delete-note' sticky_note.id as delete_sticky_note_url %}
+                                        {% include 'components/buttons/dropdown_anchor.html' with link=delete_sticky_note_url action='Slett' %}
                                     </div>
                                 </div>
                             </div>           
@@ -84,11 +85,12 @@
                                 <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right z-10">
                                     <div class="w-32 bg-white rounded shadow">
                                         <div class="py-1">
-                                            {% url 'edit-note' note.id as note_url %}
-                                            {% include 'components/buttons/dropdown_anchor.html' with link=note_url action='Rediger' %}
+                                            {% url 'edit-note' note.id as edit_note_url %}
+                                            {% include 'components/buttons/dropdown_anchor.html' with link=edit_note_url action='Rediger' %}
                                         </div>
                                         <div class="py-1">
-                                            {% include 'components/buttons/dropdown_button.html' with id=note.id action='Slett' %}
+                                            {% url 'delete-note' note.id as delete_note_url %}
+                                            {% include 'components/buttons/dropdown_anchor.html' with link=delete_note_url action='Slett' %}
                                         </div>
                                     </div>
                                 </div>
