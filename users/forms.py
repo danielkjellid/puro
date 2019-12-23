@@ -36,7 +36,25 @@ class DeleteNoteForm(forms.ModelForm):
         model = Note
         fields = []
 
-class UserEditForm(forms.ModelForm):
+class EditUserForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['last_name'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['birth_date'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['phone_number'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['email'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['has_confirmed_email'].widget.attrs.update({'class': CHECKBOX})
+        self.fields['address'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['zip_code'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['zip_place'].widget.attrs.update({'class': TEXT_INPUT})
+        self.fields['disabled_emails'].widget.attrs.update({'class': CHECKBOX})
+        self.fields['subscribed_to_newsletter'].widget.attrs.update({'class': CHECKBOX})
+        self.fields['allow_personalization'].widget.attrs.update({'class': CHECKBOX})
+        self.fields['allow_third_party_personalization'].widget.attrs.update({'class': CHECKBOX})
+        self.fields['acquisition_source'].widget.attrs.update({'class': TEXT_INPUT})
+
     class Meta:
         model = User
         fields = (
@@ -55,3 +73,6 @@ class UserEditForm(forms.ModelForm):
             'allow_third_party_personalization', 
             'acquisition_source',
         )
+
+
+

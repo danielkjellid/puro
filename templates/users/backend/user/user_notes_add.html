@@ -1,5 +1,5 @@
 {# extend the backend detail template #}
-{% extends 'users/b_user_base.html' %}
+{% extends 'users/backend/user/user_base.html' %}
 {% load i18n %}
 
 {# meta data #}
@@ -11,7 +11,7 @@
 {% block content_main-title %}
     <div class="pb-4 flex">
         {% blocktrans with user=user.get_full_name asvar the_title %}
-            Endre notat på "{{ user }}"
+            Legg til notat på "{{ user }}"
         {% endblocktrans %}
         {% include 'components/typography/main_heading.html' with name=the_title %}
     </div>
@@ -22,33 +22,22 @@
 {% endblock content_filter %}
 
 {% block detail_content %}
-    <div class="bg-yellow-100 rounded py-5 px-5 mb-4 max-w-6xl">
-        <div class="flex">
-            <svg class="w-6 h-6 text-yellow-800 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-            </svg>
-            <div class="ml-2">
-                <p class="text-base text-yellow-900 font-semibold">Forfatter vil bli endret!</p>
-                <p class="text-sm text-yellow-800">Den originale forfatteren av dette notatet er {{ note.author }}. Ved å oppdatere og redigere dette notatet vil forfatter bli endret til din konto.</p>
-            </div>
-        </div>
-    </div>
     <div class="bg-white rounded-lg shadow max-w-6xl">
         <form method="POST">
             {% csrf_token %}
             <div class="py-5 px-5">
                 <div>
-                    <label class="block text-gray-900 text-sm font-semibold mb-2">Tittel</label>
-                    {{ edit_note_form.title }}
+                    {% include 'components/typography/form_label.html' with label='Tittel' %}
+                    {{ add_note_form.title }}
                 </div>
                 <div class="mt-6">
-                    <label class="block text-gray-900 text-sm font-semibold mb-2">Notat</label>
-                    {{ edit_note_form.content }}
+                    {% include 'components/typography/form_label.html' with label='Notat' %}
+                    {{ add_note_form.content }}
                 </div>
                 <div class="mt-6 flex items center">
-                    {{ edit_note_form.is_sticky }}
+                    {{ add_note_form.is_sticky }}
                     <div class="ml-2">
-                        <p class="block text-gray-900 text-sm font-semibold">Viktig notat</p>
+                        {% include 'components/typography/form_label_checkbox.html' with label='Viktig notat' %}
                         <p class="text-sm text-gray-700">Viktig notat vil feste notatet øverst, og brukes dersom notatet er viktig. Det burde maksimalt være to viktige notater per bruker.</p>
                     </div>
                 </div>

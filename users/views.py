@@ -13,7 +13,7 @@ from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, UserEditForm
+from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm
 
 # Updated to fit new style
 def is_staff(user):
@@ -22,7 +22,7 @@ def is_staff(user):
 
 class users(generic.ListView):
     model = User
-    template_name = 'users/b_users.html'
+    template_name = 'users/backend/users.html'
     paginate_by = 10
     queryset = User.objects.all()
 
@@ -37,7 +37,30 @@ def user(request, pk):
         'sticky_notes': sticky_notes
     }
 
-    return render(request, 'users/b_users_user.html', context)
+    return render(request, 'users/backend/user/user.html', context)
+
+def editUser(request, pk):
+    user = User.objects.get(pk = pk)
+    edit_user_form = EditUserForm(instance = user)
+
+    if request.method == 'POST':
+        edit_user_form = EditUserForm(request.POST, instance = user)
+
+        if edit_user_form.is_valid():
+            edit_user_form.save()
+            return redirect('user', pk)
+        
+        else:
+            edit_user_form = EditUserForm(instance = user)
+    
+    context = {
+        'user': user,
+        'edit_user_form': edit_user_form,
+    }
+
+    return render(request, 'users/backend/user/user_edit.html', context)
+
+
 
 #@login_required
 def userNotes(request, pk):
@@ -51,8 +74,7 @@ def userNotes(request, pk):
         'sticky_notes': sticky_notes
     }
 
-    return render(request, 'users/b_users_user_notes.html', context)
-
+    return render(request, 'users/backend/user/user_notes.html', context)
 
 def editNote(request, pk):
     note = Note.objects.get(pk = pk)
@@ -75,7 +97,7 @@ def editNote(request, pk):
         'edit_note_form': edit_note_form,
     }
 
-    return render(request, 'users/b_users_user_edit_note.html', context)
+    return render(request, 'users/backend/user/user_notes_edit.html', context)
 
 def addNote(request, pk):
     user = User.objects.get(pk = pk)
@@ -99,7 +121,7 @@ def addNote(request, pk):
         'add_note_form': add_note_form,
     }
 
-    return render(request, 'users/b_users_user_add_note.html', context)
+    return render(request, 'users/backend/user/user_notes_add.html', context)
 
 def deleteNote(request, pk):
     note = Note.objects.get(pk = pk)
@@ -122,16 +144,17 @@ def deleteNote(request, pk):
         'user': user, 
     }
 
-    return render(request, 'users/b_users_user_delete_note.html', context)
+    return render(request, 'users/backend/user/user_notes_delete.html', context)
 
 
 
 # Not updated
+"""
 def usersExport(request):
     users = User.objects.all()
 
     # getting template, and rendering data
-    template = get_template('old/backend/users/users_export.html')
+    template = get_template('old/backend/users_export.html')
     html = template.render({'users': users})
     pdf = pdfkit.from_string(html, False)
 
@@ -202,7 +225,7 @@ def userDetailEdit(request, pk):
         'notes': notes,
     }
 
-    return render (request, 'old/backend/users/users_user_edit.html', context)
+    return render (request, 'old/backend/users_user_edit.html', context)
 
 def userDetailEditToggleActive(request, pk):
     user = User.objects.get(pk = pk)
@@ -231,14 +254,14 @@ def userDetailEditToggleActive(request, pk):
         'notes': notes,
     }
 
-    return render(request, 'old/backend/users/users_user_edit_toggle.html', context)
+    return render(request, 'old/backend/users_user_edit_toggle.html', context)
 
 def userDetailExport(request, pk):
     user = User.objects.get(pk = pk)
     user_group = Group.objects.get(user = pk)
 
     # getting template, and rendering data
-    template = get_template('old/backend/users/users_user_detail_export.html')
+    template = get_template('old/backend/users_user_detail_export.html')
     html = template.render({'user':user, 'user_group': user_group})
     pdf = pdfkit.from_string(html, False)
 
@@ -253,5 +276,7 @@ def userDetailExport(request, pk):
     response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
 
     return response
+
+"""
 
 
