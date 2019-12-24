@@ -13,7 +13,7 @@ from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm, ToggleUserForm
+from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm, ToggleUserForm, AddUserForm
 
 def is_staff(user):
     return user.is_staff
@@ -56,6 +56,27 @@ def user(request, pk):
     }
 
     return render(request, 'users/backend/user/user.html', context)
+
+def addUser(request):    
+    add_user_form = AddUserForm()
+
+    if request.method == 'POST':
+        add_user_form = AddUserForm(request.POST)
+
+        if add_user_form.is_valid():
+            user = add_user_form.save()
+            customer_group = Group.objects.get(name = 'Privatkunde')
+            user.roles.add(customer_group)
+            return redirect('users')
+
+        else:
+            add_user_form = AddUserForm()
+
+    context = {
+        'add_user_form': add_user_form,
+    }
+
+    return render(request, 'users/backend/user/user_add.html', context)
 
 def toggleUser(request, pk):
     user = User.objects.get(pk = pk)

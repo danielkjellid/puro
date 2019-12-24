@@ -1,24 +1,22 @@
-{# extend the backend detail template #}
-{% extends 'users/backend/user/user_base.html' %}
+{# extend the backend overview template #}
+{% extends 'backend_overview_page_base.html' %}
 {% load i18n %}
 
 {# meta data #}
 {% block title %}
-<title>Backend: Endre {{ user.get_full_name }}</title>
+<title>Backend: Opprett bruker</title>
 {% endblock title %}
 
+{# set appropriate breadcrumb using the breadcrumb component #}
 {% block breadcrumb %}
-    {% url 'user' user.id as user_url %}
-    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Rediger bruker' %}
+    {% url 'users' as users_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=users_url previous='Brukere' current='Opprett bruker' %}
 {% endblock breadcrumb %}
 
 {# content data #}
 {% block content_main-title %}
     <div class="pb-4 flex">
-        {% blocktrans with user=user.get_full_name asvar the_title %}
-            Rediger "{{ user }}"
-        {% endblocktrans %}
-        {% include 'components/typography/main_heading.html' with name=the_title %}
+        {% include 'components/typography/main_heading.html' with name='Opprett bruker' %}
     </div>
 {% endblock content_main-title %}
 
@@ -26,8 +24,19 @@
     {# none #}
 {% endblock content_filter %}
 
-{% block detail_content %}
-<form method="POST" id="edit-user-form">
+{% block content %}
+<div class="bg-yellow-100 rounded py-5 px-5 mb-4 max-w-6xl">
+    <div class="flex">
+        <svg class="w-6 h-6 text-yellow-800 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </svg>
+        <div class="ml-2">
+            <p class="text-base text-yellow-900 font-semibold">Kan ikke tildele brukergruppe!</p>
+            <p class="text-sm text-yellow-800">Man kan ikke tildele brukeren en brukergruppe ved å opprette brukeren gjennom dette skjemaet. Brukeren vil automatisk bli lagt til i "privatkunde", men dette kan byttes i etterkant.</p>
+        </div>
+    </div>
+</div>
+<form method="POST" id="add-user-form">
 {% csrf_token %}
     <div class="w-full flex">
         <div class="w-1/3 mr-5">
@@ -39,17 +48,25 @@
                 <div class="py-5 px-5">
                     <div class="w-full">
                         {% include 'components/typography/form_label.html' with label='E-post adresse' %}
-                        {{ edit_user_form.email }}
+                        {{ add_user_form.email }}
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-1/2">
                             {% include 'components/typography/form_label.html' with label='Fødselsdato' %}
-                            {{ edit_user_form.birth_date }}
+                            {{ add_user_form.birth_date }}
                         </div>
                         <div class="w-1/2 ml-5">
                             {% include 'components/typography/form_label.html' with label='Telefonnummer' %}
-                            {{ edit_user_form.phone_number }}
+                            {{ add_user_form.phone_number }}
                         </div>
+                    </div>
+                    <div class="w-full mt-6">
+                        {% include 'components/typography/form_label.html' with label='Passord' %}
+                        {{ add_user_form.password1 }}
+                    </div>
+                    <div class="w-full mt-6">
+                        {% include 'components/typography/form_label.html' with label='Gjenta passord' %}
+                        {{ add_user_form.password2 }}
                     </div>
                 </div>
             </div>
@@ -66,33 +83,33 @@
                     <div class="flex">
                         <div class="w-1/2">
                             {% include 'components/typography/form_label.html' with label='Fornavn' %}
-                            {{ edit_user_form.first_name }}
+                            {{ add_user_form.first_name }}
                         </div>
                         <div class="w-1/2 ml-5">
                             {% include 'components/typography/form_label.html' with label='Etternavn' %}
-                            {{ edit_user_form.last_name }}
+                            {{ add_user_form.last_name }}
                         </div>
                     </div>
                     <div class="flex mt-6">
                         <div class="w-1/2">
                             {% include 'components/typography/form_label.html' with label='Gateadresse' %}
-                            {{ edit_user_form.address }}
+                            {{ add_user_form.address }}
                         </div>
                         <div class="w-1/2 ml-5 flex">
                             <div class="w-1/2">
                                 {% include 'components/typography/form_label.html' with label='Postkode' %}
-                                {{ edit_user_form.zip_code }}
+                                {{ add_user_form.zip_code }}
                             </div>
                             <div class="w-1/2 ml-5">
                                 {% include 'components/typography/form_label.html' with label='By' %}
-                                {{ edit_user_form.zip_place }}
+                                {{ add_user_form.zip_place }}
                             </div>
                         </div>
                     </div>
                     <div class="mt-6">
                         <div class="w-full">
                             {% include 'components/typography/form_label.html' with label='Kilde' %}
-                            {{ edit_user_form.acquisition_source }}
+                            {{ add_user_form.acquisition_source }}
                         </div>
                     </div>
                 </div>
@@ -108,35 +125,35 @@
             <div class="bg-white rounded-lg shadow max-w-6xl">
                 <div class="py-5 px-5">
                     <div class="w-full flex">
-                        {{ edit_user_form.has_confirmed_email }}
+                        {{ add_user_form.has_confirmed_email }}
                         <div class="ml-2">
                             {% include 'components/typography/form_label_checkbox.html' with label='Verifisert e-post' %}
                             <p class="text-sm text-gray-700">Brukeren har bekreftet e-post adressen</p>
                         </div>
                     </div>
                     <div class="w-full flex mt-6">
-                        {{ edit_user_form.disabled_emails }}
+                        {{ add_user_form.disabled_emails }}
                         <div class="ml-2">
                             {% include 'components/typography/form_label_checkbox.html' with label='Deaktivert e-post' %}
                             <p class="text-sm text-gray-700">Kunden vil ikke få noe form for kommuinkasjon (typisk brukt for konkurrenter)</p>
                         </div>
                     </div>
                     <div class="w-full flex mt-6">
-                        {{ edit_user_form.subscribed_to_newsletter }}
+                        {{ add_user_form.subscribed_to_newsletter }}
                         <div class="ml-2">
                             {% include 'components/typography/form_label_checkbox.html' with label='Nyhetsbrev' %}
                             <p class="text-sm text-gray-700">Brukeren ønsker å motta nyhetsbrev</p>
                         </div>
                     </div>
                     <div class="w-full flex mt-6">
-                        {{ edit_user_form.allow_personalization }}
+                        {{ add_user_form.allow_personalization }}
                         <div class="ml-2">
                             {% include 'components/typography/form_label_checkbox.html' with label='Personalisering' %}
                             <p class="text-sm text-gray-700">Brukeren ønsker en personalisert brukeropplevelse, og kan se noen sider annerledes</p>
                         </div>
                     </div>
                     <div class="w-full flex mt-6">
-                        {{ edit_user_form.allow_third_party_personalization }}
+                        {{ add_user_form.allow_third_party_personalization }}
                         <div class="ml-2">
                             {% include 'components/typography/form_label_checkbox.html' with label='Tredjeparts personalisering' %}
                             <p class="text-sm text-gray-700">Ønsker tredjepartspersonalisering, og kan derfor se relevante anonser utenfor nettsiden</p>
@@ -146,33 +163,9 @@
             </div>
         </div>
     </div>
-    <div class="w-full flex mt-10">
-        <div class="w-1/3 mr-5">
-            <p class="text-gray-800 text-xl">Kontoadministrasjon</p>
-            <p class="text-gray-700 text-sm">Høhynivå kontoadministrasjon. Vært svært forsiktig med å røre disse instillingene. Kan føre til at bruker stenges ute fra tjenesten.</p>
-        </div>
-        <div class="w-2/3">
-            <div class="bg-white rounded-lg shadow max-w-6xl">
-                <div class="py-5 px-5 border-b border-gray-300">
-                    {% include 'components/typography/form_label.html' with label='Deaktivere konto' %}
-                    <p class="text-sm text-gray-700">Å deaktivere kontoen forhindrer brukeren fra å kunne logge inn på tjenesten, men all informasjon om brukeren lagres, og kan gjenopprettes.</p>
-                    <div class="mt-2">
-                        <a href="{% url 'toggle-user' user.id %}" class="inline-block m-auto px-3 py-1 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded appearance-none hover:bg-red-500 hover:border-red-500 hover:text-white">
-                            Deaktiver konto
-                        </a> 
-                    </div>  
-                </div>
-                <div class="py-5 px-5">
-                    <div class="w-full">
-                        {% include 'components/typography/form_label.html' with label='Slette konto' %}
-                        <p class="text-sm text-gray-700">Å slette kontoen forhindrer brukeren fra å kunne logge inn på tjenesten, og informasjon om bruker kan ikke gjenopprettes. Kontakt system administrator dersom en bruker krever dette.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </form>
-{% endblock detail_content %}
+
+{% endblock content %}
 {% block footer %}
 <div class="bg-white sticky bottom-0 border-t border-gray-300 shadow">
     <div class="py-5 px-5 flex items-center justify-end">
@@ -180,7 +173,7 @@
             {% include 'components/buttons/tertiary_button_no-icon.html' with type="button" action="Avbryt" %}
         </div>
         <div>
-            {% include 'components/buttons/primary_button_no-icon.html' with type="submit" form='edit-user-form' action="Lagre" %}
+            {% include 'components/buttons/primary_button_no-icon.html' with type="submit" form='add-user-form' action="Lagre" %}
         </div>    
     </div>
 </div>

@@ -6,6 +6,7 @@ from . import views as users_views
 
 urlpatterns = [
     path('', users_views.users.as_view(), name='users'),
+    path('add/', users_views.addUser, name='add-user'),
     path('export/', users_views.exportUsers, name='users-export'),
     path('<int:pk>/', users_views.user, name='user'),
     path('<int:pk>/edit/', users_views.editUser, name='edit-user'),

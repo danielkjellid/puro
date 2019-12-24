@@ -27,7 +27,8 @@
 
 {# set the main action using the primary_button component #}
 {% block content_primary-action %}
-    {% include 'components/buttons/primary_button.html' with type="button" icon_path='M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z' action='Ny bruker'%}
+    {% url 'add-user' as add_user_url %}
+    {% include 'components/buttons/primary_anchor.html' with href=add_user_url icon_path='M17 11a1 1 0 0 1 0 2h-4v4a1 1 0 0 1-2 0v-4H7a1 1 0 0 1 0-2h4V7a1 1 0 0 1 2 0v4h4z' action='Ny bruker'%}
 {% endblock content_primary-action %}
 
 {# add page filter #}
