@@ -13,7 +13,7 @@ from django.views import generic
 from django.views.generic.detail import DetailView
 
 from users.models import User, Note
-from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm, ToggleUserForm, AddUserForm
+from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm, ToggleUserForm, AddUserForm, DivErrorList
 
 def is_staff(user):
     return user.is_staff
@@ -59,18 +59,20 @@ def user(request, pk):
 
 def addUser(request):    
     add_user_form = AddUserForm()
+    messages.warning(request, 'Man kan ikke tildele brukeren en brukergruppe ved å opprette brukeren gjennom dette skjemaet. Brukeren vil automatisk bli lagt til i "privatkunde", men dette kan byttes i etterkant.')
 
     if request.method == 'POST':
-        add_user_form = AddUserForm(request.POST)
+        add_user_form = AddUserForm(request.POST, error_class=DivErrorList)
 
         if add_user_form.is_valid():
             user = add_user_form.save()
             customer_group = Group.objects.get(name = 'Privatkunde')
             user.roles.add(customer_group)
+            messages.success(request, 'Brukeren ble opprettet.')
             return redirect('users')
 
         else:
-            add_user_form = AddUserForm()
+            messages.error(request, 'Det skjedde en feil ved oppretting av bruker. Se detaljer nedenfor.')
 
     context = {
         'add_user_form': add_user_form,

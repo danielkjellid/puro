@@ -18,12 +18,18 @@ $(document).ready(function() {
         });
     });
 
-    $('#user-menu-btn').click(function() {
-        toggle($('.toggle-user-menu'));
-        console.log('test')
+    $('#user-menu-btn').click(function(e) {
+        $('.toggle-user-menu').show();
+        e.stopPropagation();
     });
     
     $('.note-menu-btn').click(function(e) {
-        toggle($(e.target).closest('.note-menu').find('.toggle-note-menu'));
+        $(e.target).closest('.note-menu').find('.toggle-note-menu').show();
+        e.stopPropagation();
+    });
+
+    $(document).click(function() {
+        $('.toggle-user-menu').hide();
+        $('.toggle-note-menu').hide();
     });
 });

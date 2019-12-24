@@ -1,4 +1,7 @@
 from django import forms
+from django.forms.utils import ErrorList
+from django.utils.html import format_html, format_html_join
+from django.utils.safestring import mark_safe
 from django.contrib.auth.models import Group
 
 from users.models import User, Note
@@ -6,6 +9,14 @@ from users.models import User, Note
 TEXT_INPUT = 'w-full bg-gray-100 border border-gray-300 text-gray-700 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:border-gray-500'
 TEXT_AREA = 'w-full bg-gray-100 border border-gray-300 text-gray-700 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:border-gray-500'
 CHECKBOX = 'form-checkbox text-gray-800'
+
+class DivErrorList(ErrorList):
+    def __str__(self):
+        return self.as_divs()
+        
+    def as_divs(self):
+        if not self: return ''
+        return mark_safe('<div class="mt-1">%s</div>' % ''.join(['<p class="text-sm text-red-600">%s</p>' % e for e in self]))
 
 class AddNoteForm(forms.ModelForm):
 
@@ -83,8 +94,9 @@ class ToggleUserForm(forms.ModelForm):
 
 class AddUserForm(forms.ModelForm):
 
-    email = forms.EmailField()
+    error_css_class = 'border-red-300'
 
+    email = forms.EmailField()
     password1 = forms.CharField(label = 'Passord', widget = forms.PasswordInput)
     password2 = forms.CharField(label = 'Bekreft passord', widget = forms.PasswordInput)
 

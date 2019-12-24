@@ -62,6 +62,19 @@
 {% endblock header %}
 
 {% block content %}
+    {% if messages %}
+        <div class="mb-8">
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    {% include 'components/alerts/error.html' with message=message %}
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                    {% include 'components/alerts/warning.html' with message=message %}
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                    {% include 'components/alerts/success.html' with message=message %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <!-- page title -->
     <div class="flex items-center">
         {% block content_main-title %}

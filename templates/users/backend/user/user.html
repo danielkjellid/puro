@@ -16,40 +16,40 @@
     {% if sticky_notes %}
         <div class="mb-8">
             {% for sticky_note in sticky_notes %}
-                    <div class="flex items-center">
-                        <div class="z-10 flex items-center w-10 h-10 -mr-4 bg-red-400 rounded-full">   
-                            <svg class="w-5 h-5 m-auto text-white fill-current" viewBox="0 0 24 24">
-                                <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                            </svg>
-                        </div>
-                        <div class="flex items-center justify-between w-full py-5 pl-10 pr-5 bg-white {% if forloop.first %} rounded-t-lg shadow {% endif %} {% if forloop.last %} rounded-b-lg shadow {% endif %}">
-                            <div>
-                                <h3 class="text-base font-medium text-gray-900">{{ sticky_note.title }}</h3>
-                                <p class="mt-2 text-sm text-gray-900">{{ sticky_note.content }}</p> 
-                            </div>
-                            <div class="flex items-center">
-                                <div class="text-right">
-                                    <span class="flex text-sm font-medium text-gray-600">{{ sticky_note.date_edited }}</span>
-                                    <span class="text-sm text-gray-600">Av {{ sticky_note.author }}</span> 
-                                </div>
-                                <div class="note-menu relative inline-block">
-                                    <button class="note-menu-btn ml-5">
-                                        <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
-                                            <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
-                                        </svg>
-                                    </button>
-                                    <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right">
-                                        <div class="w-32 bg-white rounded shadow">
-                                            {% url 'edit-note' sticky_note.id as edit_sticky_note_url %}
-                                            {% include 'components/buttons/dropdown_anchor.html' with link=edit_sticky_note_url action='Rediger' %}
-                                            {% url 'delete-note' sticky_note.id as delete_sticky_note_url %}
-                                            {% include 'components/buttons/dropdown_anchor.html' with link=delete_sticky_note_url action='Slett' %}
-                                        </div>
-                                    </div>
-                                </div>           
-                            </div>     
-                        </div>
+                <div class="flex items-center">
+                    <div class="z-10 flex items-center w-10 h-10 -mr-4 bg-red-400 rounded-full">   
+                        <svg class="w-5 h-5 m-auto text-white fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 9a1 1 0 0 1-1-1V8a1 1 0 0 1 2 0v4a1 1 0 0 1-1 1zm0 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                        </svg>
                     </div>
+                    <div class="flex items-center justify-between w-full py-5 pl-10 pr-5 bg-white {% if forloop.first %} rounded-t-lg shadow {% endif %} {% if forloop.last %} rounded-b-lg shadow {% endif %}">
+                        <div>
+                            <h3 class="text-base font-medium text-gray-900">{{ sticky_note.title }}</h3>
+                            <p class="mt-2 text-sm text-gray-900">{{ sticky_note.content }}</p> 
+                        </div>
+                        <div class="flex items-center">
+                            <div class="text-right">
+                                <span class="flex text-sm font-medium text-gray-600">{{ sticky_note.date_edited }}</span>
+                                <span class="text-sm text-gray-600">Av {{ sticky_note.author }}</span> 
+                            </div>
+                            <div class="note-menu relative inline-block">
+                                <button class="note-menu-btn ml-5">
+                                    <svg class="w-5 h-5 text-gray-600 fill-current" viewBox="0 0 24 24">
+                                        <path d="M12 6C10.8954 6 10 5.10457 10 4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4C14 5.10457 13.1046 6 12 6ZM12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14ZM10 20C10 21.1046 10.8954 22 12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20Z">
+                                    </svg>
+                                </button>
+                                <div class="toggle-note-menu absolute right-0 hidden text-left origin-top-right">
+                                    <div class="w-32 bg-white rounded shadow">
+                                        {% url 'edit-note' sticky_note.id as edit_sticky_note_url %}
+                                        {% include 'components/buttons/dropdown_anchor.html' with link=edit_sticky_note_url action='Rediger' %}
+                                        {% url 'delete-note' sticky_note.id as delete_sticky_note_url %}
+                                        {% include 'components/buttons/dropdown_anchor.html' with link=delete_sticky_note_url action='Slett' %}
+                                    </div>
+                                </div>
+                            </div>           
+                        </div>     
+                    </div>
+                </div>
             {% endfor %}
         </div>
     {% endif %}
