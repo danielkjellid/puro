@@ -127,7 +127,7 @@ def toggleUser(request, pk):
     if request.method == 'POST':
 
         # Bind data to the form class, and add the user as instance
-        toggle_user_form = ToggleUserForm(request.POST, instance = user_to_toggle)
+        toggle_user_form = ToggleUserForm(request.POST, error_class=DivErrorList, instance = user_to_toggle)
 
         # Validate form inputs
         if toggle_user_form.is_valid():
@@ -172,7 +172,7 @@ def editUser(request, pk):
     if request.method == 'POST':
 
         # Bind data to the form class, and add the user as instance
-        edit_user_form = EditUserForm(request.POST, instance = user)
+        edit_user_form = EditUserForm(request.POST, error_class=DivErrorList, instance = user)
 
         # Validate form inputs
         if edit_user_form.is_valid():
@@ -254,7 +254,7 @@ def editNote(request, pk):
     if request.method == 'POST':
 
         # Bind data to the form class, and add the note as instance
-        edit_note_form = EditNoteForm(request.POST, instance = note)
+        edit_note_form = EditNoteForm(request.POST, error_class=DivErrorList, instance = note)
 
         # Validate form inputs
         if edit_note_form.is_valid():
@@ -292,7 +292,7 @@ def addNote(request, pk):
     if request.method == 'POST':
 
         # Bind data to the form class
-        add_note_form = AddNoteForm(request.POST)
+        add_note_form = AddNoteForm(request.POST, error_class=DivErrorList)
 
         # Validate form inputs
         if add_note_form.is_valid():
@@ -334,7 +334,7 @@ def deleteNote(request, pk):
     if request.method == 'POST':
 
         # Bind data to the form class, and add the note to delete as instance
-        delete_note_form = DeleteNoteForm(request.POST, instance = new_to_delete)
+        delete_note_form = DeleteNoteForm(request.POST, error_class=DivErrorList, instance = new_to_delete)
         
         # Validate form inputs
         if delete_note_form.is_valid():

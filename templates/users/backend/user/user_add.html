@@ -54,20 +54,24 @@
                     <div class="w-full">
                         {% include 'components/typography/form_label.html' with label='E-post adresse' %}
                         {{ add_user_form.email }}
+                        {{ add_user_form.email.errors }}
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-1/2">
                             {% include 'components/typography/form_label.html' with label='Fødselsdato' %}
                             {{ add_user_form.birth_date }}
+                            {{ add_user_form.birth_date.errors }}
                         </div>
                         <div class="w-1/2 ml-5">
                             {% include 'components/typography/form_label.html' with label='Telefonnummer' %}
                             {{ add_user_form.phone_number }}
+                            {{ add_user_form.phone_number.errors }}
                         </div>
                     </div>
                     <div class="w-full mt-6">
                         {% include 'components/typography/form_label.html' with label='Passord' %}
                         {{ add_user_form.password1 }}
+                        {{ add_user_form.password1.errors }}
                     </div>
                     <div class="w-full mt-6">
                         {% include 'components/typography/form_label.html' with label='Gjenta passord' %}
@@ -90,25 +94,30 @@
                         <div class="w-1/2">
                             {% include 'components/typography/form_label.html' with label='Fornavn' %}
                             {{ add_user_form.first_name }}
+                            {{ add_user_form.first_name.errors }}
                         </div>
                         <div class="w-1/2 ml-5">
                             {% include 'components/typography/form_label.html' with label='Etternavn' %}
                             {{ add_user_form.last_name }}
+                            {{ add_user_form.last_name.errors }}
                         </div>
                     </div>
                     <div class="flex mt-6">
                         <div class="w-1/2">
                             {% include 'components/typography/form_label.html' with label='Gateadresse' %}
                             {{ add_user_form.address }}
+                            {{ add_user_form.errors }}
                         </div>
                         <div class="w-1/2 ml-5 flex">
                             <div class="w-1/2">
                                 {% include 'components/typography/form_label.html' with label='Postkode' %}
                                 {{ add_user_form.zip_code }}
+                                {{ add_user_form.zip_code.errors }}
                             </div>
                             <div class="w-1/2 ml-5">
                                 {% include 'components/typography/form_label.html' with label='By' %}
                                 {{ add_user_form.zip_place }}
+                                {{ add_user_form.zip_place.errors }}
                             </div>
                         </div>
                     </div>
@@ -116,6 +125,7 @@
                         <div class="w-full">
                             {% include 'components/typography/form_label.html' with label='Kilde' %}
                             {{ add_user_form.acquisition_source }}
+                            {{ add_user_form.acquisition_source.errors }}
                         </div>
                     </div>
                 </div>
@@ -130,40 +140,55 @@
         <div class="w-2/3">
             <div class="bg-white rounded-lg shadow max-w-6xl">
                 <div class="py-5 px-5">
-                    <div class="w-full flex">
-                        {{ add_user_form.has_confirmed_email }}
-                        <div class="ml-2">
-                            {% include 'components/typography/form_label_checkbox.html' with label='Verifisert e-post' %}
-                            <p class="text-sm text-gray-700">Brukeren har bekreftet e-post adressen</p>
+                    <div class="w-full">
+                        <div class="w-full flex">
+                            {{ add_user_form.has_confirmed_email }}
+                            <div class="ml-2">
+                                {% include 'components/typography/form_label_checkbox.html' with label='Verifisert e-post' %}
+                                <p class="text-sm text-gray-700">Brukeren har bekreftet e-post adressen</p>
+                            </div>
                         </div>
+                        {{ add_user_form.has_confirmed_email.errors }}
                     </div>
-                    <div class="w-full flex mt-6">
-                        {{ add_user_form.disabled_emails }}
-                        <div class="ml-2">
-                            {% include 'components/typography/form_label_checkbox.html' with label='Deaktivert e-post' %}
-                            <p class="text-sm text-gray-700">Kunden vil ikke få noe form for kommuinkasjon (typisk brukt for konkurrenter)</p>
+                    <div class="w-full mt-6">
+                        <div class="w-full flex">
+                            {{ add_user_form.disabled_emails }}
+                            <div class="ml-2">
+                                {% include 'components/typography/form_label_checkbox.html' with label='Deaktivert e-post' %}
+                                <p class="text-sm text-gray-700">Kunden vil ikke få noe form for kommuinkasjon (typisk brukt for konkurrenter)</p>
+                            </div>
                         </div>
+                        {{ add_user_form.disabled_emails.errors }}
                     </div>
-                    <div class="w-full flex mt-6">
-                        {{ add_user_form.subscribed_to_newsletter }}
-                        <div class="ml-2">
-                            {% include 'components/typography/form_label_checkbox.html' with label='Nyhetsbrev' %}
-                            <p class="text-sm text-gray-700">Brukeren ønsker å motta nyhetsbrev</p>
+                    <div class="w-full mt-6">
+                        <div class="w-full flex">
+                            {{ add_user_form.subscribed_to_newsletter }}
+                            <div class="ml-2">
+                                {% include 'components/typography/form_label_checkbox.html' with label='Nyhetsbrev' %}
+                                <p class="text-sm text-gray-700">Brukeren ønsker å motta nyhetsbrev</p>
+                            </div>
                         </div>
+                        {{ add_user_form.subscribed_to_newsletter.errors }}
                     </div>
-                    <div class="w-full flex mt-6">
-                        {{ add_user_form.allow_personalization }}
-                        <div class="ml-2">
-                            {% include 'components/typography/form_label_checkbox.html' with label='Personalisering' %}
-                            <p class="text-sm text-gray-700">Brukeren ønsker en personalisert brukeropplevelse, og kan se noen sider annerledes</p>
+                    <div class="w-full mt-6">
+                        <div class="w-full flex">
+                            {{ add_user_form.allow_personalization }}
+                            <div class="ml-2">
+                                {% include 'components/typography/form_label_checkbox.html' with label='Personalisering' %}
+                                <p class="text-sm text-gray-700">Brukeren ønsker en personalisert brukeropplevelse, og kan se noen sider annerledes</p>
+                            </div>
                         </div>
+                        {{ add_user_form.allow_personalization.errors }}
                     </div>
-                    <div class="w-full flex mt-6">
-                        {{ add_user_form.allow_third_party_personalization }}
-                        <div class="ml-2">
-                            {% include 'components/typography/form_label_checkbox.html' with label='Tredjeparts personalisering' %}
-                            <p class="text-sm text-gray-700">Ønsker tredjepartspersonalisering, og kan derfor se relevante anonser utenfor nettsiden</p>
+                    <div class="w-full mt-6">
+                        <div class="w-full flex">
+                            {{ add_user_form.allow_third_party_personalization }}
+                            <div class="ml-2">
+                                {% include 'components/typography/form_label_checkbox.html' with label='Tredjeparts personalisering' %}
+                                <p class="text-sm text-gray-700">Ønsker tredjepartspersonalisering, og kan derfor se relevante anonser utenfor nettsiden</p>
+                            </div>
                         </div>
+                        {{ add_user_form.allow_third_party_personalization.errors }}
                     </div>
                 </div>
             </div>

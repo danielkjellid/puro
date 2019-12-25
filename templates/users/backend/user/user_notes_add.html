@@ -43,17 +43,22 @@
                 <div>
                     {% include 'components/typography/form_label.html' with label='Tittel' %}
                     {{ add_note_form.title }}
+                    {{ add_note_form.title.errors }}
                 </div>
                 <div class="mt-6">
                     {% include 'components/typography/form_label.html' with label='Notat' %}
                     {{ add_note_form.content }}
+                    {{ add_note_form.content.errors }}
                 </div>
-                <div class="mt-6 flex items center">
-                    {{ add_note_form.is_sticky }}
-                    <div class="ml-2">
-                        {% include 'components/typography/form_label_checkbox.html' with label='Viktig notat' %}
-                        <p class="text-sm text-gray-700">Viktig notat vil feste notatet øverst, og brukes dersom notatet er viktig. Det burde maksimalt være to viktige notater per bruker.</p>
+                <div class="mt-6">
+                    <div class="flex items center">
+                        {{ add_note_form.is_sticky }}
+                        <div class="ml-2">
+                            {% include 'components/typography/form_label_checkbox.html' with label='Viktig notat' %}
+                            <p class="text-sm text-gray-700">Viktig notat vil feste notatet øverst, og brukes dersom notatet er viktig. Det burde maksimalt være to viktige notater per bruker.</p>
+                        </div>
                     </div>
+                    {{ add_note_form.is_sticky.errors }}
                 </div>
             </div>
         </form>

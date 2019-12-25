@@ -166,9 +166,8 @@
                     {% include 'components/typography/form_label.html' with label='Deaktivere konto' %}
                     <p class="text-sm text-gray-700">Å deaktivere kontoen forhindrer brukeren fra å kunne logge inn på tjenesten, men all informasjon om brukeren lagres, og kan gjenopprettes.</p>
                     <div class="mt-2">
-                        <a href="{% url 'toggle-user' user.id %}" class="inline-block m-auto px-3 py-1 text-sm font-medium text-red-500 bg-transparent border border-red-500 rounded appearance-none hover:bg-red-500 hover:border-red-500 hover:text-white">
-                            Deaktiver konto
-                        </a> 
+                        {% url 'toggle-user' user.id as toggle_user_url %}
+                        {% include 'components/buttons/danger_anchor.html' with href=toggle_user_url action='Deaktiver konto' %}
                     </div>  
                 </div>
                 <div class="py-5 px-5">
