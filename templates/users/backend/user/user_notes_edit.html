@@ -27,6 +27,15 @@
 {% endblock content_filter %}
 
 {% block detail_content %}
+    {% if messages %}
+        <div class="mb-8">
+            {% for message in messages %}
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    {% include 'components/alerts/error.html' with message=message %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="bg-yellow-100 rounded py-5 px-5 mb-4 max-w-6xl">
         <div class="flex">
             <svg class="w-6 h-6 text-yellow-800 fill-current" viewBox="0 0 24 24">

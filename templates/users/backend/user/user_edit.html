@@ -27,6 +27,15 @@
 {% endblock content_filter %}
 
 {% block detail_content %}
+{% if messages %}
+    <div class="mb-8">
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                {% include 'components/alerts/error.html' with message=message %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
 <form method="POST" id="edit-user-form">
 {% csrf_token %}
     <div class="w-full flex">
