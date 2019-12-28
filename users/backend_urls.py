@@ -14,6 +14,7 @@ urlpatterns = [
     path('<int:pk>/export/', users_views.exportUser, name='export-user'),
     path('<int:pk>/notes/', users_views.userNotes, name='user-notes' ),
     path('<int:pk>/notes/add/', users_views.addNote, name='add-note'),
+    path('<int:pk>/changelog/', users_views.userChangelog, name='user-changelog' ),
     path('crm/notes/<int:pk>/delete/', users_views.deleteNote, name='delete-note'),
     path('crm/notes/<int:pk>/edit/', users_views.editNote, name='edit-note'),
 ]

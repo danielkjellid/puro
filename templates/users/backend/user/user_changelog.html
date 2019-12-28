@@ -1,0 +1,51 @@
+{# extend the backend detail template #}
+{% extends 'users/backend/user/user_base.html' %}
+
+{# meta data #}
+{% block title %}
+<title>Backend: Endringslogg - {{ user.get_full_name }}</title>
+{% endblock title %}
+
+{% block breadcrumb %}
+    {% url 'user' user.id as user_url %}
+    {% include 'components/breadcrumbs/breadcrumb.html' with link=user_url previous=user.get_full_name current='Notater' %}
+{% endblock breadcrumb %}
+
+{# content data #}
+{% block filter_notes %}
+    {% include 'components/nav/active_tab.html' with link=user_notes_url name='Notater' %}
+{% endblock filter_notes %}
+
+{% block detail_content %}
+<div class="w-full">
+    <table class="w-full border-b border-gray-300">
+        <thead>
+            <!-- panel 2/3 table headings -->
+            <tr class="bg-gray-100 border-b border-gray-300">
+                {% include 'components/table/table_heading.html' with title='Bruker' padding='pl-5' alignment='text-left' only %}
+                {% include 'components/table/table_heading.html' with title='Endring' alignment='text-left' only %}
+                {% include 'components/table/table_heading.html' with title='Dato' padding='pr-5' only %}
+            </tr>
+            <!-- panel 2/3 table headings end -->
+        </thead>
+        <tbody>
+            {% for changelog in changelogs %}
+            <tr class="border-b border-gray-300">
+                <td class="py-3 pl-5 text-sm text-gray-900">
+                    {{ changelog.user }}
+                </td>
+                <td class="py-3 text-sm text-gray-900">
+                    {{ changelog.changes }}
+                </td>
+                <td class="py-3 text-sm text-gray-900">
+                    {{ changelog.date_of_change }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock detail_content %}

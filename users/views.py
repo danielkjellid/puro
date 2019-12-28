@@ -1,10 +1,12 @@
 import pdfkit
 
+from django.contrib.contenttypes.models import ContentType
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import get_template
 from django.utils import timezone
@@ -14,6 +16,8 @@ from django.views.generic.detail import DetailView
 
 from users.models import User, Note
 from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm, ToggleUserForm, AddUserForm, DivErrorList
+
+from utils.models import ChangeLog
 
 # Function for checking if the user is staff. 
 def is_staff(user):
@@ -66,7 +70,7 @@ def user(request, pk):
 
     # Query appropriate user based on pk returned in url and sticky notes attached to the user
     user = User.objects.get(pk=pk)
-    sticky_notes = Note.objects.filter(user_id=pk, is_sticky=True).order_by('date_edited')
+    sticky_notes = Note.objects.filter(user_id = pk, is_sticky = True).order_by('date_edited')
 
     context = {
         'user': user,
@@ -173,12 +177,19 @@ def editUser(request, pk):
 
         # Bind data to the form class, and add the user as instance
         edit_user_form = EditUserForm(request.POST, error_class=DivErrorList, instance = user)
+               
+        old_user_instance = User.objects.get(pk = pk)
 
         # Validate form inputs
         if edit_user_form.is_valid():
 
-            # Save edits and redirect to user profile page
+            # Save edits
             edit_user_form.save()
+
+            
+            # Log change
+            ChangeLog.change_message(request.user, User, old_user_instance)
+                
 
             # Give the user successful feedback and redirect
             messages.success(request, successMessage('Redigering', 'bruker'))
@@ -357,6 +368,18 @@ def deleteNote(request, pk):
 
     # Render request, template and context
     return render(request, 'users/backend/user/user_notes_delete.html', context)
+
+def userChangelog(request, pk):
+
+    user = User.objects.get(pk = pk)
+    changelogs = ChangeLog.objects.filter(user_id = pk)
+
+    context = {
+        'user': user,
+        'changelogs': changelogs,
+    }
+
+    return render(request, 'users/backend/user/user_changelog.html', context)
 
 
 

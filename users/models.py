@@ -7,7 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import (
     BaseUserManager, 
     AbstractBaseUser,
-    Group
+    Group,
+    PermissionsMixin
 )
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -136,8 +137,8 @@ class User(AbstractBaseUser):
         Group,
         verbose_name = _('roles'),
         blank = True,
-        related_name = 'user_set',
-        related_query_name = 'user',
+        related_name = 'user_roles',
+        related_query_name = 'user_roles',
     )
 
     # Add the user model to UserManager
@@ -148,6 +149,19 @@ class User(AbstractBaseUser):
 
     # Set required fields. These fields with create problems if not defined
     REQUIRED_FIELDS = ['birth_date', 'phone_number']
+
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        permissions = (
+            ('has_users_export', 'Can export users list'),
+            ('has_users_access', 'Can list and search users'),
+            ('has_user_add', 'Allows the user to add new users'),
+            ('has_user_management', 'Can edit user details'),
+            ('has_user_export', 'Can export user details'),
+            ('has_user_hijack', 'Can log in as user'),
+            ('has_user_high_level_management', 'Can toggle users active state'),
+        )
 
     # Define user identifier
     def __str__(self):
@@ -203,6 +217,12 @@ class Note(models.Model):
     class Meta:
         verbose_name = 'Note'
         verbose_name_plural = 'Notes'
+        permissions = (
+            ('has_note_view', 'User can view notes'),
+            ('has_note_add', 'User can add notes'),
+            ('has_note_edit', 'User can edit notes'),
+            ('has_note_delete', 'User can delete notes'),
+        )
 
     # Define note identifier
     def __str__(self):
