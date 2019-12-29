@@ -60,7 +60,7 @@ class UserManager(BaseUserManager):
         return user
 
 # User model which inherits AbstractBaseuser. AbstractBaseUser provides the core implementation of a user model.
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
 
     # Set model fields
     first_name = models.CharField(

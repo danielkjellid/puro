@@ -96,7 +96,8 @@
         {% include 'components/nav/inactive_tab.html' with link=user_notes_url name='Notater' %}
     {% endblock filter_notes %}
     {% block filter_changelog %}
-        {% include 'components/nav/inactive_tab.html' with link='#' name='Endringslogg' %}
+        {% url 'user-changelog' user.id as user_changelog_url %}
+        {% include 'components/nav/inactive_tab.html' with link=user_changelog_url name='Endringslogg' %}
     {% endblock filter_changelog %}
 
 {% endblock content_filter %}

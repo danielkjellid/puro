@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import get_template
@@ -369,16 +369,31 @@ def deleteNote(request, pk):
     # Render request, template and context
     return render(request, 'users/backend/user/user_notes_delete.html', context)
 
+# View for listing all changes attached to user
 def userChangelog(request, pk):
 
+    # querying user, chnagelogs and getting the first page of the request
     user = User.objects.get(pk = pk)
-    changelogs = ChangeLog.objects.filter(user_id = pk)
+    changelog_list = ChangeLog.objects.filter(user_id = pk)
+    page = request.GET.get('page', 1)
 
+    # giving paginator a list of objects and number of objects per page
+    paginator = Paginator(changelog_list, 10)
+    
+    # error handler for paginator
+    try:
+        changelogs = paginator.page(page)
+    except PageNotAnInteger:
+        changelogs = paginator.page(1)
+    except EmptyPage:
+        changelogs = paginator.page(paginator.num_pages)
+    
     context = {
         'user': user,
         'changelogs': changelogs,
     }
 
+    # Render request, template and context
     return render(request, 'users/backend/user/user_changelog.html', context)
 
 
