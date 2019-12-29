@@ -3,7 +3,7 @@ import pdfkit
 from django.contrib.contenttypes.models import ContentType
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.contrib.auth.models import Group
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
@@ -39,6 +39,7 @@ class users(generic.ListView):
     queryset = User.objects.all()
 
 # View for exporting a list of users to PDF.
+@permission_required('users.has_users_export', login_url = '/loginpage/')
 def exportUsers(request):
 
     # Query all users
@@ -81,6 +82,7 @@ def user(request, pk):
     return render(request, 'users/backend/user/user.html', context)
 
 # View for adding a new user
+@permission_required('users.has_user_add', login_url = '/loginpage/')
 def addUser(request):
 
     # Get the AddUserForm    
@@ -120,6 +122,7 @@ def addUser(request):
     return render(request, 'users/backend/user/user_add.html', context)
 
 # View for deactivating/activating user
+@permission_required('users.has_user_high_level_management', login_url = '/loginpage/')
 def toggleUser(request, pk):
 
     # Query appropriate user based on pk returned in url
@@ -165,6 +168,7 @@ def toggleUser(request, pk):
     return render(request, 'users/backend/user/user_edit_toggle.html', context)
 
 # View for editing an existing user
+@permission_required('users.has_user_management', login_url = '/loginpage/')
 def editUser(request, pk):
 
     # Query appropriate user based on pk returned in url
@@ -208,6 +212,7 @@ def editUser(request, pk):
     return render(request, 'users/backend/user/user_edit.html', context)
 
 # View for exporting a user profile to PDF
+@permission_required('users.has_user_export', login_url = '/loginpage/')
 def exportUser(request, pk):
 
     # Query appropriate user based on pk returned in url and the users group

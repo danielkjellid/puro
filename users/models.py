@@ -184,6 +184,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_initials(self):
         return self.first_name[0] + self.last_name[0]
 
+    # Method for getting user group
+    def get_group(self):
+        return Group.objects.get(user = self.pk)
+
 # Note model
 class Note(models.Model):
 
@@ -199,12 +203,14 @@ class Note(models.Model):
     class Meta:
         verbose_name = 'Note'
         verbose_name_plural = 'Notes'
+        """
         permissions = (
             ('has_note_view', 'User can view notes'),
             ('has_note_add', 'User can add notes'),
             ('has_note_edit', 'User can edit notes'),
             ('has_note_delete', 'User can delete notes'),
         )
+        """
 
     # Define note identifier
     def __str__(self):

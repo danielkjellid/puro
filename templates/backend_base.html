@@ -68,7 +68,7 @@
                             </div>
                             <div class="flex-wrap items-center justify-start">
                                 <span class="block -mb-1 text-sm font-medium text-gray-900">{{ request.user.get_full_name }}</span>
-                                <span class="block text-xs text-gray-600">{{ request.user.role }}</span>
+                                <span class="block text-xs text-gray-600">{{ request.user.get_group }}</span>
                             </div>
                         </div>
                         <div class="ml-10">
