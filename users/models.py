@@ -1,15 +1,11 @@
 import phonenumbers
 
+#from django.contrib.auth.backends import ModelBackend
 from django.db import models
 from django.utils import timezone
 from django.utils.text import get_text_list
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import (
-    BaseUserManager, 
-    AbstractBaseUser,
-    Group,
-    PermissionsMixin
-)
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Group, PermissionsMixin
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Manager for user, extending BaseUserManager
@@ -133,13 +129,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(
         default = False
     )
-    roles = models.ManyToManyField(
-        Group,
-        verbose_name = _('roles'),
-        blank = True,
-        related_name = 'user_roles',
-        related_query_name = 'user_roles',
-    )
+    #role = models.ForeignKey(Group, related_name = 'user_group', on_delete = models.CASCADE)
 
     # Add the user model to UserManager
     objects = UserManager()
@@ -166,15 +156,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # Define user identifier
     def __str__(self):
         return '%s %s' % (self.first_name, self.last_name)
-
-    # Method for checking if the user has a permission, returns True if the user has each of the specified permissions
-    def has_perm(self, perm, obj=None):
-        return True
-
-    # Method for checking if the user has package permissions, returns True if the user has any permissions in the given package
-    def has_module_perms(self, backend):
-        return True
-
+    
     # Method for getting the full name of a user
     def get_full_name(self):
         full_name = '%s %s' % (self.first_name, self.last_name)

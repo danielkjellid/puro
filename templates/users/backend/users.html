@@ -62,13 +62,13 @@
 
 {# set table content #}
 {% block content_table-content %}
-    {% if user_list %}
-        {% for user in user_list %}
+    {% if object_list %}
+        {% for user in object_list %}
         <tr class="border-b border-gray-300">
             <td class="py-3 pl-5 text-sm text-gray-900">
                 <a href="{% url 'user' user.id %}">
                     {{ user.get_full_name }}
-                    <span class="block -mt-1 text-xs text-gray-600">{{ user.roles.all.0 }}</span>
+                    <span class="block -mt-1 text-xs text-gray-600">{{ user.role }}</span>
                 </a>
             </td>
             <td class="py-3 text-sm text-gray-900">
@@ -106,10 +106,9 @@
         </tr>
         {% endfor %}
     {% endif %}
-    {% if perms.has_users_export %}
+    {% if perms.users.has_users_export %}
         <p>Du kan se dette</p>
     {% endif %}
-    {{ perms.users }}
-
+    {{ request.user.get_all_permissions }}
 
 {% endblock content_table-content %}

@@ -65,7 +65,7 @@ class UserChangeForm(forms.ModelForm):
             'is_active',
             'is_staff',
             'is_superuser',
-            'roles'
+            'groups',
         )
 
         def clean_password(self):
@@ -92,7 +92,7 @@ class UserAdmin(BaseUserAdmin):
         'is_active', 
         'is_staff', 
         'is_superuser', 
-        'roles'
+        'groups'
     )
     fieldsets = (
         (
@@ -140,7 +140,8 @@ class UserAdmin(BaseUserAdmin):
                     'is_active', 
                     'is_staff', 
                     'is_superuser', 
-                    'roles'
+                    'groups',
+                    'user_permissions',
                 )
             }
         )
