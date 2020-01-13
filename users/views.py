@@ -1,10 +1,9 @@
 import pdfkit
 
-from django.contrib.contenttypes.models import ContentType
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -18,6 +17,8 @@ from users.models import User, Note
 from users.forms import AddNoteForm, EditNoteForm, DeleteNoteForm, EditUserForm, ToggleUserForm, AddUserForm, DivErrorList
 
 from utils.models import ChangeLog
+
+LOGIN_URL = ''
 
 # Function for checking if the user is staff. 
 def is_staff(user):
@@ -39,7 +40,7 @@ class users(generic.ListView):
     queryset = User.objects.all()
 
 # View for exporting a list of users to PDF.
-@permission_required('users.has_users_export', login_url = '/loginpage/')
+@permission_required('users.has_users_export', login_url = LOGIN_URL)
 def exportUsers(request):
 
     # Query all users
@@ -82,7 +83,7 @@ def user(request, pk):
     return render(request, 'users/backend/user/user.html', context)
 
 # View for adding a new user
-@permission_required('users.has_user_add', login_url = '/loginpage/')
+@permission_required('users.has_user_add', login_url = LOGIN_URL)
 def addUser(request):
 
     # Get the AddUserForm    
@@ -122,7 +123,7 @@ def addUser(request):
     return render(request, 'users/backend/user/user_add.html', context)
 
 # View for deactivating/activating user
-@permission_required('users.has_user_high_level_management', login_url = '/loginpage/')
+@permission_required('users.has_user_high_level_management', login_url = LOGIN_URL)
 def toggleUser(request, pk):
 
     # Query appropriate user based on pk returned in url
@@ -168,7 +169,7 @@ def toggleUser(request, pk):
     return render(request, 'users/backend/user/user_edit_toggle.html', context)
 
 # View for editing an existing user
-@permission_required('users.has_user_management', login_url = '/loginpage/')
+@permission_required('users.has_user_management', login_url = LOGIN_URL)
 def editUser(request, pk):
 
     # Query appropriate user based on pk returned in url
@@ -212,7 +213,7 @@ def editUser(request, pk):
     return render(request, 'users/backend/user/user_edit.html', context)
 
 # View for exporting a user profile to PDF
-@permission_required('users.has_user_export', login_url = '/loginpage/')
+@permission_required('users.has_user_export', login_url = LOGIN_URL)
 def exportUser(request, pk):
 
     # Query appropriate user based on pk returned in url and the users group
@@ -379,7 +380,7 @@ def userChangelog(request, pk):
 
     # querying user, chnagelogs and getting the first page of the request
     user = User.objects.get(pk = pk)
-    changelog_list = ChangeLog.objects.filter(user_id = pk)
+    changelog_list = ChangeLog.objects.filter(object_id = pk)
     page = request.GET.get('page', 1)
 
     # giving paginator a list of objects and number of objects per page
@@ -402,4 +403,10 @@ def userChangelog(request, pk):
     return render(request, 'users/backend/user/user_changelog.html', context)
 
 
+def base(request):
 
+    context = {
+    }
+
+    # Render request, template and context
+    return render(request, 'frontend_base.html', context)
