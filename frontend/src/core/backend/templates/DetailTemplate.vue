@@ -10,7 +10,7 @@
                 <!-- breadcrumb -->
                 <slot name="detail-breadcrumb"></slot>
               </div>
-              <div class="flex items-center mt-3">
+              <div>
                 <!-- title of page, usually paired with image and metadata -->
                 <slot name="detail-title"></slot>
               </div>
@@ -33,7 +33,7 @@
         <div class="col-span-3">
           <div>
             <!-- content of page, usually in the shape of panels -->
-            <slot name="detail content"></slot>
+            <slot name="detail-content"></slot>
           </div>
         </div>
       </div>

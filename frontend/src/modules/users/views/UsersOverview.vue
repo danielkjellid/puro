@@ -21,7 +21,7 @@ import PrimaryBtn from '../../../core/backend/buttons/PrimaryBtn'
 import SecondaryBtn from '../../../core/backend/buttons/SecondaryBtn'
 
 // module imports
-import UsersRows from '../components/OverviewTableRow'
+import UsersRows from '../components/tables/OverviewTableRow'
 
 export default {
     components: {

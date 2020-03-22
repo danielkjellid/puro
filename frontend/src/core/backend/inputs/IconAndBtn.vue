@@ -3,12 +3,12 @@
     <div class="w-full">
       <label :for="label" class="sr-only">{{ label }}</label>
       <div class="relative rounded-md shadow-sm">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" :d="iconPath" clip-rule="evenodd"/>
           </svg>
         </div>
-        <input :id="label" class="form-input block w-full pl-10 sm:text-sm sm:leading-5" :placeholder="placeHolder" />
+        <input :id="label" class="block w-full pl-10 form-input sm:text-sm sm:leading-5" :placeholder="placeHolder" />
       </div>
     </div>
     <div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import BackendPrimaryBtn from '../../buttons/PrimaryBtn.vue'
+import PrimaryBtn from '../buttons/PrimaryBtn'
 
 export default {
     props: {
@@ -42,7 +42,7 @@ export default {
           },
     },
     components: {
-        'core-buttons-primary-btn': BackendPrimaryBtn
+        'core-buttons-primary-btn': PrimaryBtn
     }
 }
 </script>
