@@ -9,7 +9,9 @@
             </div>
             <div class="block">
               <div class="flex items-baseline ml-10">
-                <a href="#" class="px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-md focus:outline-none focus:text-white focus:bg-gray-700">Brukere</a>
+                <router-link to="/users" active-class="bg-gray-900" class="px-3 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus:text-white focus:bg-gray-700">
+                  <a>Brukere</a>
+                </router-link>
                 <a href="#" class="px-3 py-2 ml-4 text-sm font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Inventar</a>
                 <a href="#" class="px-3 py-2 ml-4 text-sm font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Markedsføring</a>
                 <a href="#" class="px-3 py-2 ml-4 text-sm font-medium text-gray-300 rounded-md hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Forespørsler</a>

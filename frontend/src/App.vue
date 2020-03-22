@@ -1,13 +1,12 @@
 <template>
   <div>
-    <!--<users-user-overview></users-user-overview>-->
-    <users-user-detail></users-user-detail>
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
 <script>
 //import UsersOverview from './modules/users/views/UsersOverview.vue'
-import UserDetail from './modules/users/views/UserDetail'
+// import UserDetail from './modules/users/views/UserDetail'
 
 export default {
   data() {
@@ -34,7 +33,7 @@ export default {
   },
   components: {
     //'users-user-overview': UsersOverview,
-    'users-user-detail': UserDetail,
+    // 'users-user-detail': UserDetail,
   }
 };
 </script>

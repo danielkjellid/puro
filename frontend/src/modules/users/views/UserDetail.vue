@@ -44,6 +44,14 @@
                 <core-panels-panel-list :data="userData"></core-panels-panel-list>
               </template>
             </core-panels-panel>
+
+            <!-- user notes -->
+            <core-panels-panel :panelTitle="'Notater'" :panelSubtitle="'Notater om bruker'" class="mt-12">
+              <template v-slot:panel-content>
+                <!-- panel-notes lists notes and adds a form to submit new notes -->
+                <core-panels-panel-notes></core-panels-panel-notes>
+              </template>
+            </core-panels-panel>
             
             <!-- orders overview -->
             <core-panels-panel :panelTitle="'Forespørsler'" :panelSubtitle="'Forespørsler brukeren har gjort'" class="mt-12">
@@ -55,14 +63,6 @@
                     <users-order-rows v-for="index in 5" :key="index"></users-order-rows>
                   </template>
                 </core-panels-panel-table>
-              </template>
-            </core-panels-panel>
-
-            <!-- user notes -->
-            <core-panels-panel :panelTitle="'Notater'" :panelSubtitle="'Notater om bruker'" class="mt-12">
-              <template v-slot:panel-content>
-                <!-- panel-notes lists notes and adds a form to submit new notes -->
-                <core-panels-panel-notes></core-panels-panel-notes>
               </template>
             </core-panels-panel>
 
