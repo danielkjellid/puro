@@ -30,22 +30,6 @@
                     <a
                       href="#"
                       class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none focus:underline"
-                      >Oversikt</a
-                    >
-                    <svg
-                      class="flex-shrink-0 w-5 h-5 mx-2 text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <a
-                      href="#"
-                      class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none focus:underline"
                       >Daniel Kjellid</a
                     >
                   </nav>
@@ -87,40 +71,8 @@
     <div class="container px-6 py-6 mx-auto">
       <div class="grid grid-cols-4 gap-5">
         <div class="col-span-1">
-          <nav>
-            <a href="#" class="flex items-center px-3 py-2 text-sm font-medium leading-5 text-gray-600 transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:text-gray-900 focus:bg-gray-200">
-              <svg class="flex-shrink-0 w-6 h-6 mr-3 -ml-1 text-gray-400 transition duration-150 ease-in-out group-hover:text-gray-500 group-focus:text-gray-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              <span class="truncate">
-                Overikt
-              </span>
-            </a>
-            <a href="#" class="flex items-center px-3 py-2 mt-1 text-sm font-medium leading-5 text-gray-600 transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:text-gray-900 focus:bg-gray-200">
-              <svg class="flex-shrink-0 w-6 h-6 mr-3 -ml-1 text-gray-400 transition duration-150 ease-in-out group-focus:text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
-              </svg>
-              <span class="truncate">
-                Notater
-              </span>
-            </a>
-            <a href="#" class="flex items-center px-3 py-2 mt-1 text-sm font-medium leading-5 text-gray-600 transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-200">
-              <svg class="flex-shrink-0 w-6 h-6 mr-3 -ml-1 text-gray-400 transition duration-150 ease-in-out group-focus:text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-              </svg>
-              <span class="truncate">
-                Forespørsler
-              </span>
-            </a>
-            <a href="#" class="flex items-center px-3 py-2 mt-1 text-sm font-medium leading-5 text-gray-600 transition duration-150 ease-in-out rounded-md group hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:text-gray-900 focus:bg-gray-200">
-              <svg class="flex-shrink-0 w-6 h-6 mr-3 -ml-1 text-gray-400 transition duration-150 ease-in-out group-focus:text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-              </svg>
-              <span class="truncate">
-                Endringslogg
-              </span>
-            </a>
-          </nav>
+          <!-- page navigation -->
+          <core-nav-pagenav :links="pageNav"></core-nav-pagenav>
         </div>
         <div class="col-span-3">
          <div>
@@ -129,340 +81,30 @@
                 <core-panels-panel-list :data="userData"></core-panels-panel-list>
               </template>
             </core-panels-panel>
-          </div>
-          <div class="mt-12">
-            <div class="overflow-hidden bg-white shadow sm:rounded-lg ">
-              <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                <div class="-mt-4 -ml-4">
-                  <div class="mt-4 ml-4">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">
-                      Notater
-                    </h3>
-                    <p class="mt-1 text-sm leading-5 text-gray-500">
-                      Notater om bruker
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="flex px-4 py-5">
-                  <div>
-                    <span class="inline-flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full">
-                      <span class="font-medium leading-none text-white text-md">TW</span>
-                    </span>
-                  </div>
-                  <div class="ml-4">
-                    <h2 class="text-sm font-medium text-gray-900">Emilia Gates</h2>
-                    <p class="mt-2 text-sm text-gray-600">Tailwind includes a generous palette of great-looking, well-balanced colors that are perfect for prototyping or for kicking off a brand new project.</p>
-                    <span class="block mt-2 text-xs text-gray-600">4 days ago &#8226; Rediger &#8226; Slett</span>
-                  </div>
-                </div>
-                <div class="flex px-4 py-5 border-t border-gray-300">
-                  <div>
-                    <span class="inline-flex items-center justify-center w-10 h-10 bg-gray-400 rounded-full">
-                      <span class="font-medium leading-none text-white text-md">TW</span>
-                    </span>
-                  </div>
-                  <div class="ml-4">
-                    <h2 class="text-sm font-medium text-gray-900">Emilia Gates</h2>
-                    <p class="mt-2 text-sm text-gray-600">Tailwind includes a generous palette of great-looking, well-balanced colors that are perfect for prototyping or for kicking off a brand new project.</p>
-                    <span class="block mt-2 text-xs text-gray-600">4 days ago &#8226; Rediger &#8226; Slett</span>
-                  </div>
-                </div>
-                <div class="px-4 py-5 bg-gray-50">
-                  <div>
-                    <label for="add-note" class="block text-sm font-medium leading-5 text-gray-700">Add a note</label>
-                    <div class="relative mt-1 rounded-md shadow-sm">
-                      <textarea id="add-note" class="block w-full form-input sm:text-sm sm:leading-5" rows="3"/>
-                    </div>
-                    <div class="flex justify-end mt-4">
-                      <primary-btn :text="'Legg til notat'"></primary-btn>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-12">
-            <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-              <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                <div class="-mt-4 -ml-4">
-                  <div class="mt-4 ml-4">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">
-                      Forespørsler
-                    </h3>
-                    <p class="mt-1 text-sm leading-5 text-gray-500">
-                      Forespørsler brukeren har gjort
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="flex flex-col">
-                  <div class="py-2 -my-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                    <div class="inline-block min-w-full overflow-hidden align-middle shadow sm:rounded-lg">
-                      <table class="min-w-full">
-                        <thead>
-                          <tr>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Produkt
-                            </th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Antall
-                            </th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Sum
-                            </th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Status
-                            </th>
-                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-                          </tr>
-                        </thead>
-                        <tbody class="bg-white">
-                          <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="flex items-center">
-                                <div class="flex-shrink-0 w-10 h-10">
-                                  <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                </div>
-                                <div class="ml-4">
-                                  <div class="text-sm font-medium leading-5 text-gray-900">Ikon</div>
-                                  <div class="text-sm leading-5 text-gray-500">Sky gray</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="text-sm leading-5 text-gray-900">20x1m2</div>
-                              <div class="text-sm leading-5 text-gray-500">120x100cm</div>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              9980,00kr
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                Tilbud sendt
-                              </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
-                              <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">Behandle</a>
-                            </td>
-                          </tr>
-                          <tr class="bg-gray-50">
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="flex items-center">
-                                <div class="flex-shrink-0 w-10 h-10">
-                                  <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                </div>
-                                <div class="ml-4">
-                                  <div class="text-sm font-medium leading-5 text-gray-900">Ikon</div>
-                                  <div class="text-sm leading-5 text-gray-500">Sky gray</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="text-sm leading-5 text-gray-900">20x1m2</div>
-                              <div class="text-sm leading-5 text-gray-500">120x100cm</div>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              9980,00kr
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                Mottatt
-                              </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
-                              <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">Behandle</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="flex items-center">
-                                <div class="flex-shrink-0 w-10 h-10">
-                                  <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                </div>
-                                <div class="ml-4">
-                                  <div class="text-sm font-medium leading-5 text-gray-900">Ikon</div>
-                                  <div class="text-sm leading-5 text-gray-500">Sky gray</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="text-sm leading-5 text-gray-900">20x1m2</div>
-                              <div class="text-sm leading-5 text-gray-500">120x100cm</div>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              9980,00kr
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                Tilbud sendt
-                              </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
-                              <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">Behandle</a>
-                            </td>
-                          </tr>
-                          <tr class="bg-gray-50">
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="flex items-center">
-                                <div class="flex-shrink-0 w-10 h-10">
-                                  <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                </div>
-                                <div class="ml-4">
-                                  <div class="text-sm font-medium leading-5 text-gray-900">Ikon</div>
-                                  <div class="text-sm leading-5 text-gray-500">Sky gray</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="text-sm leading-5 text-gray-900">20x1m2</div>
-                              <div class="text-sm leading-5 text-gray-500">120x100cm</div>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              9980,00kr
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                Mottatt
-                              </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
-                              <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">Behandle</a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="flex items-center">
-                                <div class="flex-shrink-0 w-10 h-10">
-                                  <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                </div>
-                                <div class="ml-4">
-                                  <div class="text-sm font-medium leading-5 text-gray-900">Ikon</div>
-                                  <div class="text-sm leading-5 text-gray-500">Sky gray</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <div class="text-sm leading-5 text-gray-900">20x1m2</div>
-                              <div class="text-sm leading-5 text-gray-500">120x100cm</div>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              9980,00kr
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap">
-                              <span class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 rounded-full">
-                                Behandler
-                              </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap">
-                              <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">Behandle</a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-12">
-            <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-              <div class="px-4 py-5 bg-white border-b border-gray-200 sm:px-6">
-                <div class="-mt-4 -ml-4">
-                  <div class="mt-4 ml-4">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">
-                      Endringslogg
-                    </h3>
-                    <p class="mt-1 text-sm leading-5 text-gray-500">
-                      Endringer gjort på brukeren
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="flex flex-col">
-                  <div class="py-2 -my-2 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                    <div class="inline-block min-w-full overflow-hidden align-middle shadow sm:rounded-lg">
-                      <table class="min-w-full">
-                        <thead>
-                          <tr>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Bruker
-                            </th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Endring
-                            </th>
-                            <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                              Dato
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="bg-white">
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              Daniel Kjellid
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                              <span class="px-1 py-1 text-red-800 bg-red-100">first_name</span> endret fra <span class="px-1 py-1 text-red-800 bg-red-100">Test</span> til <span class="px-1 py-1 text-red-800 bg-red-100">Test123</span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              28. Desember 2019 21:15
-                            </td>
-                          </tr>
-                          <tr class="bg-gray-50">
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              Daniel Kjellid
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                              <span class="px-1 py-1 text-red-800 bg-red-100">first_name</span> endret fra <span class="px-1 py-1 text-red-800 bg-red-100">Test</span> til <span class="px-1 py-1 text-red-800 bg-red-100">Test123</span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              28. Desember 2019 21:15
-                            </td>
-                          </tr>
-                          <tr class="bg-white">
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              Daniel Kjellid
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                              <span class="px-1 py-1 text-red-800 bg-red-100">first_name</span> endret fra <span class="px-1 py-1 text-red-800 bg-red-100">Test</span> til <span class="px-1 py-1 text-red-800 bg-red-100">Test123</span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              28. Desember 2019 21:15
-                            </td>
-                          </tr>
-                          <tr class="bg-gray-50">
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              Daniel Kjellid
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                              <span class="px-1 py-1 text-red-800 bg-red-100">first_name</span> endret fra <span class="px-1 py-1 text-red-800 bg-red-100">Test</span> til <span class="px-1 py-1 text-red-800 bg-red-100">Test123</span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              28. Desember 2019 21:15
-                            </td>
-                          </tr>
-                          <tr class="bg-white">
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              Daniel Kjellid
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900">
-                              <span class="px-1 py-1 text-red-800 bg-red-100">first_name</span> endret fra <span class="px-1 py-1 text-red-800 bg-red-100">Test</span> til <span class="px-1 py-1 text-red-800 bg-red-100">Test123</span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-900 whitespace-no-wrap">
-                              28. Desember 2019 21:15
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!-- panel component containing title and subtitle -->
+            <core-panels-panel :panelTitle="'Forespørsler'" :panelSubtitle="'Forespørsler brukeren har gjort'" class="mt-12">
+              <!-- slot for content inside template, can be list or panel-table -->
+              <template v-slot:panel-content>
+                <!-- panel-table component setting table head -->
+                <core-panels-panel-table :tableHeads="['Produkt', 'Antall', 'Sum', 'Status']">
+                  <template v-slot:panel-table-rows>
+                    <users-order-rows v-for="index in 5" :key="index"></users-order-rows>
+                  </template>
+                </core-panels-panel-table>
+              </template>
+            </core-panels-panel>
+            
+            <core-panels-panel :panelTitle="'Notater'" :panelSubtitle="'Notater om bruker'" class="mt-12">
+              <template v-slot:panel-content>
+                <core-panels-panel-notes></core-panels-panel-notes>
+              </template>
+            </core-panels-panel>
+
+            <core-panels-panel :panelTitle="'Endringslogg'" :panelSubtitle="'Endringer gjort på brukeren'" class="mt-12">
+              <template v-slot:panel-content>
+                <core-panels-panel-changelog></core-panels-panel-changelog>
+              </template>
+            </core-panels-panel>
           </div>
         </div>
       </div>
@@ -475,6 +117,13 @@
 
 import Panel from './core/backend/panels/Panel';
 import PanelListContent from './core/backend/panels/PanelListContent';
+import PanelTableContent from './core/backend/panels/PanelTableContent';
+import PanelChangelog from './core/backend/panels/PanelChangelog';
+import PanelNotes from './core/backend/panels/PanelNotes';
+
+import PageNav from './core/backend/nav/PageNav';
+
+import DetailOrderRows from './modules/users/components/DetailOrderRows';
 
 import TheHeader from "./core/backend/nav/TheHeader";
 
@@ -495,6 +144,12 @@ export default {
         { fieldName: 'Markedsføring', fieldValue: true },
         { fieldName: 'Personalisering', fieldValue: true },
         { fieldName: 'Tredjepartspersonalisering', fieldValue: false }
+      ],
+      pageNav: [
+        { title: 'Oversikt', to: '#overview', icon: 'M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+        { title: 'Notater', to: '#notes', icon: 'M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z'  },
+        { title: 'Forespørsler', to: '#orders', icon: 'M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4' },
+        { title: 'Endringslogg', to: '#orders', icon: 'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z' }
       ]
     }
   },
@@ -505,6 +160,11 @@ export default {
     "tertiary-group": TertiaryBtnGroup,
     'core-panels-panel': Panel,
     'core-panels-panel-list': PanelListContent,
+    'core-panels-panel-table': PanelTableContent,
+    'core-panels-panel-changelog': PanelChangelog,
+    'core-nav-pagenav': PageNav,
+    'core-panels-panel-notes': PanelNotes,
+    'users-order-rows': DetailOrderRows,
   }
 };
 </script>
