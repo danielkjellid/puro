@@ -3,7 +3,6 @@
     <div class="px-4 px-8 mx-auto max-w-7xl">
       <div>
         <div>
-          <core-nav-primary-breadcrumb :breadcrumbs="['Brukere']"></core-nav-primary-breadcrumb>
         </div>
         <div class="mt-2 md:flex md:items-center md:justify-between">
           <div class="flex-1 min-w-0">
@@ -24,7 +23,6 @@
 </template>
 
 <script>
-import PrimaryBreadcrumb from '../nav/PrimaryBreadcrumb'
 
 export default {
     props: {
@@ -34,7 +32,6 @@ export default {
         }
     },
     components: {
-      'core-nav-primary-breadcrumb': PrimaryBreadcrumb,
     }
 }
 </script>

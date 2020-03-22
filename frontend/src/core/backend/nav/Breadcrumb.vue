@@ -7,7 +7,7 @@
     >
       <a
         href="#"
-        class="text-gray-400 transition duration-150 ease-in-out hover:text-gray-200 focus:outline-none focus:underline"
+        class="text-gray-500 transition duration-150 ease-in-out hover:text-gray-300 focus:outline-none focus:underline"
       >
         {{ breadcrumb }}
       </a>

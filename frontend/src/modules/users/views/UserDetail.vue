@@ -1,11 +1,5 @@
 <template>
-    <core-detail-template>
-        <!-- detail page breadcrumbs -->
-        <template v-slot:detail-breadcrumb>
-            <!-- page breadcrumbs -->
-            <!-- takes an array of objects, containing properties title and to -->
-            <core-nav-secondary-breadcrumb :breadcrumbs="['Brukere', 'Daniel Kjellid']"></core-nav-secondary-breadcrumb>
-        </template>
+    <core-detail-template :breadcrumbs="['Brukere', 'Daniel Kjellid']">
 
         <!-- detail page title -->
         <template v-slot:detail-title>
@@ -84,7 +78,6 @@ import DetailTemplate from '../../../core/backend/templates/DetailTemplate'
 
 // - nav import
 import PageNav from '../../../core/backend/nav/PageNav'
-import SecondaryBreadcrumb from '../../../core/backend/nav/SecondaryBreadcrumb'
 
 // - panels imports
 import Panel from '../../../core/backend/panels/Panel'
@@ -133,7 +126,6 @@ export default {
         // core imports
         'core-detail-template': DetailTemplate,
         'core-nav-pagenav': PageNav,
-        'core-nav-secondary-breadcrumb': SecondaryBreadcrumb,
         'core-panels-panel': Panel,
         'core-panels-panel-list': PanelListContent,
         'core-panels-panel-table': PanelTableContent,

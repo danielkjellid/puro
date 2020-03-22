@@ -1,14 +1,15 @@
 <template>
   <div>
     <div class="sticky top-0 z-10">
-      <core-header></core-header>
+      <core-nav-header></core-nav-header>
       <div class="sticky top-0 z-10 bg-white shadow">
         <div class="container px-8 mx-auto">
           <div class="flex items-center justify-between py-5">
             <div>
               <div>
-                <!-- breadcrumb -->
-                <slot name="detail-breadcrumb"></slot>
+                <!-- page breadcrumbs -->
+                <!-- takes an array of objects, containing properties title and to -->
+                <core-nav-breadcrumb :breadcrumbs="breadcrumbs"></core-nav-breadcrumb>
               </div>
               <div>
                 <!-- title of page, usually paired with image and metadata -->
@@ -42,11 +43,21 @@
 </template>
 
 <script>
-import Header from "../nav/TheHeader";
+// CORE IMPORTS
+// - nav imports
+import Header from "../nav/TheHeader"
+import Breadcrumb from '../nav/Breadcrumb'
 
 export default {
+  props: {
+    breadcrumbs: {
+      type: Array,
+      required: true,
+    }
+  },
   components: {
-    "core-header": Header
+    "core-nav-header": Header,
+    'core-nav-breadcrumb': Breadcrumb,
   }
 };
 </script>
